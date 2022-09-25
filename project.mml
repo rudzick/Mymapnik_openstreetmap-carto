@@ -54,19 +54,19 @@ Stylesheet:
   - style/admin.mss
   - style/addressing.mss
   - style/golf.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/parzellennummern.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/baumsorten.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/bienenstoecke.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/hydranten.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/strassenbrunnen.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/wetterstationen.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/strassenschraenke.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/fahnenmasten.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/entrance_zoom20.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/strassenlaternen.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/kamera.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/strauch.mss
-  - /home/rudzick/Mymapnik_style/Mymapnik/Baumsorten_Erweiterung/leisure_description.mss
+  - Baumsorten_Erweiterung/parzellennummern.mss
+  - Baumsorten_Erweiterung/baumsorten.mss
+  - Baumsorten_Erweiterung/bienenstoecke.mss
+  - Baumsorten_Erweiterung/hydranten.mss
+  - Baumsorten_Erweiterung/strassenbrunnen.mss
+  - Baumsorten_Erweiterung/wetterstationen.mss
+  - Baumsorten_Erweiterung/strassenschraenke.mss
+  - Baumsorten_Erweiterung/fahnenmasten.mss
+  - Baumsorten_Erweiterung/entrance_zoom20.mss
+  - Baumsorten_Erweiterung/strassenlaternen.mss
+  - Baumsorten_Erweiterung/kamera.mss
+  - Baumsorten_Erweiterung/strauch.mss
+  - Baumsorten_Erweiterung/leisure_description.mss
 Layer:
   - id: landcover-low-zoom
     geometry: polygon
