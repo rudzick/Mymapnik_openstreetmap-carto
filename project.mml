@@ -2388,7 +2388,7 @@ Layer:
                 AND ST_Intersects(way, !bbox!)
               ) AS way                                                                              
     properties:
-       minzoom: 18
+       minzoom: 19
   - id: baumsorten_zoom_21
     geometry: point
     <<: *extents
