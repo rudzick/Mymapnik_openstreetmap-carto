@@ -1,6 +1,7 @@
 /* Features related to (postal) adresses: */
 
-@parzellen-color: #555;
+/* @parzellen-color: #555; */
+@parzellen-color: #0E390E;
 
 #parzellennummern {
   [zoom >= 16] {
