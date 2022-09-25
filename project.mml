@@ -55,6 +55,19 @@ Stylesheet:
   - style/addressing.mss
   - style/golf.mss
   - style/tourism.mss
+  - Baumsorten_Erweiterung/parzellennummern.mss
+  - Baumsorten_Erweiterung/baumsorten.mss
+  - Baumsorten_Erweiterung/bienenstoecke.mss
+  - Baumsorten_Erweiterung/hydranten.mss
+  - Baumsorten_Erweiterung/strassenbrunnen.mss
+  - Baumsorten_Erweiterung/wetterstationen.mss
+  - Baumsorten_Erweiterung/strassenschraenke.mss
+  - Baumsorten_Erweiterung/fahnenmasten.mss
+  - Baumsorten_Erweiterung/entrance_zoom20.mss
+  - Baumsorten_Erweiterung/strassenlaternen.mss
+  - Baumsorten_Erweiterung/kamera.mss
+  - Baumsorten_Erweiterung/strauch.mss
+  - Baumsorten_Erweiterung/leisure_description.mss
 Layer:
   - id: landcover-low-zoom
     geometry: polygon
