@@ -2470,13 +2470,13 @@ Layer:
             -- COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut') AS wuchs,
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS baumalter,
               CASE
-                WHEN tags->'height' <> 'none' THEN CONCAT('Höhe', E'\u00a0', tags->'height')
+                WHEN tags->'height' <> 'none' THEN CONCAT(E'\u000a','Höhe', E'\u00a0', tags->'height')
               END AS hoehe,
               CASE
-                WHEN tags->'circumference' <> 'none' THEN CONCAT('Stammumfang', E'\u00a0', tags->'circumference')
+                WHEN tags->'circumference' <> 'none' THEN CONCAT(E'\u000a','Stammumfang', E'\u00a0', tags->'circumference')
               END AS stammumfang,
               CASE
-                WHEN tags->'diameter_crown' <> 'none' THEN CONCAT('Kronenbreite', E'\u00a0', tags->'diameter_crown')
+                WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
               END AS kronenbreite	      
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
