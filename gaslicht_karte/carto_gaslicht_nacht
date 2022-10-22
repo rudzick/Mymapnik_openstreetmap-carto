@@ -1,0 +1,8 @@
+#!/bin/bash
+cat style_gaslaternen_header_nacht.mml > tmp.mml
+echo -e '\n  - gaslaternen_nachtmarker.mss\n' >> tmp.mml
+echo -e '\nLayer:\n' >> tmp.mml
+cat layer_gaslaternen_nachtmarker.mml >> tmp.mml
+echo -e '\n' >> tmp.mml
+cat layer_gaslaternen_modell.mml >> tmp.mml
+/usr/local/bin/carto tmp.mml > style_gaslaternen_nacht.xml
