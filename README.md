@@ -1,10 +1,14 @@
-# OpenStreetMap Carto
+# Mymapnik
 
-![screenshot](https://raw.github.com/gravitystorm/openstreetmap-carto/master/preview.png)
+## Baumsorten_Erweiterung
+Für große Zoomstufen erweiterter, auf [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) basierender Mapnik-Style zur Anzeige von Baumarten und -sorten sowie weiteren Angaben wie Pflanzjahr und Wuchsform. Weiterhin werden Parzellennummern von Schrebergärten und Bienenstöcke und vieles mehr dargestellt:
+[obstbaumkarte.de](https://obstbaumkarte.de "OSM-Karte mit (Obst-)Bäumen und Kleingartenparzellen") 
 
-These are the CartoCSS map stylesheets for the Standard map layer on [OpenStreetMap.org](https://www.openstreetmap.org/).
+* [Hinweise zum Mappen von Bäumen in OSM](https://wiki.openstreetmap.org/wiki/User:Olr/Tagging_von_B%C3%A4umen)
 
-The general purpose, the cartographic design goals and guidelines for this style are outlined in [CARTOGRAPHY.md](CARTOGRAPHY.md).
+## gaslicht_karte
+Über die oben beschriebene Basiskarte werden transparente Overlays gelegt, die verschiedene Gasleuchtentypen anhand von Symbolfotos bei Tag und Nacht darstellen. Zusätzlich werden Informationen u.a. zu Leuchtentyp, Mastform, Mastnummer, Anzahl der Leuchtkörper gezeigt:
+[gasleuchtenkarte.de](https://gasleuchtenkarte.de "OSM-Karte zu Gasleuchten")
 
 These stylesheets can be used in your own cartography projects, and are designed
 to be easily customised. They work with [Kosmtik](https://github.com/kosmtik/kosmtik)
@@ -100,3 +104,6 @@ maps using Mapnik, many based on this project. Some alternatives are:
 * Michael Glanznig [@nebulon42](https://github.com/nebulon42)
 * Matthijs Melissen [@matthijsmelissen](https://github.com/matthijsmelissen)
 * Mateusz Konieczny [@matkoniecz](https://github.com/matkoniecz)
+* [Seite im OSM-Wiki zur Berliner Gasbeleuchtung](https://wiki.openstreetmap.org/wiki/Berlin/Gasleuchten_in_Berlin)
+* [Seite im OSM-Wiki zur Düsseldorfer Gasbeleuchtung](https://wiki.openstreetmap.org/wiki/D%C3%BCsseldorf/Projekte/Gaslaternen/Tagging)
+* [Lightning-Talk auf der FOSSGIS 2021](https://doi.org/10.5446/53886)
