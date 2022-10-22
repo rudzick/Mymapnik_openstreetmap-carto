@@ -45,8 +45,8 @@ _parts:
 
 Stylesheet:
   - style-gaslaternen-tag.mss
-  - ../fonts.mss
-  - ../amenity-points.mss
+  - ../style/fonts.mss
+  - ../style/amenity-points.mss
   - gaslaternenmodell.mss
 
 
