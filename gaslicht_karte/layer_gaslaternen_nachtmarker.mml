@@ -1,0 +1,16 @@
+  - id: gaslaternen_nachtmarker
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            highway
+          FROM planet_osm_point  
+          WHERE "highway" = 'street_lamp'
+            AND tags->'lamp_type' = 'gaslight'
+        ) AS Gaslaternenmodell                        
+    properties:
+      minzoom: 5
+      maxzoom: 17

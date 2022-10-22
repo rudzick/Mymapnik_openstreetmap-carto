@@ -1,0 +1,43 @@
+  - id: gaslaternen_modell
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            highway,
+             CASE
+              WHEN tags->'lamp_flames' IS NULL THEN ''
+              ELSE CONCAT(tags->'lamp_flames','-fl. ')
+             END AS flammen,
+             CASE
+              WHEN tags->'lamp_model:de' LIKE 'Reihenleuchte%BAMAG%U%13%H' THEN 'Reihenleuchte BAMAG' || E'\u00a0' || 'U13H'
+              WHEN tags->'lamp_model:de' LIKE 'Aufsatzleuchte%BAMAG%U%7' THEN 'Aufsatzleuchte BAMAG' || E'\u00a0' || 'U7'
+              -- WHEN tags->'lamp_model:de' LIKE 'Aufsatzleuchte%BAMAG%U%7' THEN 'Aufsatzleuchte BAMAG U7'
+              WHEN tags->'lamp_model:de' LIKE 'Hängeleuchte%BAMAG%A%11' THEN 'Hängeleuchte BAMAG' || E'\u00a0' || 'A11'
+              WHEN tags->'lamp_model:de' LIKE 'Hängeleuchte%BAMAG%A%21' THEN 'Hängeleuchte BAMAG' || E'\u00a0' || 'A21'
+              WHEN tags->'lamp_model:de' LIKE '%Model%leuchte%Berlin' THEN 'Modellleuchte Berlin'
+              WHEN tags->'lamp_model:de' LIKE 'Gas%Zylinderleuchte' THEN 'Zylinderleuchte'
+              ELSE tags->'lamp_model:de'
+             END AS modell,
+             CASE
+              WHEN (COALESCE(tags->'lamp_ref',tags->'lamp_ref_swd',tags->'ref')) IS NULL THEN ''
+              WHEN LENGTH(COALESCE(tags->'lamp_ref',tags->'lamp_ref_swd',tags->'ref')) > 5 THEN CHR(10) || COALESCE(tags->'lamp_ref',tags->'lamp_ref_swd',tags->'ref')
+              WHEN tags->'object:street' IS NULL THEN CONCAT(' - ',COALESCE(tags->'lamp_ref',tags->'lamp_ref_swd',tags->'ref'))
+              ELSE CONCAT(CHR(10),tags->'object:street',' / ',COALESCE(tags->'lamp_ref',tags->'lamp_ref_swd',tags->'ref'))
+             END AS nummer,
+             CASE
+              WHEN ( tags->'lamp_mount' IS NULL AND tags->'lamp_mount_type' IS NULL AND tags->'lamp_mount_type:de' IS NULL AND tags->'lamp_mount:de' IS NULL AND tags->'description' IS NULL AND tags->'description:de' IS NULL ) THEN ''
+              WHEN tags->'lamp_mount_type:de' IS NOT NULL THEN CONCAT(CHR(10),tags->'lamp_mount_type:de')
+              WHEN tags->'lamp_mount' LIKE '%cast%steel%mast' OR tags->'lamp_mount_type' LIKE '%cast%' THEN CONCAT(CHR(10),'Bündelpfeilermast')
+              WHEN tags->'lamp_mount' = 'bent_mast' THEN CONCAT(CHR(10),'Peitschenmast')
+              WHEN tags->'lamp_mount' = 'straight_mast' THEN CONCAT(CHR(10),'senkrechter Mast')
+              ELSE CONCAT(CHR(10),COALESCE(tags->'lamp_mount:de',tags->'lamp_mount_type',tags->'lamp_mount'),COALESCE(tags->'description:de',tags->'description'))
+             END AS mastform
+          FROM planet_osm_point  
+          WHERE "highway" = 'street_lamp'
+            AND tags->'lamp_type' = 'gaslight'
+        ) AS Gaslaternenmodell                        
+    properties:
+      minzoom: 18
