@@ -8,7 +8,7 @@ update_osm_planet_dach_mapnik
 
 #### Shellskript zur Erzeugung von Lookup-Table für Baumarten
 create_lookup_table_for_tree_species.sh
-##### SQL fürLookup-Table für Baumarten
+##### SQL für Lookup-Table für Baumarten
 tree_species.sql
 
 #### Postprozessing-Skript, das veraltete Tiles aus dem Cache löscht
