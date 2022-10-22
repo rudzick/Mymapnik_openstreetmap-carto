@@ -1,4 +1,4 @@
-##Skritpe zum Aufbau und inkremetellem Update der Postgis-Datenbank, zum Löschen veralteter Tiles aus dem Cache und Löschen von Tabelleinträgen in der Postgis-Datenbank, die außerhalb der Bounding-Box liegen.
+## Skripte zum Aufbau und inkremetellem Update der Postgis-Datenbank, zum Löschen veralteter Tiles aus dem Cache und Löschen von Tabelleinträgen in der Postgis-Datenbank, die außerhalb der Bounding-Box liegen.
 
 #### Aufbau der Postgis-Datenbank mit osm2psql
 import_osm_planet_berlin_mapnik
