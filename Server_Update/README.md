@@ -16,7 +16,7 @@ run-expiry.sh
 ##### Python-Skript, das vom Postprozessing-Skript aufgerufen wird und die veraltete Tiles ermittelt und löscht.
 expire-tiles.py
 
-#### Shellskrtipt, das Tabelleinträge in der Postgis-Datenbank löscht, die außerhalb der Bounding-Box für D-A-CH liegen.
+#### Shellskript, das Tabelleinträge in der Postgis-Datenbank löscht, die außerhalb der Bounding-Box für D-A-CH liegen.
 remove_foreign_data.sh
 ##### SQL-Kommando, das diese Daten löscht
 remove_foreign_data.sql
