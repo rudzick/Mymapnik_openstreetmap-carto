@@ -1,7 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 planetfilea=dach-latest.osm.pbf
-#styledir=/home/renderaccount/neu/openstreetmap-carto
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
 if [ -f $planetfilea ]
@@ -9,7 +8,7 @@ then
     rm $planetfilea
 fi
 
-/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --create -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes -s -C 5000 --style /home/postgres/neu_openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua -d gis $planetfilea
+/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --create -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes -s -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua -d gis $planetfilea
 /home/renderaccount/Mymapnik_openstreetmap-carto/Server_Update/create_lookup_table_for_tree_species.sh
 /usr/bin/osm2pgsql-replication init -d gis --server 'https://planet.openstreetmap.org/replication/minute'
 /home/postgres/bin/update_osm_planet_dach_mapnik
