@@ -7,6 +7,6 @@ cd /home/postgres/download
 # Wechsel ins mapproxy-Verzeichnis
 cd $styledir/Mymapproxy
 # Nachrendern der gelöschten Tiles in den seeding-Bereichen
-/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock --duration 4m --continue
+/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock --duration 4m --continue -- progress-file /var/cache/mapproxy/mapproxy_seed_progress
 exit 1
 
