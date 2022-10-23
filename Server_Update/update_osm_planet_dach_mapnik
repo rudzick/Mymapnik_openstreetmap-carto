@@ -1,14 +1,12 @@
 #!/bin/bash
 set -euo pipefail
-#dirty_tiles=/home/renderaccount/mymapproxy/dirty_tiles_
-#dirty_tiles+=`date "+%Y%m%d%H%M%S"`
-planetfilea=berlin-latest.osm.pbf
-#planetfilea=dach-latest.osm.pbf
-#dirtyfile=/home/renderaccount/mymapproxy/cache_data/dirty_tiles
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
-/usr/bin/osm2pgsql-replication update -d gis --diff-file /home/postgres/download/changes.osc.gz --post-processing /home/renderaccount/Mymapnik_openstreetmap-carto/Server_Update/run-expiry.sh -- -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes --slim -C 5000 --style /home/postgres/neu_openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua
+# inkrementelles Datenbankupdate mit osm2psql-replication
+/usr/bin/osm2pgsql-replication update -d gis --diff-file /home/postgres/download/changes.osc.gz --post-processing $styledir/Server_Update/run-expiry.sh -- -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes --slim -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua
+# Wechsel ins mapproxy-Verzeichnis
 cd /home/renderaccount/mymapproxy
-/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock #  --duration 4m
+# Nachrendern der gelöschten Tiles in den seeding-Bereichen
+/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock --duration 4m
 exit 1
 
