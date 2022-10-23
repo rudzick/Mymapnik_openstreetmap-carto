@@ -98,7 +98,7 @@ def expire_tile(x0, y0, z, meta_size):
             y3 = y // 1000000
                 
             for cache_verzeichnis in cache_verzeichnisse:            
-                dateiname = '/home/renderaccount/mymapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
+                dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
                 # print(dateiname)
             
                 if os.path.exists(dateiname):
