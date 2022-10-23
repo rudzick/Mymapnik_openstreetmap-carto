@@ -5,8 +5,8 @@ cd /home/postgres/download
 # inkrementelles Datenbankupdate mit osm2psql-replication
 /usr/bin/osm2pgsql-replication update -d gis --diff-file /home/postgres/download/changes.osc.gz --post-processing $styledir/Server_Update/run-expiry.sh -- -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes --slim -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua
 # Wechsel ins mapproxy-Verzeichnis
-cd /home/renderaccount/mymapproxy
+cd $styledir/Mymapproxy
 # Nachrendern der gelöschten Tiles in den seeding-Bereichen
-/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock --duration 4m
+/usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --use-cache-lock --duration 4m --continue
 exit 1
 
