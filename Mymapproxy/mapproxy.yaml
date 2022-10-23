@@ -1,0 +1,210 @@
+# -------------------------------
+# MapProxy example configuration.
+# -------------------------------
+#
+# This is a minimal MapProxy configuration.
+# See full_example.yaml and the documentation for more options.
+#
+
+# Starts the following services:
+# Demo:
+#     http://localhost:8080/demo
+# WMS:
+#     capabilities: http://localhost:8080/service?REQUEST=GetCapabilities
+# WMTS:
+#     capabilities: http://localhost:8080/wmts/1.0.0/WMTSCapabilities.xml
+#     first tile: http://localhost:8080/wmts/osm/webmercator/0/0/0.png
+# Tile service (compatible with OSM/etc.)
+#     first tile: http://localhost:8080/tiles/osm/webmercator/0/0/0.png
+# TMS:
+#     note: TMS is not compatible with OSM/Google Maps/etc.
+#     fist tile: http://localhost:8080/tms/1.0.0/osm/webmercator/0/0/0.png
+# KML:
+#     initial doc: http://localhost:8080/kml/osm/webmercator
+
+services:
+#  demo:
+  tms:
+    use_grid_names: true
+    # origin for /tiles service
+    origin: 'nw'
+#  kml:
+#      use_grid_names: true
+#  wmts:
+  wms:
+    srs: ['EPSG:3857']
+    versions: ['1.3.0']
+    image_formats: ['image/png', 'image/jpeg']
+    attribution:
+      text: "© OpenStreetMap-Mitwirkende"
+    md:
+      title: MapProxy WMS Proxy
+      abstract: This is a minimal MapProxy example.
+    # maximum output size for a WMS requests in pixel, default is 4000 x 4000                                                                         # compares the product, eg. 3000x1000 pixel < 2000x2000 pixel and is still                                                                        # permitted                                                                                                                                   
+    # max_output_pixels: [300, 300]
+
+      
+layers:
+  - name: osm
+    title: mein Mapnik
+    sources: [osm_cache]
+  - name: osm_hq
+    title: mein Mapnik HQ
+    sources: [osm_cache_hq]
+  - name: gaslaternen_dd_hq
+    title: Gaslaternen Düsseldorf HQ
+    sources: [gaslaternen_dd_cache_hq]
+  - name: gaslaternen_dd_nacht_hq
+    title: Gaslaternen Düsseldorf HQ Nacht
+    sources: [gaslaternen_dd_nacht_cache_hq]
+  - name: geldautomaten_cashgroup_hq
+    title: Geldautomaten Cashgroup HQ
+    sources: [geldautomaten_cashgroup_cache_hq]
+  - name: geldautomaten_genossenschaftsbanken_hq
+    title: Geldautomaten Genossenschaftsbanken HQ
+    sources: [geldautomaten_genossenschaftsbanken_cache_hq]
+  - name: geldautomaten_cashpool_hq
+    title: Geldautomaten CashPool HQ
+    sources: [geldautomaten_cashpool_cache_hq]
+  - name: geldautomaten_sparkassen_hq
+    title: Geldautomaten Sparkassen HQ
+    sources: [geldautomaten_sparkassen_cache_hq]
+  - name: geldautomaten_weiterebanken_hq
+    title: Geldautomaten weitere Banken HQ
+    sources: [geldautomaten_weiterebanken_cache_hq]
+  - name: lbf_baumnummern_hq
+    title: Baumnummern Lengsdorfer Bachfreunde HQ
+    sources: [lbf_baumnummern_cache_hq]
+  - name: impfzentren_hq
+    title: COVID-19 Impfzentren HQ
+    sources: [impfzentren_cache_hq]
+
+caches:
+  osm_cache:
+    grids: [webmercator_ul]
+    sources: [mein_mapnik]
+  osm_cache_hq:
+    grids: [webmercator_hq]
+    sources: [mein_mapnik_hq]
+#    disable_storage: true    
+  gaslaternen_dd_cache_hq:
+    grids: [webmercator_hq]
+    sources: [gaslaternen_dd_hq]
+#    disable_storage: true
+  gaslaternen_dd_nacht_cache_hq:
+    grids: [webmercator_hq]
+    sources: [gaslaternen_dd_nacht_hq]
+#    disable_storage: true
+  geldautomaten_cashgroup_cache_hq:
+    grids: [webmercator_hq]
+    sources: [geldautomaten_cashgroup_hq]
+  geldautomaten_genossenschaftsbanken_cache_hq:
+    grids: [webmercator_hq]
+    sources: [geldautomaten_genossenschaftsbanken_hq]
+  geldautomaten_cashpool_cache_hq:
+    grids: [webmercator_hq]
+    sources: [geldautomaten_cashpool_hq]
+  geldautomaten_sparkassen_cache_hq:
+    grids: [webmercator_hq]
+    sources: [geldautomaten_sparkassen_hq]
+  geldautomaten_weiterebanken_cache_hq:
+    grids: [webmercator_hq]
+    sources: [geldautomaten_weiterebanken_hq]
+  lbf_baumnummern_cache_hq:
+    grids: [webmercator_hq]
+    sources: [lbf_baumnummern_hq]
+  impfzentren_cache_hq:
+    grids: [webmercator_hq]
+    sources: [impfzentren_hq]
+    
+sources:
+  mein_mapnik:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/Baumsorten_Erweiterung/style_baumsorten_taxon_parzellennummern.xml
+  mein_mapnik_hq:
+    type: mapnik
+#    mapfile: /home/renderaccount/src/openstreetmap-carto/Baumsorten_Erweiterung/style_baumsorten_taxon_parzellennummern.xml
+#    mapfile: /home/renderaccount/neu/openstreetmap-carto/project_mymapnik.xml
+    mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/project.xml
+    scale_factor: 2
+  gaslaternen_dd_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/gaslicht_karte/style_gaslaternen_tag.xml
+#    mapfile: /home/renderaccount/src/openstreetmap-carto/gaslicht_karte/style_gaslaternen_tag.xml
+    scale_factor: 2
+    transparent: true
+  gaslaternen_dd_nacht_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/gaslicht_karte/style_gaslaternen_nacht.xml
+#    mapfile: /home/renderaccount/src/openstreetmap-carto/gaslicht_karte/style_gaslaternen_nacht.xml
+    scale_factor: 2
+    transparent: true
+  geldautomaten_cashgroup_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_cashgroup.xml
+    scale_factor: 2
+    transparent: true
+  geldautomaten_genossenschaftsbanken_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_genossenschaftsbanken.xml
+    scale_factor: 2
+    transparent: true
+  geldautomaten_cashpool_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_cashpool.xml
+    scale_factor: 2
+    transparent: true
+  geldautomaten_sparkassen_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_sparkassen.xml
+    scale_factor: 2
+    transparent: true
+  geldautomaten_weiterebanken_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_weiterebanken.xml
+    scale_factor: 2
+    transparent: true
+  lbf_baumnummern_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_Baumnummern_Z17_Z18_Z19_Z20.xml
+    scale_factor: 2
+    transparent: true
+  impfzentren_hq:
+    type: mapnik
+    mapfile: /home/renderaccount/src/openstreetmap-carto/style_covid19.xml
+    scale_factor: 2
+    transparent: true
+
+grids:
+    webmercator:
+#        base: GLOBAL_WEBMERCATOR
+        srs: "EPSG:3857"
+        origin: nw
+        min_res: 156543.03392804097
+    webmercator_ul:
+#        base: GLOBAL_WEBMERCATOR
+        srs: "EPSG:3857"
+        origin: nw
+# bis Zoomlevel 24
+        num_levels: 25
+        min_res: 156543.03392804097
+    webmercator_hq:
+#        base: GLOBAL_WEBMERCATOR
+        srs: "EPSG:3857"
+        origin: nw
+# bis Zoomlevel 24
+        num_levels: 25
+        min_res: 78271.51696402048
+        tile_size: [512,512]
+
+globals:
+  cache:
+    # where to store the cached images
+    base_dir: '/var/cache/mapproxy/cache_data'
+    # where to store lockfiles for concurrent requests
+    lock_dir: '/var/cache/mapproxy/cache_data/locks'
+    # where to store lockfiles for tile creation
+    tile_lock_dir: '/var/cache/mapproxy/cache_data/tile_locks'
+    meta_size: [8,8]
+    meta_buffer: 512
+    max_tile_limit: 40000
