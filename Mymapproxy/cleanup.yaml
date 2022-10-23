@@ -1,0 +1,6 @@
+cleanups:
+  allcaches:
+    caches: [osm_cache_hq, gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
+    grids: [webmercator_hq]
+    levels:
+      from: 14
