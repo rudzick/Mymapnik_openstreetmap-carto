@@ -120,11 +120,9 @@ caches:
 sources:
   mein_mapnik:
     type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/Baumsorten_Erweiterung/style_baumsorten_taxon_parzellennummern.xml
+    mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/project.xml
   mein_mapnik_hq:
     type: mapnik
-#    mapfile: /home/renderaccount/src/openstreetmap-carto/Baumsorten_Erweiterung/style_baumsorten_taxon_parzellennummern.xml
-#    mapfile: /home/renderaccount/neu/openstreetmap-carto/project_mymapnik.xml
     mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/project.xml
     scale_factor: 2
   gaslaternen_dd_hq:
