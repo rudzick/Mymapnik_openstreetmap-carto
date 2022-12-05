@@ -40,8 +40,10 @@ services:
     md:
       title: MapProxy WMS Proxy
       abstract: This is a minimal MapProxy example.
-    # maximum output size for a WMS requests in pixel, default is 4000 x 4000                                                                         # compares the product, eg. 3000x1000 pixel < 2000x2000 pixel and is still                                                                        # permitted                                                                                                                                   
-     max_output_pixels: [10000, 10000]
+    # maximum output size for a WMS requests in pixel, default is 4000 x 4000
+    # compares the product, eg. 3000x1000 pixel < 2000x2000 pixel and is still
+    # permitted
+    max_output_pixels: [5000, 5000]
 
       
 layers:
@@ -51,6 +53,9 @@ layers:
   - name: osm_hq
     title: mein Mapnik HQ
     sources: [osm_cache_hq]
+  - name: osm_hq_wms
+    title: mein Mapnik HQ wms
+    sources: [osm_cache_hq_wms]
   - name: gaslaternen_dd_hq
     title: Gaslaternen Düsseldorf HQ
     sources: [gaslaternen_dd_cache_hq]
@@ -86,6 +91,10 @@ caches:
   osm_cache_hq:
     grids: [webmercator_hq]
     sources: [mein_mapnik_hq]
+#    disable_storage: true    
+  osm_cache_hq_wms:
+    grids: [webmercator_hq]
+    sources: [osm_cache_hq]
 #    disable_storage: true    
   gaslaternen_dd_cache_hq:
     grids: [webmercator_hq]
