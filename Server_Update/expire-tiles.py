@@ -84,7 +84,7 @@ def xyz_to_topleft(x, y, z, meta_size):
 
 def expire_tile(x0, y0, z, meta_size):
 
-    cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/"]
+    cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/", "geldautomaten_cashgroup_cache_hq_EPSG3857", "geldautomaten_cashpool_cache_hq_EPSG3857", "geldautomaten_genossenschaftsbanken_cache_hq_EPSG3857", "geldautomaten_sparkassen_cache_hq_EPSG3857", "geldautomaten_weiterebanken_cache_hq_EPSG3857", "lbf_baumnummern_cache_hq_EPSG3857"]
 
     for x in range(x0, x0 + meta_size):
         for y in range(y0, y0 + meta_size):
