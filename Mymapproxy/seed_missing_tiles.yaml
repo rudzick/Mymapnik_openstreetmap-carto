@@ -4,7 +4,7 @@ seeds:
     coverages: [stadtparkbbox]
     grids: [webmercator_hq]
     levels:
-      from: 16
+      from: 19
       to: 21
 
   block_i-iv_seed_hq:
@@ -20,7 +20,7 @@ seeds:
     coverages: [spielplatz_thomasstrasse, spielplatz_karl_marx_platz, spielplatz_buschkrugallee]
     grids: [webmercator_hq]
     levels:
-      from: 17
+      from: 19
       to: 22
 
   botanischer_garten_seed_hq:
@@ -28,7 +28,7 @@ seeds:
     coverages: [botanischer_garten_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 16
+      from: 19
       to: 22
 
   berlin_seed_hq:
@@ -36,31 +36,31 @@ seeds:
     coverages: [berlin_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 12
-      to: 17
+      from: 19
+      to: 19
 
-  brandenburg_berlin_seed_hq:
-    caches: [osm_cache_hq]
-    coverages: [brandenburg_berlin_bbox]
-    grids: [webmercator_hq]
-    levels:
-      from: 12
-      to: 13
+# brandenburg_berlin_seed_hq:
+#  caches: [osm_cache_hq]
+#   coverages: [brandenburg_berlin_bbox]
+#   grids: [webmercator_hq]
+#   levels:
+#    from: 12
+#    to: 13
 
   lengsdorf_seed_hq:
     caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
     coverages: [lengsdorf_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 12
-      to: 18
+      from: 19
+      to: 19
 
-  schiffgesweg_provinzalstr_seed_hq:
+  schiffgesweg_provinzalstr_ippendorf_seed_hq:
     caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
-    coverages: [schiffgesweg_bbox,streuobst_provinzialstr_bbox]
+    coverages: [schiffgesweg_bbox,streuobst_provinzialstr_bbox,streuobst_ippendorf_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 20
       to: 22
 
   steisslingen_seed_hq:
@@ -68,7 +68,7 @@ seeds:
     coverages: [steisslingen_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 12
+      from: 19
       to: 22
 
   steisslingen_seed_hq_gr:
@@ -76,15 +76,15 @@ seeds:
     coverages: [steisslingen_bbox_gr]
     grids: [webmercator_hq]
     levels:
-      from: 16
-      to: 20
+      from: 19
+      to: 19
 
   kga_heinersdorf_seed_hq:
     caches: [osm_cache_hq]
     coverages: [kga_heinersdorf]
     grids: [webmercator_hq]
     levels:
-      from: 16
+      from: 19
       to: 22
 
   gaslicht_dd_nacht_seed_hq:
@@ -104,7 +104,7 @@ seeds:
       to: 22
 
   allcaches_seed_hq:
-    caches: [osm_cache_hq, gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
+    caches: [gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
     coverages: [d_a_ch]
     grids: [webmercator_hq]
     levels:
@@ -116,7 +116,7 @@ seeds:
     coverages: [steini]
     grids: [webmercator_hq]
     levels:
-      from: 16
+      from: 19
       to: 22
 
 
@@ -154,6 +154,9 @@ coverages:
   streuobst_provinzialstr_bbox:
     bbox: [787124.0, 6568629.0, 787250.0, 6568812.0]
     srs: 'EPSG:3857'
+  streuobst_ippendorf_bbox:
+    bbox: [787697.0, 6567934.0, 787835.0, 6568170.0]
+    srs: 'EPSG:3857'
   steisslingen_bbox:
     bbox: [994131.0, 6072740.0, 994678.0, 6073537.0]
     srs: 'EPSG:3857'
@@ -189,3 +192,4 @@ coverages:
   spielplatz_buschkrugallee:
     bbox: [13.4527, 52.4482, 13.4536, 52.4497]
     srs: 'EPSG:4326'
+ 
