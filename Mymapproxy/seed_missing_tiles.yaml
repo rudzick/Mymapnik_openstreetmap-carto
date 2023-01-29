@@ -4,7 +4,7 @@ seeds:
     coverages: [stadtparkbbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 21
 
   block_i-iv_seed_hq:
@@ -20,7 +20,7 @@ seeds:
     coverages: [spielplatz_thomasstrasse, spielplatz_karl_marx_platz, spielplatz_buschkrugallee]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 22
 
   botanischer_garten_seed_hq:
@@ -28,7 +28,7 @@ seeds:
     coverages: [botanischer_garten_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 22
 
   berlin_seed_hq:
@@ -36,7 +36,7 @@ seeds:
     coverages: [berlin_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 19
 
 # brandenburg_berlin_seed_hq:
@@ -52,7 +52,7 @@ seeds:
     coverages: [lengsdorf_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 19
 
   schiffgesweg_provinzalstr_ippendorf_seed_hq:
@@ -68,7 +68,7 @@ seeds:
     coverages: [steisslingen_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 22
 
   steisslingen_seed_hq_gr:
@@ -76,7 +76,7 @@ seeds:
     coverages: [steisslingen_bbox_gr]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 19
 
   kga_heinersdorf_seed_hq:
@@ -84,7 +84,7 @@ seeds:
     coverages: [kga_heinersdorf]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 22
 
   gaslicht_dd_nacht_seed_hq:
@@ -116,7 +116,7 @@ seeds:
     coverages: [steini]
     grids: [webmercator_hq]
     levels:
-      from: 19
+      from: 18
       to: 22
 
 
