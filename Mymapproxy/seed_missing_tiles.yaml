@@ -33,7 +33,7 @@ seeds:
 
   berlin_seed_hq:
     caches: [osm_cache_hq]
-    coverages: [berlin_bbox]
+    coverages: [berlin_kl_bbox]
     grids: [webmercator_hq]
     levels:
       from: 18
@@ -141,6 +141,9 @@ coverages:
     srs: 'EPSG:3857'
   berlin_bbox:
     bbox: [1446340.0, 6854467.0, 1549459.0, 6928035.0]
+    srs: 'EPSG:3857'
+  berlin_kl_bbox:
+    bbox: [1469423.0, 6877550.0, 1512235.0, 6906174.0]
     srs: 'EPSG:3857'
   brandenburg_berlin_bbox:
     bbox: [1382898.0, 6807841.0, 1570097.0, 7011657.0]
