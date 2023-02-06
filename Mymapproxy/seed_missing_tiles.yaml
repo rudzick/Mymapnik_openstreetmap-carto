@@ -4,7 +4,7 @@ seeds:
     coverages: [stadtparkbbox]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 21
 
   block_i-iv_seed_hq:
@@ -20,7 +20,7 @@ seeds:
     coverages: [spielplatz_thomasstrasse, spielplatz_karl_marx_platz, spielplatz_buschkrugallee]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 22
 
   botanischer_garten_seed_hq:
@@ -28,7 +28,7 @@ seeds:
     coverages: [botanischer_garten_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 22
 
   berlin_seed_hq:
@@ -68,7 +68,7 @@ seeds:
     coverages: [steisslingen_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 22
 
   steisslingen_seed_hq_gr:
@@ -79,12 +79,20 @@ seeds:
       from: 18
       to: 19
 
+  linuxhotel_essen_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [linuxhotel_essen]
+    grids: [webmercator_hq]
+    levels:
+      from: 18
+      to: 22
+
   kga_heinersdorf_seed_hq:
     caches: [osm_cache_hq]
     coverages: [kga_heinersdorf]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 22
 
   gaslicht_dd_nacht_seed_hq:
@@ -116,7 +124,7 @@ seeds:
     coverages: [steini]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 20
       to: 22
 
 
@@ -195,4 +203,8 @@ coverages:
   spielplatz_buschkrugallee:
     bbox: [13.4527, 52.4482, 13.4536, 52.4497]
     srs: 'EPSG:4326'
+  linuxhotel_essen:
+    bbox: [7.1104, 51.4299, 7.113, 51.4314]
+    srs: 'EPSG:4326'
+
  
