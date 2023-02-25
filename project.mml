@@ -2392,6 +2392,7 @@ Layer:
              COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar','0') AS cultivar
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
+             AND st_intersects(way, !bbox!)	     
               ) AS feature                                                                           
     properties:
        minzoom: 20
@@ -2413,6 +2414,7 @@ Layer:
              ON LOWER(p.tags->'species') = s.species
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
+          AND st_intersects(p.way, !bbox!)
         ) AS feature -- 3                                                                      
     properties:
        minzoom: 22
@@ -2444,8 +2446,9 @@ Layer:
               CASE
                 WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
               END AS kronenbreite	      
-            FROM planet_osm_point                                                                   
+            FROM planet_osm_point                     
              WHERE "natural" = 'tree'
+             AND st_intersects(way, !bbox!)
               ) AS feature -- 4                                                                        
     properties:
        minzoom: 22
@@ -2459,6 +2462,7 @@ Layer:
             way, "natural"
           FROM planet_osm_point
           WHERE "natural" = 'shrub'
+          AND st_intersects(way, !bbox!)
         ) AS shrubs
     properties:
       cache-features: true
@@ -2475,6 +2479,7 @@ Layer:
             COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus') AS strauchsorte
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
+             AND st_intersects(way, !bbox!)
               ) AS feature                                                                          
     properties:
        minzoom: 21
@@ -2489,8 +2494,9 @@ Layer:
        (SELECT
             way,                                                                                    
             REPLACE(COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus'),' ',E'\u00a0') AS strauchsorte
-            FROM planet_osm_point                                                                   
+            FROM planet_osm_point
              WHERE "natural" = 'shrub'
+             AND st_intersects(way, !bbox!)
               ) AS feature                                                                          
     properties:
        minzoom: 22
@@ -2508,6 +2514,7 @@ Layer:
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS strauchalter
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
+             AND st_intersects(way, !bbox!)
               ) AS feature                                                                          
     properties:
        minzoom: 22
@@ -2521,9 +2528,10 @@ Layer:
         (SELECT
             way, "landuse", "man_made", "craft"
           FROM planet_osm_point                                                                     
-          WHERE "landuse" = 'apiary'
+          WHERE ( "landuse" = 'apiary'
             OR "man_made" = 'beehive'
-            OR "craft" = 'beekeeper'
+            OR "craft" = 'beekeeper' )
+            AND st_intersects(way, !bbox!)
         ) AS bienenstoecke                                                                          
     properties:
       minzoom: 20
@@ -2556,6 +2564,8 @@ Layer:
             END AS nenndurchmesser
           FROM planet_osm_point                                                                     
           WHERE "emergency" = 'fire_hydrant'
+          AND st_intersects(way, !bbox!)
+
         ) AS hydranten                                                                          
     properties:
       minzoom: 20
@@ -2576,6 +2586,7 @@ Layer:
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'water_well'
           AND "emergency" = 'drinking_water'
+          AND st_intersects(way, !bbox!)
         ) AS strassenbrunnen                                                                          
     properties:
       minzoom: 20
@@ -2599,6 +2610,7 @@ Layer:
               END AS wmo_id
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'monitoring_station'
+          AND st_intersects(way, !bbox!)
         ) AS wetterstationen                                                                          
     properties:
       minzoom: 20
@@ -2613,6 +2625,7 @@ Layer:
             way, "man_made"
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'street_cabinet'
+          AND st_intersects(way, !bbox!)
         ) AS strassenschraenke                                                                          
     properties:
       minzoom: 20
@@ -2636,6 +2649,7 @@ Layer:
               END AS fahnenmasthoehe
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'flagpole'
+          AND st_intersects(way, !bbox!)
         ) AS fahnenmasten                                                                          
     properties:
       minzoom: 20
@@ -2653,7 +2667,8 @@ Layer:
           FROM planet_osm_point
           WHERE (tags->'entrance') IS NOT NULL AND
             (tags->'indoor' = 'no'
-            OR (tags->'indoor') IS NULL))
+            OR (tags->'indoor') IS NULL)
+            AND st_intersects(way, !bbox!))
         AS entrances_zoom20
     properties:
       minzoom: 20
@@ -2668,6 +2683,7 @@ Layer:
             way, "highway"
           FROM planet_osm_point                                                                     
           WHERE "highway" = 'street_lamp'
+          AND st_intersects(way, !bbox!)
         ) AS strassenlaterne                                                                          
     properties:
       minzoom: 20
@@ -2682,6 +2698,7 @@ Layer:
             way, "man_made"
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'surveillance'
+	  AND st_intersects(way, !bbox!)
         ) AS  ueberwachungskamera                                                                        
     properties:
       minzoom: 20
@@ -2698,6 +2715,7 @@ Layer:
             COALESCE(tags->'name:de',tags->'name',tags->'description:de',tags->'description') AS beschreibung
             FROM planet_osm_point                                                                   
              WHERE "leisure" = 'pitch'
+          AND st_intersects(way, !bbox!)
               ) AS feature                                                                          
     properties:
        minzoom: 18
