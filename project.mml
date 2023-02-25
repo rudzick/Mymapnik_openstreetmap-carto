@@ -2698,8 +2698,8 @@ Layer:
             way, "man_made"
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'surveillance'
-	  AND st_intersects(way, !bbox!)
-        ) AS  ueberwachungskamera                                                                        
+          AND st_intersects(way, !bbox!)
+        ) AS  ueberwachungskamera
     properties:
       minzoom: 20
   - id: leisure_description
@@ -2709,13 +2709,13 @@ Layer:
     Datasource:
       <<: *osm2pgsql
       table: |-
-       (SELECT
+       (SELECT 
             way,
             leisure,
             COALESCE(tags->'name:de',tags->'name',tags->'description:de',tags->'description') AS beschreibung
             FROM planet_osm_point                                                                   
              WHERE "leisure" = 'pitch'
-          AND st_intersects(way, !bbox!)
+             AND st_intersects(way, !bbox!)
               ) AS feature                                                                          
     properties:
        minzoom: 18
