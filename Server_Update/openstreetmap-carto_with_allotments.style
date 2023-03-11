@@ -57,8 +57,32 @@ way        z_order      int4         linear
 # erkenne Kleingartenparzellen (allotments=plot) als Polygone
 way        allotments   text         polygon
 node       entrance     text         linear # Extraspalte fuer Entrance
-way        description  text         linear
+node,way        description  text         linear
+# Extraspalten für species, taxon und weiteres
+node	    genus         text 	  linear
+node	    genus:de         text 	  linear
+node	    species         text 	  linear
+node	    species:de         text 	  linear
+node	    taxon         text 	  linear
+node	    taxon:de         text 	  linear
+node	    taxon:cultivar         text 	  linear
+node	    taxon:cultivar:de         text 	  linear
+node	    sex			      text	  linear
 node,way   denotation   text         linear
-node,way   craft        text         polygon # fuer Bienenstoecke
-node,way   emergency    text         polygon # fuer Hydranten
+# Wetterstationen
+node	monitoring:weather	text	polygon
+node	operator			text	linear
+# Fahnenmasten
+node	historic		text	linear
+node	flagtype		text	linear
+# Straßenbrunnen
+node,way	pump:style	text	polygon	
+node,way	pump		text	polygon	
+# Hydranten
+node,way	emergency			text         polygon
+node,way	fire_hydrant:type		text	polygon
+node,way	fire_hydrant:position	text	polygon
+node,way	fire_hydrant:diameter	text	polygon
+# Bienenstöcke
+node,way	craft	text         polygon
 
