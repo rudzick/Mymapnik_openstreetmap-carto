@@ -2396,15 +2396,15 @@ Layer:
       <<: *osm2pgsql
       table: |-
            (SELECT p.way,
-                          COALESCE( p.tags->'species:de'
+                          COALESCE( p."species:de"
                                              , s.name
-                                             , p.tags->'species'
-                                             , p.tags->'genus:de'
-                                             , p.tags->'genus'
+                                             , p.species
+                                             , p."genus:de"
+                                             , p.genus
                                              ) AS obstbaumart
                 FROM planet_osm_point p
                 LEFT JOIN tree_species s
-                    ON LOWER(p.tags->'species') = s.species
+                    ON LOWER(p.species) = s.species
                   AND s.lang='de_DE'
               WHERE p."natural" = 'tree'
               AND st_intersects(p.way, !bbox!)
