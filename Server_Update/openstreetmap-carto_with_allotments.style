@@ -58,6 +58,7 @@ way        z_order      int4         linear
 way        allotments   text         polygon
 node       entrance     text         linear # Extraspalte fuer Entrance
 node,way        description  text         linear
+node,way        description:de  text         linear
 # Extraspalten für species, taxon und weiteres
 node	    genus         text 	  linear
 node	    genus:de         text 	  linear
@@ -73,7 +74,7 @@ node,way   denotation   text         linear
 node	monitoring:weather	text	polygon
 node	operator			text	linear
 # Fahnenmasten
-node	flagtype		text	linear
+node	flag:type		text	linear
 # Straßenbrunnen
 node,way	pump:style	text	polygon	
 node,way	pump		text	polygon	
