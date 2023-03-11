@@ -2431,9 +2431,9 @@ Layer:
                WHEN "sex" <> 'none' THEN CONCAT( REPLACE(REPLACE("sex",'female','weibl.'),'male','männl.'),E'\u000a')
             END AS geschlecht,
             -- REPLACE(tags->'description',' ',E'\u00a0') AS wuchs,
-            -- REPLACE(COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
+            -- REPLACE(COALESCE(tags->'description',"description:de",tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
             CASE
-               WHEN "description" <> 'none' OR  tags->'description:de' <> 'none' THEN CONCAT(COALESCE(tags->'description:de',"description",tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
+               WHEN "description" <> 'none' OR  "description:de" <> 'none' THEN CONCAT(COALESCE("description:de","description",tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
             END AS wuchs,
             -- COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut') AS wuchs,
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS baumalter,
@@ -2640,7 +2640,7 @@ Layer:
             way, "man_made",
               "historic" AS historic,
               "operator" AS operator,
-              tags->'flag:type' AS flagtype,
+              "flag:type" AS flagtype,
               tags->'country' AS country,
               "name" AS flagname,	      
               "description" AS flagdescription,	      
@@ -2712,7 +2712,7 @@ Layer:
        (SELECT 
             way,
             leisure,
-            COALESCE(tags->'name:de',tags->'name',tags->'description:de',tags->'description') AS beschreibung
+            COALESCE(tags->'name:de',"name","description:de","description") AS beschreibung
             FROM planet_osm_point                                                                   
              WHERE "leisure" = 'pitch'
              AND st_intersects(way, !bbox!)
