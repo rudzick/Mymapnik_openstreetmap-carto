@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 planetfilea=dach-latest.osm.pbf
+planetfilea=germany-latest.osm.pbf
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
 if [ -f $planetfilea ]
