@@ -2640,7 +2640,7 @@ Layer:
             way, "man_made",
               "historic" AS historic,
               "operator" AS operator,
-              "flag:type" AS flagtype,
+              tags->'flag:type' AS flagtype,
               "country" AS country,
               "name" AS flagname,	      
               "description" AS flagdescription,	      
