@@ -2421,10 +2421,10 @@ Layer:
        (SELECT
             way,
              CASE
-              WHEN NOT COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar','0') = '0' THEN CONCAT('''',COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar'),'''') 
-              ELSE COALESCE(tags->'taxon:cultivar:de',tags->'taxon:de',tags->'taxon:cultivar',tags->'taxon')
+              WHEN NOT COALESCE("taxon:cultivar:de","taxon:cultivar",'0') = '0' THEN CONCAT('''',COALESCE("taxon:cultivar:de","taxon:cultivar"),'''') 
+              ELSE COALESCE("taxon:cultivar:de","taxon:de","taxon:cultivar","taxon")
              END AS obstbaumsorte,
-             COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar','0') AS cultivar
+             COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
              AND st_intersects(way, !bbox!)	     
@@ -2438,15 +2438,15 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT p.way,
-               COALESCE( p.tags->'species:de'
+               COALESCE( p."species:de"
                        , s.name
-                       , p.tags->'species'
-                       , p.tags->'genus:de'
-                       , p.tags->'genus'
+                       , p."species"
+                       , p."genus:de"
+                       , p."genus"
                        ) AS obstbaumart
            FROM planet_osm_point p
            LEFT JOIN tree_species s
-             ON LOWER(p.tags->'species') = s.species
+             ON LOWER(p."species") = s.species
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
           AND st_intersects(p.way, !bbox!)
@@ -2461,14 +2461,14 @@ Layer:
       table: |-
        (SELECT
             way,
-            COALESCE(tags->'taxon:de',tags->'taxon:cultivar:de',tags->'taxon:cultivar',tags->'taxon','0') AS obstbaumsorte,
+            COALESCE("taxon:de","taxon:cultivar:de","taxon:cultivar","taxon",'0') AS obstbaumsorte,
             CASE
-               WHEN tags->'sex' <> 'none' THEN CONCAT( REPLACE(REPLACE(tags->'sex','female','weibl.'),'male','männl.'),E'\u000a')
+               WHEN "sex" <> 'none' THEN CONCAT( REPLACE(REPLACE("sex",'female','weibl.'),'male','männl.'),E'\u000a')
             END AS geschlecht,
             -- REPLACE(tags->'description',' ',E'\u00a0') AS wuchs,
             -- REPLACE(COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
             CASE
-               WHEN tags->'description' <> 'none' OR  tags->'description:de' <> 'none' THEN CONCAT(COALESCE(tags->'description:de',tags->'description',tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
+               WHEN "description" <> 'none' OR  tags->'description:de' <> 'none' THEN CONCAT(COALESCE(tags->'description:de',"description",tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
             END AS wuchs,
             -- COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut') AS wuchs,
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS baumalter,
@@ -2511,7 +2511,7 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus') AS strauchsorte
+            COALESCE("species:de","species","genus:de","genus") AS strauchsorte
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
              AND st_intersects(way, !bbox!)
@@ -2528,7 +2528,7 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            REPLACE(COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus'),' ',E'\u00a0') AS strauchsorte
+            REPLACE(COALESCE("species:de","species","genus:de","genus"),' ',E'\u00a0') AS strauchsorte
             FROM planet_osm_point
              WHERE "natural" = 'shrub'
              AND st_intersects(way, !bbox!)
@@ -2544,8 +2544,8 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            REPLACE(COALESCE(tags->'description',''),' ',E'\u00a0') AS beschreibung,
-            REPLACE(REPLACE(tags->'sex','female','weibl.'),'male','männl.') AS geschlecht,
+            REPLACE(COALESCE("description",''),' ',E'\u00a0') AS beschreibung,
+            REPLACE(REPLACE("sex",'female','weibl.'),'male','männl.') AS geschlecht,
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS strauchalter
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
@@ -2580,22 +2580,22 @@ Layer:
         (SELECT
             way, "emergency",
              CASE
-              WHEN tags->'fire_hydrant:type' = 'underground' THEN 'Unterflurhydrant '
-              WHEN tags->'fire_hydrant:type' = 'pillar' THEN 'Überflurhydrant ' 
-              WHEN tags->'fire_hydrant:type' = 'wall' THEN 'Wandhydrant ' 
-              WHEN tags->'fire_hydrant:type' = 'pipe' THEN 'Anschlussrohr '
-              ELSE tags->'fire_hydrant:type'
+              WHEN "fire_hydrant:type" = 'underground' THEN 'Unterflurhydrant '
+              WHEN "fire_hydrant:type" = 'pillar' THEN 'Überflurhydrant ' 
+              WHEN "fire_hydrant:type" = 'wall' THEN 'Wandhydrant ' 
+              WHEN "fire_hydrant:type" = 'pipe' THEN 'Anschlussrohr '
+              ELSE "fire_hydrant:type"
              END AS hydranttyp,
              CASE
-              WHEN tags->'fire_hydrant:position' = 'sidewalk' THEN 'Gehweg '
-              WHEN tags->'fire_hydrant:position' = 'lane' THEN 'Fahrbahn '
-              WHEN tags->'fire_hydrant:position' = 'green' THEN 'Grünstreifen '
-              WHEN tags->'fire_hydrant:position' = 'parking_lot' THEN 'Parkplatz ' 
-              ELSE tags->'fire_hydrant:position'
+              WHEN "fire_hydrant:position" = 'sidewalk' THEN 'Gehweg '
+              WHEN "fire_hydrant:position" = 'lane' THEN 'Fahrbahn '
+              WHEN "fire_hydrant:position" = 'green' THEN 'Grünstreifen '
+              WHEN "fire_hydrant:position" = 'parking_lot' THEN 'Parkplatz ' 
+              ELSE "fire_hydrant:position"
              END AS standort,
             CASE
-              WHEN tags->'fire_hydrant:diameter'  IS NOT NULL  THEN CONCAT('Nenndurchmesser', E'\u00a0', tags->'fire_hydrant:diameter')
-             ELSE tags->'fire_hydrant:diameter'
+              WHEN "fire_hydrant:diameter"  IS NOT NULL  THEN CONCAT('Nenndurchmesser', E'\u00a0', "fire_hydrant:diameter")
+             ELSE "fire_hydrant:diameter"
             END AS nenndurchmesser
           FROM planet_osm_point                                                                     
           WHERE "emergency" = 'fire_hydrant'
@@ -2613,10 +2613,10 @@ Layer:
       table: |-
         (SELECT
             way, "man_made", "emergency",
-              tags->'pump:style' AS pumpenstil,
-              tags->'pump' AS pumpe,      
+              "pump:style" AS pumpenstil,
+              "pump" AS pumpe,      
               CASE
-                WHEN tags->'ref' <> 'none' THEN tags->'ref'
+                WHEN ref <> 'none' THEN ref
               END AS nummer
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'water_well'
@@ -2634,11 +2634,11 @@ Layer:
       table: |-
         (SELECT
             way, "man_made",
-              tags->'monitoring:weather' AS wetterstation,
-              tags->'operator' AS betreiber,      
-              tags->'name' AS stationsname,      
+              "monitoring:weather" AS wetterstation,
+              "operator" AS betreiber,      
+              "name" AS stationsname,      
               CASE
-                WHEN tags->'ref' <> 'none' THEN tags->'ref'
+                WHEN "ref" <> 'none' THEN "ref"
               END AS nummer,
               CASE
                 WHEN tags->'ref:wmo' <> 'none' THEN CONCAT('WMO-ID', E'\u00a0', tags->'ref:wmo')
@@ -2673,12 +2673,12 @@ Layer:
       table: |-
         (SELECT
             way, "man_made",
-              tags->'historic' AS historic,
-              tags->'operator' AS operator,
-              tags->'flag:type' AS flagtype,
-              tags->'country' AS country,
-              tags->'name' AS flagname,	      
-              tags->'description' AS flagdescription,	      
+              "historic" AS historic,
+              "operator" AS operator,
+              "flag:type" AS flagtype,
+              "country" AS country,
+              "name" AS flagname,	      
+              "description" AS flagdescription,	      
               CASE
                WHEN tags->'height' <> NULL THEN CONCAT('Höhe', E'\u00a0', tags->'height')
               END AS fahnenmasthoehe
