@@ -73,7 +73,6 @@ node,way   denotation   text         linear
 node	monitoring:weather	text	polygon
 node	operator			text	linear
 # Fahnenmasten
-node	historic		text	linear
 node	flagtype		text	linear
 # Straßenbrunnen
 node,way	pump:style	text	polygon	
