@@ -2676,7 +2676,7 @@ Layer:
               "historic" AS historic,
               "operator" AS operator,
               tags->'flag:type' AS flagtype,
-              "country" AS country,
+              tags->'country' AS country,
               "name" AS flagname,	      
               "description" AS flagdescription,	      
               CASE
