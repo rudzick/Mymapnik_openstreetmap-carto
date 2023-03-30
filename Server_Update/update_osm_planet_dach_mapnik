@@ -15,5 +15,5 @@ else
     exec 2>/dev/null
     /usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml
 fi    
-exit 0
+
 
