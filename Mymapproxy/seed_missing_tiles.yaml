@@ -131,8 +131,6 @@ seeds:
     caches: [osm_cache_hq]
     coverages: [frohnau_zentrum]
     grids: [webmercator_hq]
-    refresh_before:
-        hours: 1
     levels:
       from: 18
       to: 20
