@@ -2489,7 +2489,7 @@ Layer:
               ) AS way                                                                              
     properties:
        minzoom: 18
-- id: strauch
+ - id: strauch
     geometry: polygon
     <<: *extents
     Datasource:
