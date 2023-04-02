@@ -127,6 +127,16 @@ seeds:
       from: 20
       to: 22
 
+  frohnau_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [frohnau_zentrum]
+    grids: [webmercator_hq]
+    refresh_before:
+        hours: 1
+    levels:
+      from: 18
+      to: 20
+
 
 coverages:
   stadtparkbbox:
@@ -205,6 +215,9 @@ coverages:
     srs: 'EPSG:4326'
   linuxhotel_essen:
     bbox: [7.1104, 51.4299, 7.113, 51.4314]
+    srs: 'EPSG:4326'
+  frohnau_zentrum:
+    bbox: [13.285, 52.6305, 13.299, 52.6384]
     srs: 'EPSG:4326'
 
  
