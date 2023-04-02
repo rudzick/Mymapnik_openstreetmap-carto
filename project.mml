@@ -1257,6 +1257,106 @@ Layer:
     properties:
       cache-features: true
       minzoom: 16
+ # extra labels for tee genus, species, subspecies, cultivar,...
+  - id: baumsorten_zoom_21
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+           (SELECT p.way,
+                          COALESCE( p."species:de"
+                                             , s.name
+                                             , p.species
+                                             , p."genus:de"
+                                             , p.genus
+                                             ) AS obstbaumart
+                FROM planet_osm_point p
+                LEFT JOIN tree_species s
+                    ON LOWER(p.species) = s.species
+                  AND s.lang='de_DE'
+              WHERE p."natural" = 'tree'
+              AND st_intersects(p.way, !bbox!)
+           ) AS feature -- 1                                         
+    properties:
+       minzoom: 19
+       maxzoom: 21
+  - id: taxon
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way,
+             CASE
+              WHEN NOT COALESCE("taxon:cultivar:de","taxon:cultivar",'0') = '0' THEN CONCAT('''',COALESCE("taxon:cultivar:de","taxon:cultivar"),'''') 
+              ELSE COALESCE("taxon:cultivar:de","taxon:de","taxon:cultivar","taxon")
+             END AS obstbaumsorte,
+             COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar
+            FROM planet_osm_point                                                                   
+             WHERE "natural" = 'tree'
+             AND st_intersects(way, !bbox!)	     
+              ) AS feature                                                                           
+    properties:
+       minzoom: 20
+  - id: baumsorten_zoom_22
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT p.way,
+               COALESCE( p."species:de"
+                       , s.name
+                       , p."species"
+                       , p."genus:de"
+                       , p."genus"
+                       ) AS obstbaumart
+           FROM planet_osm_point p
+           LEFT JOIN tree_species s
+             ON LOWER(p."species") = s.species
+            AND s.lang='de_DE'
+          WHERE p."natural" = 'tree'
+          AND st_intersects(p.way, !bbox!)
+        ) AS feature -- 3                                                                      
+    properties:
+       minzoom: 22
+  - id: wuchs
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way,
+            COALESCE("taxon:de","taxon:cultivar:de","taxon:cultivar","taxon",'0') AS obstbaumsorte,
+            CASE
+               WHEN "sex" <> 'none' THEN CONCAT( REPLACE(REPLACE("sex",'female','weibl.'),'male','männl.'),E'\u000a')
+            END AS geschlecht,
+            -- REPLACE(tags->'description',' ',E'\u00a0') AS wuchs,
+            -- REPLACE(COALESCE(tags->'description',"description:de",tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
+            CASE
+               WHEN "description" <> 'none' OR  "description:de" <> 'none' THEN CONCAT(COALESCE("description:de","description",tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
+            END AS wuchs,
+            -- COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut') AS wuchs,
+            REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS baumalter,
+              CASE
+                WHEN tags->'height' <> 'none' THEN CONCAT(E'\u000a','Höhe', E'\u00a0', tags->'height')
+              END AS hoehe,
+              CASE
+                WHEN tags->'circumference' <> 'none' THEN CONCAT(E'\u000a','Stammumfang', E'\u00a0', tags->'circumference')
+              END AS stammumfang,
+              CASE
+                WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
+              END AS kronenbreite	      
+            FROM planet_osm_point                     
+             WHERE "natural" = 'tree'
+             AND st_intersects(way, !bbox!)
+              ) AS feature -- 4                                                                        
+    properties:
+       minzoom: 22
+ # end extra labels for tee genus, species, subspecies, cultivar,...
   - id: country-names
     geometry: point
     <<: *extents
@@ -2389,105 +2489,7 @@ Layer:
               ) AS way                                                                              
     properties:
        minzoom: 18
-  - id: baumsorten_zoom_21
-    geometry: point
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-           (SELECT p.way,
-                          COALESCE( p."species:de"
-                                             , s.name
-                                             , p.species
-                                             , p."genus:de"
-                                             , p.genus
-                                             ) AS obstbaumart
-                FROM planet_osm_point p
-                LEFT JOIN tree_species s
-                    ON LOWER(p.species) = s.species
-                  AND s.lang='de_DE'
-              WHERE p."natural" = 'tree'
-              AND st_intersects(p.way, !bbox!)
-           ) AS feature -- 1                                         
-    properties:
-       minzoom: 19
-       maxzoom: 21
-  - id: taxon
-    geometry: point
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-       (SELECT
-            way,
-             CASE
-              WHEN NOT COALESCE("taxon:cultivar:de","taxon:cultivar",'0') = '0' THEN CONCAT('''',COALESCE("taxon:cultivar:de","taxon:cultivar"),'''') 
-              ELSE COALESCE("taxon:cultivar:de","taxon:de","taxon:cultivar","taxon")
-             END AS obstbaumsorte,
-             COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar
-            FROM planet_osm_point                                                                   
-             WHERE "natural" = 'tree'
-             AND st_intersects(way, !bbox!)	     
-              ) AS feature                                                                           
-    properties:
-       minzoom: 20
-  - id: baumsorten_zoom_22
-    geometry: point
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT p.way,
-               COALESCE( p."species:de"
-                       , s.name
-                       , p."species"
-                       , p."genus:de"
-                       , p."genus"
-                       ) AS obstbaumart
-           FROM planet_osm_point p
-           LEFT JOIN tree_species s
-             ON LOWER(p."species") = s.species
-            AND s.lang='de_DE'
-          WHERE p."natural" = 'tree'
-          AND st_intersects(p.way, !bbox!)
-        ) AS feature -- 3                                                                      
-    properties:
-       minzoom: 22
-  - id: wuchs
-    geometry: point
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-       (SELECT
-            way,
-            COALESCE("taxon:de","taxon:cultivar:de","taxon:cultivar","taxon",'0') AS obstbaumsorte,
-            CASE
-               WHEN "sex" <> 'none' THEN CONCAT( REPLACE(REPLACE("sex",'female','weibl.'),'male','männl.'),E'\u000a')
-            END AS geschlecht,
-            -- REPLACE(tags->'description',' ',E'\u00a0') AS wuchs,
-            -- REPLACE(COALESCE(tags->'description',"description:de",tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
-            CASE
-               WHEN "description" <> 'none' OR  "description:de" <> 'none' THEN CONCAT(COALESCE("description:de","description",tags->'tree:cut:de',tags->'tree:cut'),E'\u000a')
-            END AS wuchs,
-            -- COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut') AS wuchs,
-            REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS baumalter,
-              CASE
-                WHEN tags->'height' <> 'none' THEN CONCAT(E'\u000a','Höhe', E'\u00a0', tags->'height')
-              END AS hoehe,
-              CASE
-                WHEN tags->'circumference' <> 'none' THEN CONCAT(E'\u000a','Stammumfang', E'\u00a0', tags->'circumference')
-              END AS stammumfang,
-              CASE
-                WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
-              END AS kronenbreite	      
-            FROM planet_osm_point                     
-             WHERE "natural" = 'tree'
-             AND st_intersects(way, !bbox!)
-              ) AS feature -- 4                                                                        
-    properties:
-       minzoom: 22
-  - id: strauch
+- id: strauch
     geometry: polygon
     <<: *extents
     Datasource:
