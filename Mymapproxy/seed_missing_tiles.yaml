@@ -135,6 +135,14 @@ seeds:
       from: 18
       to: 20
 
+  hh_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [hh]
+    grids: [webmercator_hq]
+    levels:
+      from: 18
+      to: 20
+
 
 coverages:
   stadtparkbbox:
@@ -216,6 +224,9 @@ coverages:
     srs: 'EPSG:4326'
   frohnau_zentrum:
     bbox: [13.285, 52.6305, 13.299, 52.6384]
+    srs: 'EPSG:4326'
+  hh:
+    bbox: [7.0337, 50.6952, 7.052, 50.7057]
     srs: 'EPSG:4326'
 
  
