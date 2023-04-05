@@ -8,6 +8,7 @@
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
     text-placement: interior;
+    text-allow-overlap: true;
     [zoom = 19] {
       text-dy: 8;
       text-size: 8;
@@ -28,6 +29,7 @@
     text-line-spacing: @standard-line-spacing-size;
     text-wrap-character: '_';
     text-fill: green;
+    text-allow-overlap: true;
     text-dy: 18;
     [zoom >= 23] {
         text-dy: 18;
@@ -64,6 +66,7 @@
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: green;
+    text-allow-overlap: true;
     text-dy: 26;
     text-size: 14;
     [zoom = 19] {
@@ -107,6 +110,7 @@
     text-line-spacing: @standard-line-spacing-size;
     text-fill: brown;
     text-opacity: 0.75;
+    text-allow-overlap: true;
     text-dy: 12;
     text-size: 14;
     [zoom >= 22] {

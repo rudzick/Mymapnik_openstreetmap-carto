@@ -144,6 +144,15 @@ seeds:
       to: 20
 
 
+  gfs_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [gfs]
+    grids: [webmercator_hq]
+    levels:
+      from: 18
+      to: 22
+
+
 coverages:
   stadtparkbbox:
     bbox: [1484073.0, 6887255.0, 1484828.0, 6888599.0]
@@ -227,6 +236,9 @@ coverages:
     srs: 'EPSG:4326'
   hh:
     bbox: [7.0337, 50.6952, 7.052, 50.7057]
+    srs: 'EPSG:4326'
+  gfs:
+    bbox: [7.1303, 50.7413, 7.1384, 50.7457]
     srs: 'EPSG:4326'
 
  
