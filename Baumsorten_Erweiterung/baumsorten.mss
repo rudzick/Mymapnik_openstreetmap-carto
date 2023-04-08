@@ -1,5 +1,9 @@
 #baumsorten_zoom_21 {
-    text-name: "[obstbaumart]";
+    [zoom = 19] {
+      text-name: [obstbaumart];
+    } [zoom > 19] {
+      text-name: [obstbaumart] + ' ' + [baumname];
+    }
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
@@ -61,7 +65,7 @@
 }
 
 #taxon {
-    text-name: "[obstbaumsorte]";
+    text-name: [obstbaumsorte] + ' ' + [baumname];
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
     text-line-spacing: @standard-line-spacing-size;
@@ -101,9 +105,9 @@
 #wuchs {
   [zoom >= 22] {
     [zoom = 22] {
-       text-name: [geschlecht] + [wuchs] + [baumalter];
+       text-name: [geschlecht] + [wuchs] + [baumalter] + ' ' + [baumname];
     } [zoom >= 23] {
-      text-name: [geschlecht] + ' ' + [wuchs] + ' ' + [baumalter] + ' ' + [hoehe] + ' ' + [stammumfang]  + ' ' + [kronenbreite];
+      text-name: [geschlecht] + ' ' + [wuchs] + ' ' + [baumalter] + ' ' + [hoehe] + ' ' + [stammumfang]  + ' ' + [kronenbreite] + ' ' + [baumname];
     }
     text-size: @standard-font-size;
     text-wrap-width: 128;
