@@ -1260,6 +1260,9 @@ Layer:
                                              , p."genus:de"
                                              , p.genus
                                              ) AS obstbaumart
+                         CASE
+                            WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
+                        END AS baumname	  
                 FROM planet_osm_point p
                 LEFT JOIN tree_species s
                     ON LOWER(p.species) = s.species
@@ -1283,6 +1286,9 @@ Layer:
               ELSE COALESCE("taxon:cultivar:de","taxon:de","taxon:cultivar","taxon")
              END AS obstbaumsorte,
              COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar
+             CASE
+                WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
+             END AS baumname	  
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
              AND st_intersects(way, !bbox!)	     
@@ -1339,6 +1345,9 @@ Layer:
               CASE
                 WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
               END AS kronenbreite	      
+              CASE
+                WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
+              END AS baumname	      
             FROM planet_osm_point                     
              WHERE "natural" = 'tree'
              AND st_intersects(way, !bbox!)
