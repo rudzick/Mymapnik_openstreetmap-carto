@@ -1259,7 +1259,7 @@ Layer:
                                              , p.species
                                              , p."genus:de"
                                              , p.genus
-                                             ) AS obstbaumart
+                                             ) AS obstbaumart,
                          CASE
                             WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
                         END AS baumname	  
@@ -1285,7 +1285,7 @@ Layer:
               WHEN NOT COALESCE("taxon:cultivar:de","taxon:cultivar",'0') = '0' THEN CONCAT('''',COALESCE("taxon:cultivar:de","taxon:cultivar"),'''') 
               ELSE COALESCE("taxon:cultivar:de","taxon:de","taxon:cultivar","taxon")
              END AS obstbaumsorte,
-             COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar
+             COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar,
              CASE
                 WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
              END AS baumname	  
@@ -1344,7 +1344,7 @@ Layer:
               END AS stammumfang,
               CASE
                 WHEN tags->'diameter_crown' <> 'none' THEN CONCAT(E'\u000a','Kronenbreite', E'\u00a0', tags->'diameter_crown')
-              END AS kronenbreite	      
+              END AS kronenbreite,	      
               CASE
                 WHEN tags->'name' <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', COALESCE(tags->'name:de',tags->'name'))
               END AS baumname	      
