@@ -70,6 +70,7 @@ node	    taxon:cultivar         text 	  linear
 node	    taxon:cultivar:de         text 	  linear
 node	    sex			      text	  linear
 node,way   denotation   text         linear
+node,way name:de	text	     linear
 # Wetterstationen
 node	monitoring:weather	text	polygon
 node	operator			text	linear
