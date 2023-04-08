@@ -1,18 +1,28 @@
 #baumsorten_zoom_21 {
     [zoom = 19] {
       text-name: [obstbaumart] + ' ' + [baumname];
-    } {
-      text-name: [obstbaumart];
+      text-size: @standard-font-size;
+      text-wrap-width: @standard-wrap-width;
+      text-line-spacing: @standard-line-spacing-size;
+      text-fill: green;
+      text-face-name: @standard-font;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: @standard-halo-fill;
+      text-placement: interior;
+      text-allow-overlap: true;
     }
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
-    text-fill: green;
-    text-face-name: @standard-font;
-    text-halo-radius: @standard-halo-radius;
-    text-halo-fill: @standard-halo-fill;
-    text-placement: interior;
-    text-allow-overlap: true;
+    [zoom > 19] {
+      text-name: [obstbaumart];
+      text-size: @standard-font-size;
+      text-wrap-width: @standard-wrap-width;
+      text-line-spacing: @standard-line-spacing-size;
+      text-fill: green;
+      text-face-name: @standard-font;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: @standard-halo-fill;
+      text-placement: interior;
+      text-allow-overlap: true;
+    }
     [zoom = 19] {
       text-dy: 8;
       text-size: 8;
