@@ -1,8 +1,8 @@
 #baumsorten_zoom_21 {
     [zoom = 19] {
-      text-name: [obstbaumart];
-    } [zoom > 19] {
       text-name: [obstbaumart] + ' ' + [baumname];
+    } {
+      text-name: [obstbaumart];
     }
     text-size: @standard-font-size;
     text-wrap-width: @standard-wrap-width;
