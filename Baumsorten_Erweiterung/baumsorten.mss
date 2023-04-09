@@ -14,7 +14,7 @@
     [zoom > 19] {
       text-name: [obstbaumart];
       text-size: @standard-font-size;
-      text-wrap-width: @standard-wrap-width;
+      text-wrap-width: 1000;
       text-line-spacing: @standard-line-spacing-size;
       text-fill: green;
       text-face-name: @standard-font;
@@ -75,17 +75,25 @@
 }
 
 #taxon {
-    text-name: [obstbaumsorte] + ' ' + [baumname];
-    text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
-    text-line-spacing: @standard-line-spacing-size;
-    text-fill: green;
-    text-allow-overlap: true;
-    text-dy: 26;
-    text-size: 14;
-    [zoom = 19] {
-       text-dy: 15;
-       text-size: 6;
+    [zoom < 22] { 
+       text-name: [obstbaumsorte] + ' ' + [baumname];
+       text-size: @standard-font-size;
+       text-wrap-width: @standard-wrap-width;
+       text-line-spacing: @standard-line-spacing-size;
+       text-fill: green;
+       text-allow-overlap: true;
+       text-dy: 26;
+       text-size: 14;
+    }
+    [zoom >= 22] {    
+       text-name: [obstbaumsorte];
+       text-size: @standard-font-size;
+       text-wrap-width: @standard-wrap-width;
+       text-line-spacing: @standard-line-spacing-size;
+       text-fill: green;
+       text-allow-overlap: true;
+       text-dy: 26;
+       text-size: 14;
     }
     [zoom = 20] {
        text-dy: 27;
