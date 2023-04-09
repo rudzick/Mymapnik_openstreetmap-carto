@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS tree_species;
 CREATE TABLE tree_species (
   species varchar(100),
   lang    varchar(5),
-  name    varchar(100),
+  treename    varchar(100),
   primary key(species, lang)
 );
 
