@@ -1322,7 +1322,8 @@ Layer:
              END AS obstbaumsorte,
              COALESCE("taxon:cultivar:de","taxon:cultivar",'0') AS cultivar,
              CASE
-                WHEN "name" <> 'none' OR "name:de" <> 'none' THEN CONCAT(E'\u000a', E'\u201e', COALESCE("name:de","name"),E'\u201c')
+                WHEN ("taxon:cultivar:de" <> 'none' OR  "taxon:de" <> 'none' OR "taxon:cultivar" <> 'none' OR "taxon" <> 'none') AND ("name" <> 'none' OR "name:de" <> 'none') THEN CONCAT(E'\u000a', E'\u201e', COALESCE("name:de","name"),E'\u201c')
+                WHEN "name" <> 'none' OR "name:de" <> 'none' THEN CONCAT(E'\u201e', COALESCE("name:de","name"),E'\u201c')
              END AS baumname	  
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
