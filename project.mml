@@ -1290,7 +1290,7 @@ Layer:
       table: |-
            (SELECT p.way,
                           COALESCE( p."species:de"
-                                             , s.name
+                                             , s.treename
                                              , p.species
                                              , p."genus:de"
                                              , p.genus
@@ -1338,7 +1338,7 @@ Layer:
       table: |-
         (SELECT p.way,
                COALESCE( p."species:de"
-                       , s.name
+                       , s.treename
                        , p."species"
                        , p."genus:de"
                        , p."genus"
