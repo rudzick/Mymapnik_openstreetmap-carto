@@ -820,6 +820,12 @@
       line-width: 2;
       line-offset: -1.0;
     }
+    [zoom >= 19] {
+      line-width: 2;
+      line-offset: -1.0;
+      line-opacity: 0.08;
+      polygon-opacity: 0.01;
+    }
   }
 
   [military = 'danger_area'][zoom >= 9] {
@@ -831,6 +837,10 @@
     line-opacity: 0.2;
     line-width: 2;
     line-offset: -1.0;
+    [zoom >= 19] {
+      line-opacity: 0.09;
+      polygon-opacity: 0.03;
+    }
   }
 }
 
