@@ -104,7 +104,7 @@ seeds:
       to: 18
 
   gaslicht_berlin_seed_hq:
-    caches: [gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
+    caches: [gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq, osm_cache_hq]
     coverages: [gaslicherhaltungsgebiete_Berlin,gasleuchten_juergen_schramm_str_gatow_bbox]
     grids: [webmercator_hq]
     levels:
