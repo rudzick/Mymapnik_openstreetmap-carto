@@ -9,10 +9,9 @@ cd $styledir/Mymapproxy
 # Nachrendern der gelöschten Tiles in den seeding-Bereichen
 if  [ $# -ge 1 ] && [ $1 == "-d" ]
 then
-    exec 2>/dev/null
+ #   exec 2>/dev/null
     /usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --duration 4m --continue --progress-file /var/cache/mapproxy/mapproxy_seed_progress    
 else
-    exec 2>/dev/null
     /usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml
 fi    
 
