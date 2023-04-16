@@ -19,5 +19,4 @@ cd $styledir/Mymapproxy
 /usr/bin/mapproxy-seed -f mapproxy.yaml -s cleanup.yaml
 # erstes inkrementelles Datenbankupdate
 $styledir/Server_Update/update_osm_planet_dach_mapnik
-exec 2>/dev/null
 /usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml
