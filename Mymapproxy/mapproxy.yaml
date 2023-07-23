@@ -80,9 +80,9 @@ layers:
   - name: lbf_baumnummern_hq
     title: Baumnummern Lengsdorfer Bachfreunde HQ
     sources: [lbf_baumnummern_cache_hq]
-  - name: impfzentren_hq
-    title: COVID-19 Impfzentren HQ
-    sources: [impfzentren_cache_hq]
+  - name: osm_25833_hq
+    title: OSM in EPSG 25833
+    sources: [osm_25833_cache_hq]
 
 caches:
   osm_cache:
@@ -122,9 +122,9 @@ caches:
   lbf_baumnummern_cache_hq:
     grids: [webmercator_hq]
     sources: [lbf_baumnummern_hq]
-  impfzentren_cache_hq:
-    grids: [webmercator_hq]
-    sources: [impfzentren_hq]
+  osm_25833_cache_hq:
+    grids: [epsg_25833_hq]
+    sources: [osm_cache_hq]
     
 sources:
   mein_mapnik:
@@ -202,6 +202,13 @@ grids:
 # bis Zoomlevel 24
         num_levels: 25
         min_res: 78271.51696402048
+        tile_size: [512,512]
+     epsg_25833_hq:     
+        srs: "EPSG:25833"
+        bbox: [369097.85, 5799298.14, 416865.04, 5838236.21]
+        origin: nw
+        num_levels: 25
+        min_res: 5700
         tile_size: [512,512]
 
 globals:
