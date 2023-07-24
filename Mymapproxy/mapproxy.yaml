@@ -183,33 +183,33 @@ sources:
     transparent: true
 
 grids:
-    webmercator:
+  webmercator:
 #        base: GLOBAL_WEBMERCATOR
-        srs: "EPSG:3857"
-        origin: nw
-        min_res: 156543.03392804097
-    webmercator_ul:
+    srs: "EPSG:3857"
+    origin: nw
+    min_res: 156543.03392804097
+  webmercator_ul:
 #        base: GLOBAL_WEBMERCATOR
-        srs: "EPSG:3857"
-        origin: nw
+    srs: "EPSG:3857"
+    origin: nw
 # bis Zoomlevel 24
-        num_levels: 25
-        min_res: 156543.03392804097
-    webmercator_hq:
+    num_levels: 25
+    min_res: 156543.03392804097
+  webmercator_hq:
 #        base: GLOBAL_WEBMERCATOR
-        srs: "EPSG:3857"
-        origin: nw
+    srs: 'EPSG:3857'
+    origin: nw
 # bis Zoomlevel 24
-        num_levels: 25
-        min_res: 78271.51696402048
-        tile_size: [512,512]
-     epsg_25833_hq:     
-        srs: "EPSG:25833"
-        bbox: [369097.85, 5799298.14, 416865.04, 5838236.21]
-        origin: nw
-        num_levels: 25
-        min_res: 5700
-        tile_size: [512,512]
+    num_levels: 25
+    min_res: 78271.51696402048
+    tile_size: [512,512]
+  epsg_25833_hq:     
+    srs: "EPSG:25833"
+    bbox: [369097.85, 5799298.14, 416865.04, 5838236.21]
+    origin: nw
+    num_levels: 25
+    min_res: 5700
+    tile_size: [512,512]
 
 globals:
   cache:
