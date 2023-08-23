@@ -1274,7 +1274,7 @@ Layer:
                AND allotments = 'plot'
                AND ST_Intersects(way, !bbox!)
             UNION                                                                                   
-            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref, barrier
              FROM planet_osm_line                                                                   
               WHERE ref IS NOT NULL                                                                 
                 AND allotments = 'plot'
