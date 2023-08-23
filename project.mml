@@ -1267,7 +1267,8 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            ref
+            ref,
+            barrier
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
