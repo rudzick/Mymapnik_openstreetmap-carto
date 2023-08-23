@@ -17,8 +17,6 @@
     text-margin: 3; // 0.3 em
     [zoom >= 17] {
       text-size: 10;
-      line-width: 0.3;
-      line-color: desaturate(darken(@allotments, 10%), 10%);
     }
     [zoom >= 18] {
       text-halo-radius: @standard-halo-radius * 1.25;
