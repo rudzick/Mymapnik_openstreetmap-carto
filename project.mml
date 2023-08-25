@@ -69,6 +69,30 @@ Stylesheet:
   - Baumsorten_Erweiterung/strauch.mss
   - Baumsorten_Erweiterung/leisure_description.mss
 Layer:
+# extra labels for plot numbers in allotment gardens
+  - id: parzellennummern
+    class: parzellennummern
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way,                                                                                    
+            ref
+            FROM planet_osm_polygon                                                                 
+             WHERE ref IS NOT NULL                                                                  
+               AND allotments = 'plot'
+               AND ST_Intersects(way, !bbox!)
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
+             FROM planet_osm_line                                                                   
+              WHERE ref IS NOT NULL                                                                 
+                AND allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
+    properties:
+       minzoom: 18
   - id: landcover-low-zoom
     geometry: polygon
     <<: *extents
@@ -1257,31 +1281,6 @@ Layer:
     properties:
       cache-features: true
       minzoom: 16
-# extra labels for plot numbers in allotment gardens
-  - id: parzellennummern
-    class: parzellennummern
-    geometry: polygon
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-       (SELECT
-            way,                                                                                    
-            ref,
-            barrier
-            FROM planet_osm_polygon                                                                 
-             WHERE ref IS NOT NULL                                                                  
-               AND allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
-            UNION                                                                                   
-            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref, barrier
-             FROM planet_osm_line                                                                   
-              WHERE ref IS NOT NULL                                                                 
-                AND allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
-              ) AS way                                                                              
-    properties:
-       minzoom: 18
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point

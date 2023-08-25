@@ -8,7 +8,7 @@
     text-name: "[ref]";
     text-placement: interior;
     text-face-name: @book-fonts;
-    text-fill: @parzellen-color;
+    text-fill: desaturate(darken(@allotments, 10%), 10%);
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
     text-size: 6;
@@ -37,16 +37,14 @@
         text-line-spacing: -2.1; // -0.25 em
         text-margin: 4.0; // 0.3 em
      }
-     [barrier != 'fence'][barrier != 'hedge'] {
-         line-width: 0.3;
-         line-color: desaturate(darken(@allotments, 10%), 10%);
-          [zoom >= 18] {
-             line-width: 0.4;
-         }
-         [zoom >= 20] {
-             line-width: 0.5;
-         }
-     }
+     line-width: 0.4;
+     line-color: desaturate(darken(@allotments, 10%), 10%);
+     [zoom >= 18] {
+        line-width: 0.5;
+      }
+      [zoom >= 20] {
+         line-width: 0.6;
+      }
   }
 }
 
