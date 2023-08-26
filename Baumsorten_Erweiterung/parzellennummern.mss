@@ -37,14 +37,6 @@
         text-line-spacing: -2.1; // -0.25 em
         text-margin: 4.0; // 0.3 em
      }
-     line-width: 0.4;
-     line-color: desaturate(darken(@allotments, 10%), 10%);
-     [zoom >= 18] {
-        line-width: 0.5;
-      }
-      [zoom >= 20] {
-         line-width: 0.6;
-      }
   }
 }
 

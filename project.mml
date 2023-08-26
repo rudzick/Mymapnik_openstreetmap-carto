@@ -56,6 +56,7 @@ Stylesheet:
   - style/golf.mss
   - style/tourism.mss
   - Baumsorten_Erweiterung/parzellennummern.mss
+  - Baumsorten_Erweiterung/parzellengrenzen.mss
   - Baumsorten_Erweiterung/baumsorten.mss
   - Baumsorten_Erweiterung/bienenstoecke.mss
   - Baumsorten_Erweiterung/hydranten.mss
@@ -69,30 +70,6 @@ Stylesheet:
   - Baumsorten_Erweiterung/strauch.mss
   - Baumsorten_Erweiterung/leisure_description.mss
 Layer:
-# extra labels for plot numbers in allotment gardens
-  - id: parzellennummern
-    class: parzellennummern
-    geometry: polygon
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-       (SELECT
-            way,                                                                                    
-            ref
-            FROM planet_osm_polygon                                                                 
-             WHERE ref IS NOT NULL                                                                  
-               AND allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
-            UNION                                                                                   
-            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
-             FROM planet_osm_line                                                                   
-              WHERE ref IS NOT NULL                                                                 
-                AND allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
-              ) AS way                                                                              
-    properties:
-       minzoom: 18
   - id: landcover-low-zoom
     geometry: polygon
     <<: *extents
@@ -576,6 +553,27 @@ Layer:
         ) AS landuse_overlay
     properties:
       minzoom: 8
+# plot boundaries in allotment gardens
+  - id: parzellengrenzen
+    class: parzellengrenzen
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way
+            FROM planet_osm_polygon                                                                 
+             WHERE allotments = 'plot'
+               AND ST_Intersects(way, !bbox!)
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way
+             FROM planet_osm_line                                                                   
+              WHERE allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
+    properties:
+       minzoom: 18
   - id: barriers
     geometry: linestring
     <<: *extents
@@ -1281,6 +1279,30 @@ Layer:
     properties:
       cache-features: true
       minzoom: 16
+# extra labels for plot numbers in allotment gardens
+  - id: parzellennummern
+    class: parzellennummern
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way,                                                                                    
+            ref
+            FROM planet_osm_polygon                                                                 
+             WHERE ref IS NOT NULL                                                                  
+               AND allotments = 'plot'
+               AND ST_Intersects(way, !bbox!)
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
+             FROM planet_osm_line                                                                   
+              WHERE ref IS NOT NULL                                                                 
+                AND allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
+    properties:
+       minzoom: 18
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point
