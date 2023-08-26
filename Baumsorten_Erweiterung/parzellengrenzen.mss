@@ -5,7 +5,7 @@
 @allotments: #c9e1bf;   // Lch(87,20,135)
 #parzellengrenzen {
      line-width: 0.4;
-     line-color: desaturate(darken(@allotments, 10%), 10%);
+     line-color: desaturate(darken(@allotments, 20%), 20%);
      [zoom >= 19] {
         line-width: 0.5;
       }

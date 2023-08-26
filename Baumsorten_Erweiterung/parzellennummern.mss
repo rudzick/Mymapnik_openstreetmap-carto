@@ -8,7 +8,7 @@
     text-name: "[ref]";
     text-placement: interior;
     text-face-name: @book-fonts;
-    text-fill: desaturate(darken(@allotments, 20%), 20%);
+    text-fill: desaturate(darken(@allotments, 40%), 40%);
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
     text-size: 6;
