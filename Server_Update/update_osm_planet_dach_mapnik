@@ -14,7 +14,7 @@ then
 else
     for (( zaehl=0 ; zaehl <10 ; zaehl++ ))
     do
-	/usr/bin/mapproxy-seed -c 4 -f mapproxy.yaml -s seed_missing_tiles.yaml && break
+	/usr/bin/mapproxy-seed -f mapproxy.yaml -s seed_missing_tiles.yaml && break
 	echo $zaehl
 	sleep 1
     done
