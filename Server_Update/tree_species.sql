@@ -14,6 +14,7 @@ INSERT INTO tree_species VALUES
 ('prunus avium', 'de_DE', 'Süßkirsche'),
 ('prunus armeniaca', 'de_DE', 'Aprikose'),
 ('prunus persica', 'de_DE', 'Pfirsich'),
+('Prunus persica var. nucipersica', 'de_DE', 'Nektarine'),
 ('prunus cerasus', 'de_DE', 'Sauerkirsche'),
 ('cydonia oblonga', 'de_DE', 'Quitte'),
 ('mespilus germanica', 'de_DE', 'Mispel'),
@@ -39,4 +40,6 @@ INSERT INTO tree_species VALUES
 ('picea abies', 'de_DE', 'Gemeine Fichte'),
 ('quercus robur', 'de_DE', 'Stieleiche'),
 ('magnolia kobus', 'de_DE', 'Kobushi-Magnolie')
+('Chamaecyparis obtusa', 'de_DE', 'Hinoki-Scheinzypresse')
+('Thuja occidentalis', 'de_DE', 'Abendländischer Lebensbaum')
 ;

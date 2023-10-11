@@ -12,9 +12,9 @@ then
  #   exec 2>/dev/null
     /usr/bin/mapproxy-seed -c 6 -f mapproxy.yaml -s seed_missing_tiles.yaml --duration 4m --continue --progress-file /var/cache/mapproxy/mapproxy_seed_progress    
 else
-    for (( zaehl=0 ; zaehl <20 ; zaehl++ ))
+    for (( zaehl=0 ; zaehl <5 ; zaehl++ ))
     do
-	timeout 600 /usr/bin/mapproxy-seed -c 3 -f mapproxy.yaml -s seed_missing_tiles.yaml  2> /dev/null && break
+	timeout 1800 /usr/bin/mapproxy-seed -c 3 -f mapproxy.yaml -s seed_missing_tiles.yaml  2> /dev/null && break
 	echo "Wiederholungen mapproxy-seed: $zaehl"
 	sleep 1
     done
