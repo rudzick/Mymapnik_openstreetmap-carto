@@ -40,6 +40,6 @@ INSERT INTO tree_species VALUES
 ('picea abies', 'de_DE', 'Gemeine Fichte'),
 ('quercus robur', 'de_DE', 'Stieleiche'),
 ('magnolia kobus', 'de_DE', 'Kobushi-Magnolie')
-('Chamaecyparis obtusa', 'de_DE', 'Hinoki-Scheinzypresse')
-('Thuja occidentalis', 'de_DE', 'Abendländischer Lebensbaum')
+('chamaecyparis obtusa', 'de_DE', 'Hinoki-Scheinzypresse')
+('thuja occidentalis', 'de_DE', 'Abendländischer Lebensbaum')
 ;
