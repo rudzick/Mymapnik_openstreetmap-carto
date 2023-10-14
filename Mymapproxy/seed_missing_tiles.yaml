@@ -143,7 +143,7 @@ seeds:
        from: 20
        to: 22
 
- babelsberg_seed_hq:
+  babelsberg_seed_hq:
      caches: [osm_cache_hq]
      coverages: [babelsberg]
      grids: [webmercator_hq]
@@ -151,7 +151,7 @@ seeds:
        from: 18
        to: 19
 
- kga_babelsberg_seed_hq:
+  kga_babelsberg_seed_hq:
      caches: [osm_cache_hq]
      coverages: [kga_babelsberg]
      grids: [webmercator_hq]
