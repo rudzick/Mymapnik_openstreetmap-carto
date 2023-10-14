@@ -135,6 +135,30 @@ seeds:
       from: 18
       to: 20
 
+  johannisberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages:[johannisberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 20
+       to: 22
+
+ babelsberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages:[babelsberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 18
+       to: 19
+
+ kga_babelsberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages:[kga_babelsberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 20
+       to: 22
+
   hh_seed_hq:
     caches: [osm_cache_hq]
     coverages: [hh]
@@ -233,6 +257,15 @@ coverages:
     srs: 'EPSG:4326'
   frohnau_zentrum:
     bbox: [13.285, 52.6305, 13.299, 52.6384]
+    srs: 'EPSG:4326'
+  johannisberg:
+    datasource: 'johannisberg.geojson'
+    srs: 'EPSG:4326'
+  babelsberg:
+    datasource: 'babelsberg.geojson'
+    srs: 'EPSG:4326'
+  kga_babelsberg:
+    datasource: 'kga_babelsberg.geojson'
     srs: 'EPSG:4326'
   hh:
     bbox: [7.0337, 50.6952, 7.052, 50.7057]
