@@ -137,7 +137,7 @@ seeds:
 
   johannisberg_seed_hq:
      caches: [osm_cache_hq]
-     coverages:[johannisberg]
+     coverages: [johannisberg]
      grids: [webmercator_hq]
      levels:
        from: 20
@@ -145,7 +145,7 @@ seeds:
 
  babelsberg_seed_hq:
      caches: [osm_cache_hq]
-     coverages:[babelsberg]
+     coverages: [babelsberg]
      grids: [webmercator_hq]
      levels:
        from: 18
@@ -153,7 +153,7 @@ seeds:
 
  kga_babelsberg_seed_hq:
      caches: [osm_cache_hq]
-     coverages:[kga_babelsberg]
+     coverages: [kga_babelsberg]
      grids: [webmercator_hq]
      levels:
        from: 20
@@ -167,7 +167,6 @@ seeds:
       from: 18
       to: 20
 
-
   gfs_seed_hq:
     caches: [osm_cache_hq]
     coverages: [gfs]
@@ -175,7 +174,6 @@ seeds:
     levels:
       from: 18
       to: 22
-
 
 coverages:
   stadtparkbbox:
