@@ -86,6 +86,8 @@ def expire_tile(x0, y0, z, meta_size):
 
     cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/", "geldautomaten_cashgroup_cache_hq_EPSG3857", "geldautomaten_cashpool_cache_hq_EPSG3857", "geldautomaten_genossenschaftsbanken_cache_hq_EPSG3857", "geldautomaten_sparkassen_cache_hq_EPSG3857", "geldautomaten_weiterebanken_cache_hq_EPSG3857", "lbf_baumnummern_cache_hq_EPSG3857"]
 
+    mvt_cache_verzeichnisse = ["osm/","atm/","touri/","trees/"]
+
     for x in range(x0, x0 + meta_size):
         for y in range(y0, y0 + meta_size):
     
@@ -104,9 +106,14 @@ def expire_tile(x0, y0, z, meta_size):
                 if os.path.exists(dateiname):
                     os.remove(dateiname)
                     # print('{}/{}/{}'.format(z, x, y))
-                    # print('{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1))        
-
-
+                    # print('{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1))
+              
+           for cache_verzeichnis in mvt_cache_verzeichnisse:
+              dateiname = '/var/cache/mvtcache/' + cache_verzeichnis + '{}/{}/{}.png'.format(z, x, y)
+            
+                if os.path.exists(dateiname):
+                    os.remove(dateiname)
+                    
 def expire_meta_tiles(options):
     proc = TileCollector(options.node_cache, options.max_zoom)
     proc.apply_file(options.inputfile)
