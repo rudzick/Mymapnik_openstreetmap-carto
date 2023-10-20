@@ -108,10 +108,10 @@ def expire_tile(x0, y0, z, meta_size):
                     # print('{}/{}/{}'.format(z, x, y))
                     # print('{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1))
               
-           for cache_verzeichnis in mvt_cache_verzeichnisse:
-              dateiname = '/var/cache/mvtcache/' + cache_verzeichnis + '{}/{}/{}.png'.format(z, x, y)
+            for cache_verzeichnis in mvt_cache_verzeichnisse:
+               dateiname = '/var/cache/mvtcache/' + cache_verzeichnis + '{}/{}/{}.png'.format(z, x, y)
             
-                if os.path.exists(dateiname):
+               if os.path.exists(dateiname):
                     os.remove(dateiname)
                     
 def expire_meta_tiles(options):
