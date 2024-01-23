@@ -1303,7 +1303,7 @@ Layer:
     properties:
        minzoom: 16
        maxzoom: 18
-- id: parzellennummern
+ - id: parzellennummern
     class: parzellennummern
     geometry: polygon
     <<: *extents
