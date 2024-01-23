@@ -1288,7 +1288,8 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            COALESCE(SPLIT_PART(ref, '/ ', 2), ref) AS ref_tail
+            ref AS ref_tail
+            -- COALESCE(SPLIT_PART(ref, '/ ', 2), ref) AS ref_tail
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
