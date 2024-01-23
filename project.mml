@@ -56,6 +56,7 @@ Stylesheet:
   - style/golf.mss
   - style/tourism.mss
   - Baumsorten_Erweiterung/parzellennummern.mss
+  - Baumsorten_Erweiterung/parzellennummern_zoom_17.mss
   - Baumsorten_Erweiterung/parzellengrenzen.mss
   - Baumsorten_Erweiterung/baumsorten.mss
   - Baumsorten_Erweiterung/bienenstoecke.mss
@@ -1278,7 +1279,31 @@ Layer:
       cache-features: true
       minzoom: 16
 # extra labels for plot numbers in allotment gardens
-  - id: parzellennummern
+  - id: parzellennummern_zoom_17
+    class: parzellennummern_zoom_17
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way,                                                                                    
+	    SPLIT_PART(ref, '/ ', 2) AS ref_tail
+            FROM planet_osm_polygon                                                                 
+             WHERE ref IS NOT NULL                                                                  
+               AND allotments = 'plot'
+               AND ST_Intersects(way, !bbox!)
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
+             FROM planet_osm_line                                                                   
+              WHERE ref IS NOT NULL                                                                 
+                AND allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
+    properties:
+       minzoom: 16
+       maxzoom: 18
+- id: parzellennummern
     class: parzellennummern
     geometry: polygon
     <<: *extents

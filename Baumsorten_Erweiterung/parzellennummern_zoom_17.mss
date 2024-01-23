@@ -5,7 +5,7 @@
 @allotments: #c9e1bf;   // Lch(87,20,135)
 #parzellennummern {
   [zoom >= 16] {
-    text-name: "[ref]";
+    text-name: "[ref_tail]";
     text-placement: interior;
     text-face-name: @book-fonts;
     text-fill: desaturate(darken(@allotments, 30%), 30%);
