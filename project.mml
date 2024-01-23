@@ -1294,7 +1294,7 @@ Layer:
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
                AND ST_Intersects(way, !bbox!)
-	       ) AS way
+               ) AS way
     properties:
        minzoom: 17
        maxzoom: 17
