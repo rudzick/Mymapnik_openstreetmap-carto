@@ -4,8 +4,16 @@ seeds:
     coverages: [stadtparkbbox]
     grids: [webmercator_hq]
     levels:
-      from: 20
+      from: 18
       to: 21
+
+  johannisberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages: [johannisberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 17
+       to: 22
 
   block_i-iv_seed_hq:
     caches: [osm_cache_hq]
@@ -36,7 +44,7 @@ seeds:
     coverages: [berlin_kl_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 19
 
 # brandenburg_berlin_seed_hq:
@@ -52,7 +60,7 @@ seeds:
     coverages: [lengsdorf_bbox]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 19
 
   schiffgesweg_provinzalstr_ippendorf_seed_hq:
@@ -76,7 +84,7 @@ seeds:
     coverages: [steisslingen_bbox_gr]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 19
 
   linuxhotel_essen_seed_hq:
@@ -84,7 +92,7 @@ seeds:
     coverages: [linuxhotel_essen]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 22
 
   kga_heinersdorf_seed_hq:
@@ -132,23 +140,15 @@ seeds:
     coverages: [frohnau_zentrum]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 20
-
-  johannisberg_seed_hq:
-     caches: [osm_cache_hq]
-     coverages: [johannisberg]
-     grids: [webmercator_hq]
-     levels:
-       from: 20
-       to: 22
 
   babelsberg_seed_hq:
      caches: [osm_cache_hq]
      coverages: [babelsberg]
      grids: [webmercator_hq]
      levels:
-       from: 18
+       from: 17
        to: 19
 
   kga_babelsberg_seed_hq:
@@ -164,7 +164,7 @@ seeds:
     coverages: [hh]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 20
 
   gfs_seed_hq:
@@ -172,7 +172,7 @@ seeds:
     coverages: [gfs]
     grids: [webmercator_hq]
     levels:
-      from: 18
+      from: 17
       to: 22
 
 coverages:
