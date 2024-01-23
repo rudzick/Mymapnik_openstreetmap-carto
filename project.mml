@@ -1286,7 +1286,7 @@ Layer:
     Datasource:
       <<: *osm2pgsql
       table: |-
-       (SELECT
+       SELECT
             way,                                                                                    
             ref,
             COALESCE(SPLIT_PART(ref, '/ ', 2), ref) AS ref_tail
@@ -1294,10 +1294,9 @@ Layer:
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
                AND ST_Intersects(way, !bbox!)
-              ) AS way
     properties:
        minzoom: 17
-       maxzoom: 18
+       maxzoom: 17
   - id: parzellennummern
     class: parzellennummern
     geometry: polygon
@@ -1320,7 +1319,7 @@ Layer:
                 AND ST_Intersects(way, !bbox!)
               ) AS way                                                                              
     properties:
-       minzoom: 19
+       minzoom: 18
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point
