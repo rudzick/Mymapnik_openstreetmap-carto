@@ -1389,7 +1389,7 @@ Layer:
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
           AND st_intersects(p.way, !bbox!)
-        ) AS feature -- 3                                                                      
+        ) AS feature                                                                  
     properties:
        minzoom: 22
   - id: wuchs
