@@ -1426,7 +1426,7 @@ Layer:
             FROM planet_osm_point                     
              WHERE "natural" = 'tree'
              AND st_intersects(way, !bbox!)
-              ) AS feature -- 4                                                                        
+              ) AS feature                                                                
     properties:
        minzoom: 22
  # end extra labels for tee genus, species, subspecies, cultivar,...
