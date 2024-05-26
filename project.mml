@@ -1343,7 +1343,7 @@ Layer:
                     ON LOWER(p.species) = s.species
                   AND s.lang='de_DE'
               WHERE p."natural" = 'tree'
-           ) AS feature -- 1                                         
+           ) AS feature                                         
     properties:
        minzoom: 19
        maxzoom: 21
