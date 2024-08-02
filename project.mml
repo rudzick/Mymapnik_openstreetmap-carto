@@ -1315,7 +1315,7 @@ Layer:
                ) AS way
     properties:
        minzoom: 17
-       maxzoom: 17
+       maxzoom: 19
   - id: parzellennummern
     class: parzellennummern
     geometry: polygon
@@ -1338,7 +1338,7 @@ Layer:
                 AND ST_Intersects(way, !bbox!)
               ) AS way                                                                              
     properties:
-       minzoom: 18
+       minzoom: 20
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point
