@@ -560,27 +560,6 @@ Layer:
         ) AS landuse_overlay
     properties:
       minzoom: 8
-# plot boundaries in allotment gardens
-  - id: parzellengrenzen
-    class: parzellengrenzen
-    geometry: polygon
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-       (SELECT
-            way
-            FROM planet_osm_polygon                                                                 
-             WHERE allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
-            UNION                                                                                   
-            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way
-             FROM planet_osm_line                                                                   
-              WHERE allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
-              ) AS way                                                                              
-    properties:
-       minzoom: 18
   - id: barriers
     geometry: linestring
     <<: *extents
@@ -1296,9 +1275,28 @@ Layer:
     properties:
       cache-features: true
       minzoom: 16
+# plot boundaries in allotment gardens
+  - id: parzellengrenzen
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+       (SELECT
+            way
+            FROM planet_osm_polygon                                                                 
+             WHERE allotments = 'plot'
+               AND ST_Intersects(way, !bbox!)
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way
+             FROM planet_osm_line                                                                   
+              WHERE allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
+    properties:
+       minzoom: 18     
 # extra labels for plot numbers in allotment gardens
   - id: parzellennummern_zoom_17
-    class: parzellennummern_zoom_17
     geometry: polygon
     <<: *extents
     Datasource:
@@ -1306,18 +1304,22 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            ref,
-            COALESCE(SPLIT_PART(ref, '/ ', 2), ref) AS ref_tail
+            COALESCE(NULLIF(SPLIT_PART(ref, '/', 2),''), ref) AS reftail
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
                AND ST_Intersects(way, !bbox!)
-               ) AS way
+            UNION                                                                                   
+            SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, COALESCE(NULLIF(SPLIT_PART(ref, '/', 2),''), ref) AS reftail
+             FROM planet_osm_line                                                                   
+              WHERE ref IS NOT NULL                                                                 
+                AND allotments = 'plot'
+                AND ST_Intersects(way, !bbox!)
+              ) AS way                                                                              
     properties:
        minzoom: 17
        maxzoom: 19
   - id: parzellennummern
-    class: parzellennummern
     geometry: polygon
     <<: *extents
     Datasource:
@@ -1338,7 +1340,7 @@ Layer:
                 AND ST_Intersects(way, !bbox!)
               ) AS way                                                                              
     properties:
-       minzoom: 20
+       minzoom: 19
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point

@@ -3,9 +3,9 @@
 /* @parzellen-color: #555; */
 @parzellen-color: #0E390E;
 @allotments: #c9e1bf;   // Lch(87,20,135)
-#parzellennummern {
+#parzellennummern_zoom_17 {
   [zoom >= 16] {
-    text-name: "[ref_tail]";
+    text-name: "[reftail]";
     text-placement: interior;
     text-face-name: @book-fonts;
     text-fill: desaturate(darken(@allotments, 30%), 30%);
