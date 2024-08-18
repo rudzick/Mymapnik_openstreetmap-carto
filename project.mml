@@ -1363,6 +1363,7 @@ Layer:
                     ON LOWER(p.species) = s.species
                   AND s.lang='de_DE'
               WHERE p."natural" = 'tree'
+                AND p.way && !bbox! 
            ) AS feature                                         
     properties:
        minzoom: 19
@@ -2677,7 +2678,6 @@ Layer:
           FROM planet_osm_point                                                                     
           WHERE "emergency" = 'fire_hydrant'
           AND st_intersects(way, !bbox!)
-
         ) AS hydranten                                                                          
     properties:
       minzoom: 20
