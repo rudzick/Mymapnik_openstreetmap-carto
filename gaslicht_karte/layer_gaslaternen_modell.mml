@@ -38,6 +38,7 @@
           FROM planet_osm_point  
           WHERE "highway" = 'street_lamp'
             AND tags->'lamp_type' = 'gaslight'
+            AND way && !bbox!
         ) AS Gaslaternenmodell                        
     properties:
       minzoom: 18
