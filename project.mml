@@ -1286,12 +1286,12 @@ Layer:
             way
             FROM planet_osm_polygon                                                                 
              WHERE allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
+               AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way
              FROM planet_osm_line                                                                   
               WHERE allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
+                AND way && !bbox!
               ) AS way                                                                              
     properties:
        minzoom: 18     
@@ -1308,13 +1308,13 @@ Layer:
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
+               AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, COALESCE(NULLIF(SPLIT_PART(ref, '/', 2),''), ref) AS reftail
              FROM planet_osm_line                                                                   
               WHERE ref IS NOT NULL                                                                 
                 AND allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
+                AND way && !bbox!
               ) AS way                                                                              
     properties:
        minzoom: 17
@@ -1331,13 +1331,13 @@ Layer:
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
                AND allotments = 'plot'
-               AND ST_Intersects(way, !bbox!)
+               AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
              FROM planet_osm_line                                                                   
               WHERE ref IS NOT NULL                                                                 
                 AND allotments = 'plot'
-                AND ST_Intersects(way, !bbox!)
+                AND way && !bbox!
               ) AS way                                                                              
     properties:
        minzoom: 19
@@ -1387,7 +1387,7 @@ Layer:
              END AS baumname	  
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'tree'
-             AND st_intersects(way, !bbox!)	     
+             AND way && !bbox!	     
               ) AS feature                                                                           
     properties:
        minzoom: 20
@@ -1409,7 +1409,7 @@ Layer:
              ON LOWER(p."species") = s.species
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
-          AND st_intersects(p.way, !bbox!)
+          AND p.way && !bbox!
         ) AS feature                                                                  
     properties:
        minzoom: 22
@@ -1446,7 +1446,7 @@ Layer:
               END AS baumname	      
             FROM planet_osm_point                     
              WHERE "natural" = 'tree'
-             AND st_intersects(way, !bbox!)
+             AND way && !bbox!
               ) AS feature                                                                
     properties:
        minzoom: 22
@@ -2575,7 +2575,7 @@ Layer:
             way, "natural"
           FROM planet_osm_point
           WHERE "natural" = 'shrub'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS shrubs
     properties:
       cache-features: true
@@ -2592,7 +2592,7 @@ Layer:
             COALESCE("species:de","species","genus:de","genus") AS strauchsorte
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
-             AND st_intersects(way, !bbox!)
+             AND way && !bbox!
               ) AS feature                                                                          
     properties:
        minzoom: 21
@@ -2609,7 +2609,7 @@ Layer:
             REPLACE(COALESCE("species:de","species","genus:de","genus"),' ',E'\u00a0') AS strauchsorte
             FROM planet_osm_point
              WHERE "natural" = 'shrub'
-             AND st_intersects(way, !bbox!)
+             AND way && !bbox!
               ) AS feature                                                                          
     properties:
        minzoom: 22
@@ -2627,7 +2627,7 @@ Layer:
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS strauchalter
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
-             AND st_intersects(way, !bbox!)
+             AND way && !bbox!
               ) AS feature                                                                          
     properties:
        minzoom: 22
@@ -2644,7 +2644,7 @@ Layer:
           WHERE ( "landuse" = 'apiary'
             OR "man_made" = 'beehive'
             OR "craft" = 'beekeeper' )
-            AND st_intersects(way, !bbox!)
+            AND way && !bbox!
         ) AS bienenstoecke                                                                          
     properties:
       minzoom: 20
@@ -2677,7 +2677,7 @@ Layer:
             END AS nenndurchmesser
           FROM planet_osm_point                                                                     
           WHERE "emergency" = 'fire_hydrant'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS hydranten                                                                          
     properties:
       minzoom: 20
@@ -2698,7 +2698,7 @@ Layer:
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'water_well'
           AND "emergency" = 'drinking_water'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS strassenbrunnen                                                                          
     properties:
       minzoom: 20
@@ -2722,7 +2722,7 @@ Layer:
               END AS wmo_id
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'monitoring_station'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS wetterstationen                                                                          
     properties:
       minzoom: 20
@@ -2737,7 +2737,7 @@ Layer:
             way, "man_made"
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'street_cabinet'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS strassenschraenke                                                                          
     properties:
       minzoom: 20
@@ -2761,7 +2761,7 @@ Layer:
               END AS fahnenmasthoehe
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'flagpole'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS fahnenmasten                                                                          
     properties:
       minzoom: 20
@@ -2780,7 +2780,7 @@ Layer:
           WHERE (tags->'entrance') IS NOT NULL AND
             (tags->'indoor' = 'no'
             OR (tags->'indoor') IS NULL)
-            AND st_intersects(way, !bbox!))
+            AND way && !bbox!)
         AS entrances_zoom20
     properties:
       minzoom: 20
@@ -2795,7 +2795,7 @@ Layer:
             way, "highway"
           FROM planet_osm_point                                                                     
           WHERE "highway" = 'street_lamp'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS strassenlaterne                                                                          
     properties:
       minzoom: 20
@@ -2810,7 +2810,7 @@ Layer:
             way, "man_made"
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'surveillance'
-          AND st_intersects(way, !bbox!)
+          AND way && !bbox!
         ) AS  ueberwachungskamera
     properties:
       minzoom: 20
@@ -2827,7 +2827,7 @@ Layer:
             COALESCE("name:de","name","description:de","description") AS beschreibung
             FROM planet_osm_point                                                                   
              WHERE "leisure" = 'pitch'
-             AND st_intersects(way, !bbox!)
+             AND way && !bbox!
               ) AS feature                                                                          
     properties:
        minzoom: 18
