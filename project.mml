@@ -1087,6 +1087,7 @@ Layer:
         AS entrances
     properties:
       minzoom: 18
+      maxzoom: 19
   - id: aeroways
     geometry: linestring
     <<: *extents
@@ -1340,7 +1341,7 @@ Layer:
                 AND way && !bbox!
               ) AS way                                                                              
     properties:
-       minzoom: 19
+       minzoom: 20
 # extra labels for tee genus, species, subspecies, cultivar,...
   - id: baumsorten_zoom_21
     geometry: point
