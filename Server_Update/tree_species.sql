@@ -4,7 +4,7 @@ CREATE TABLE tree_species (
   treespecies varchar(100),
   lang    varchar(5),
   treename    varchar(100),
-  primary key(species, lang)
+  primary key(treespecies, lang)
 );
 
 INSERT INTO tree_species VALUES
