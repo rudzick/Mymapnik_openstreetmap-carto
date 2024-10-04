@@ -2640,11 +2640,11 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, "landuse", "man_made", tags->craft
+            way, "landuse", "man_made", tags->'craft'
           FROM planet_osm_point                                                                     
           WHERE ( "landuse" = 'apiary'
             OR "man_made" = 'beehive'
-            OR tags->craft = 'beekeeper' )
+            OR tags->'craft' = 'beekeeper' )
             AND way && !bbox!
         ) AS bienenstoecke                                                                          
     properties:
