@@ -1,7 +1,7 @@
 #bienenstoecke {
   [landuse = 'apiary'][zoom >= 20],
   [man_made = 'beehive'][zoom >= 20],
-  [craft = 'beekeeper'][zoom >= 20] {
+  [handwerk = 'beekeeper'][zoom >= 20] {
      marker-file: url('extra_symbols/beekeeper.svg');
      marker-placement: interior;
      marker-clip: false;
