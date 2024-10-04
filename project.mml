@@ -2657,7 +2657,7 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, tags->emergency,
+            way, tags->emergency AS emergency,
              CASE
               WHEN tags->'fire_hydrant:type' = 'underground' THEN 'Unterflurhydrant '
               WHEN tags->'fire_hydrant:type' = 'pillar' THEN 'Überflurhydrant ' 
