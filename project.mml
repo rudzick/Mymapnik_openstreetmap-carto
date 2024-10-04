@@ -1407,7 +1407,7 @@ Layer:
                        ) AS obstbaumart
            FROM planet_osm_point p
            LEFT JOIN tree_species s
-             ON LOWER(p.tags->species) = s.species
+             ON LOWER(p.tags->species) = s.treespecies
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
           AND p.way && !bbox!
