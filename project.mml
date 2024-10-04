@@ -1352,7 +1352,7 @@ Layer:
            (SELECT p.way,
                           COALESCE( p.tags->'species:de'
                                              , s.treename
-                                             , p.tags->species
+                                             , p."tags->species"
                                              , p.tags->'genus:de'
                                              , p.tags->genus
                                              ) AS obstbaumart,
