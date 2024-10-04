@@ -1352,7 +1352,7 @@ Layer:
            (SELECT p.way,
                           COALESCE( p.tags->'species:de'
                                              , s.treename
-                                             , p."tags->species"
+                                             , p.tags->species
                                              , p.tags->'genus:de'
                                              , p.tags->genus
                                              ) AS obstbaumart,
@@ -1361,7 +1361,7 @@ Layer:
                         END AS baumname	  
                 FROM planet_osm_point p
                 LEFT JOIN tree_species s
-                    ON LOWER(p."tags->species") = s.species
+                    ON LOWER(p.tags->species) = s.treespecies
                   AND s.lang='de_DE'
               WHERE p."natural" = 'tree'
                 AND p.way && !bbox! 
