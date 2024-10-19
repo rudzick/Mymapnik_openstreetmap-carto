@@ -10,6 +10,7 @@ CREATE TABLE tree_species (
 INSERT INTO tree_species VALUES
 ('pyrus communis', 'de_DE', 'Birne'),
 ('malus domestica', 'de_DE', 'Apfel'),
+('sorbus domestica', 'de_DE', 'Speierling'),
 ('prunus domestica', 'de_DE', 'Pflaume'),
 ('prunus avium', 'de_DE', 'Süßkirsche'),
 ('prunus armeniaca', 'de_DE', 'Aprikose'),
