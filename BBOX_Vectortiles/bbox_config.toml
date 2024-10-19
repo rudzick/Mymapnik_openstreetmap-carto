@@ -1,0 +1,73 @@
+[[datasource]]
+name = "postgis_gis"
+[datasource.postgis]
+#dbconn = "postgresql://postgres:mymapnik@localhost/gis"
+url = "postgresql://_renderd:mymapnik@localhost/gis"
+
+[webserver]
+# Web server settings
+# Environment variable prefix: BBOX_WEBSERVER__
+server_addr = "127.0.0.1:6767"  # Default: 127.0.0.1:8080
+# worker_threads = 4  # Default: number of CPU cores#
+cors.allow_all_origins = true
+
+[[tilecache]]
+name = "tilecache"
+[tilecache.files]
+base_dir = "/var/cache/bbox/"
+[[tilestore]]
+name = "mbtilecache"
+[tilestore.mbtiles]
+path = "/var/cache/bbox/tilecache.mbtiles"
+
+[[tileset]]
+name = "obstbaumkarte_vectorlayers"
+#cache = "mbtilecache"
+
+[tileset.postgis]
+datasource = "postgis_gis"
+extent = [-179.97277, -83.05457, 179.99366, 83.23559]
+attribution = "© OpenStreetMap contributors"
+
+[[tileset.postgis.layer]]
+name = "tree"
+geometry_type = "POINT"
+buffer_size = 0
+[[tileset.postgis.layer.query]]
+sql = """SELECT * FROM baeume_view"""
+
+[[tileset.postgis.layer]]
+name = "shrub"
+geometry_type = "POINT"
+buffer_size = 0
+[[tileset.postgis.layer.query]]
+sql = """SELECT * FROM straeucher_view"""
+
+[[tileset.postgis.layer]]
+name = "parzellengrenzen"
+geometry_field = "way"
+geometry_type = "POLYGON"
+buffer_size = 256
+minzoom = 15
+maxzoom = 22
+[[tileset.postgis.layer.query]]
+sql = """SELECT * FROM parzellengrenzen_view WHERE way && !bbox!"""
+
+[[tileset]]
+name = "hh"
+cache = "mbtilecache"
+
+[tileset.postgis]
+datasource = "postgis_gis"
+extent = [-179.97277, -83.05457, 179.99366, 83.23559]
+attribution = "© OpenStreetMap contributors"
+
+[[tileset.postgis.layer]]
+name = "gebaeude"
+geometry_field = "way"
+geometry_type = "POLYGON"
+buffer_size = 256
+minzoom = 14
+maxzoom = 22
+[[tileset.postgis.layer.query]]
+sql = """SELECT * FROM gebaeude_hh_view WHERE way && !bbox!"""
