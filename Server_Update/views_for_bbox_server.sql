@@ -78,12 +78,8 @@ CREATE OR REPLACE VIEW gebaeude_hh_view AS
             planet_osm_polygon hh       
             WHERE hh."name" ILIKE '%Hardthöhe%' AND hh.landuse='military'
             AND gebaeude."building" IS NOT NULL
-            AND ST_Contains (hh.way, gebaeude.way);
+            AND ST_Contains (hh.way, gebaeude.way)
+	    AND gebaeude.way && ST_MakeBox2D(ST_Point(783050.3303630851, 6567689.7848800225),  ST_Point(784933.3440776498, 6569351.304078727))
+            AND hh.way && ST_MakeBox2D(ST_Point(783050.3303630851, 6567689.7848800225),  ST_Point(784933.3440776498, 6569351.304078727)) ;
 	    
 GRANT select ON gebaeude_hh_view TO public;
-
-CREATE OR REPLACE VIEW hh_gebaeude_ref_view AS
- SELECT  lower(regexp_replace(coalesce(gebaeude.tags->'building:ref',gebaeude."name"), '[^[:alnum:]]', '', 'g')) AS hh_gebauede_ref
-            FROM planet_osm_polygon gebaeude;
-	    
-GRANT select ON hh_gebaeude_ref_view TO public;
