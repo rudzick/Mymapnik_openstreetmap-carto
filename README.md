@@ -1,8 +1,8 @@
 # Mymapnik
 
 ## Baumsorten_Erweiterung
-Für große Zoomstufen erweiterter, auf [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) basierender Mapnik-Style zur Anzeige von Baumarten und -sorten sowie weiteren Angaben wie Pflanzjahr und Wuchsform. Weiterhin werden Parzellennummern von Schrebergärten und Bienenstöcke und vieles mehr dargestellt:
-[obstbaumkarte.de](https://obstbaumkarte.de "OSM-Karte mit (Obst-)Bäumen und Kleingartenparzellen") 
+Für große Zoomstufen erweiterter, auf [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) basierender Mapnik-Style zur Anzeige von Baumarten und -sorten sowie weiteren Angaben wie Pflanzjahr und Wuchsform. Weiterhin werden Parzellennummern von Schrebergärten und Bienenstöcke und vieles mehr dargestellt. Ebenso werden Vectortiles genutzt, u.a. um zusätzliche Informationen zu Bäumen anzuzeigen und Kleingartenparzellen hervorzuheben. Die Vectortiles werden mittels des [BBOX-Servers](https://www.bbox.earth/) ausgeliefert. Die Karte ist unter
+[obstbaumkarte.de](https://obstbaumkarte.de "OSM-Karte mit (Obst-)Bäumen und Kleingartenparzellen") zu finden.
 
 * [Hinweise zum Mappen von Bäumen in OSM](https://wiki.openstreetmap.org/wiki/User:Olr/Tagging_von_B%C3%A4umen)
 
