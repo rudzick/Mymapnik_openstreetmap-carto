@@ -1,7 +1,7 @@
 [[datasource]]
 name = "postgis_gis"
 [datasource.postgis]
-#dbconn = "postgresql://postgres:mymapnik@localhost/gis"
+#url = "postgresql://postgres:mymapnik@localhost/gis"
 url = "postgresql://_renderd:mymapnik@localhost/gis"
 
 [webserver]
