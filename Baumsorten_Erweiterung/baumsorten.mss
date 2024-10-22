@@ -139,7 +139,7 @@
     text-placement: interior;
   }
 }
-#trees {
+/*#trees {
  ::canopy {
     [zoom >= 20] {
       marker-width: 15;
@@ -156,4 +156,4 @@
       trunk/marker-width: 3;
       trunk/marker-height: 3;
     }
-}
+} */
