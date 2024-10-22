@@ -54,24 +54,6 @@
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
     text-placement: interior;
-/*    ::canopy {
-      opacity: 0.6;
-      marker-fill: darken(@forest,10%);
-      marker-allow-overlap: true;
-      marker-line-width: 0;
-      marker-ignore-placement: true;
-      marker-width: 60;
-      marker-height: 60;
-   }
-   ::trunk {
-      trunk/opacity: 0.4;
-      trunk/marker-fill: #6b8d5e; // Same opacity and color as forest svg patterns
-      trunk/marker-allow-overlap: true;
-      trunk/marker-line-width: 0;
-      trunk/marker-width: 12;
-      trunk/marker-height: 12;
-      trunk/marker-ignore-placement: true;
-   } */
 }
 
 #taxon {
@@ -157,25 +139,3 @@
     text-placement: interior;
   }
 }
-#trees {
- ::canopy {
-    [zoom >= 22] {
-      marker-width: 60;
-      marker-height: 60;
-    }    
-    [zoom >= 23] {
-      marker-width: 120;
-      marker-height: 120;
-    }
- }
-}
-/* ::trunk {
-    [zoom >= 22] {
-      trunk/marker-width: 12;
-      trunk/marker-height: 12;
-    }
-    [zoom >= 23] {
-      trunk/marker-width: 24;
-      trunk/marker-height: 24;
-    }
-} */
