@@ -28,8 +28,8 @@
       text-size: 8;
     }
     [zoom = 20] {
-      text-dy: 16;
-      text-size: 11;
+      text-dy: 8;
+      text-size: 8;
     }
     [zoom = 21] {
       text-dy: 16;
