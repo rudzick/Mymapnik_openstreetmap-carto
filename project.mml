@@ -1310,16 +1310,16 @@ Layer:
            (SELECT p.way,
                           COALESCE( p.tags->'species:de'
                                              , s.treename
-                                             , p.tags->species
+                                             , p.tags->'species'
                                              , p.tags->'genus:de'
-                                             , p.tags->genus
+                                             , p.tags->'genus'
                                              ) AS obstbaumart,
                          CASE
                             WHEN "name" <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u000a', E'\u201e', COALESCE(tags->'name:de',"name"), E'\u201c')
                         END AS baumname	  
                 FROM planet_osm_point p
                 LEFT JOIN tree_species s
-                    ON LOWER(p.tags->species) = s.treespecies
+                    ON LOWER(p.tags->'species') = s.treespecies
                   AND s.lang='de_DE'
               WHERE p."natural" = 'tree'
                 AND p.way && !bbox! 
@@ -1359,13 +1359,13 @@ Layer:
         (SELECT p.way,
                COALESCE( p.tags->'species:de'
                        , s.treename
-                       , p.tags->species
+                       , p.tags->'species'
                        , p.tags->'genus:de'
-                       , p.tags->genus
+                       , p.tags->'genus'
                        ) AS obstbaumart
            FROM planet_osm_point p
            LEFT JOIN tree_species s
-             ON LOWER(p.tags->species) = s.treespecies
+             ON LOWER(p.tags->'species') = s.treespecies
             AND s.lang='de_DE'
           WHERE p."natural" = 'tree'
           AND p.way && !bbox!
