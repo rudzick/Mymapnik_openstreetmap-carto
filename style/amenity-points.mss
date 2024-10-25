@@ -3120,6 +3120,10 @@
         marker-width: 15;
         marker-height: 15;
       }
+      [zoom >= 21] {
+        marker-width: 30;
+        marker-height: 30;
+      }
     }
   }
   [natural = 'tree']::trunk {
@@ -3135,6 +3139,10 @@
     [zoom >= 19] {
       trunk/marker-width: 3;
       trunk/marker-height: 3;
+    }
+    [zoom >= 21 {
+      trunk/marker-width: 6;
+      trunk/marker-height: 6;
     }
   }
 }
