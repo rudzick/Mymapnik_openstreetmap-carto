@@ -64,8 +64,8 @@
        text-line-spacing: @standard-line-spacing-size;
        text-fill: green;
        text-allow-overlap: true;
-       text-dy: 11;
-       text-size: 8;
+       text-dy: 13;
+       text-size: 7;
     }
     [zoom = 21] { 
        text-name: [obstbaumsorte] + ' ' + [baumname];
