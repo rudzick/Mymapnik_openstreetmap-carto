@@ -3140,7 +3140,7 @@
       trunk/marker-width: 3;
       trunk/marker-height: 3;
     }
-    [zoom >= 21 {
+    [zoom >= 21] {
       trunk/marker-width: 6;
       trunk/marker-height: 6;
     }
