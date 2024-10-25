@@ -67,7 +67,7 @@
        text-dy: 11;
        text-size: 7;
     }
-    [zoom < 22] { 
+    [zoom = 21] { 
        text-name: [obstbaumsorte] + ' ' + [baumname];
        text-size: @standard-font-size;
        text-wrap-width: @standard-wrap-width;
