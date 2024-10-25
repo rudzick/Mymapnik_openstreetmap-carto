@@ -57,6 +57,16 @@
 }
 
 #taxon {
+    [zoom < 21] { 
+       text-name: [obstbaumsorte] + ' ' + [baumname];
+       text-size: @standard-font-size;
+       text-wrap-width: @standard-wrap-width;
+       text-line-spacing: @standard-line-spacing-size;
+       text-fill: green;
+       text-allow-overlap: true;
+       text-dy: 11;
+       text-size: 7;
+    }
     [zoom < 22] { 
        text-name: [obstbaumsorte] + ' ' + [baumname];
        text-size: @standard-font-size;
