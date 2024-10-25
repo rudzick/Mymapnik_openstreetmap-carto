@@ -64,7 +64,7 @@
        text-line-spacing: @standard-line-spacing-size;
        text-fill: green;
        text-allow-overlap: true;
-       text-dy: 15;
+       text-dy: 17;
        text-size: 7;
     }
     [zoom = 21] { 
