@@ -29,7 +29,7 @@
     }
     [zoom = 20] {
       text-dy: 8;
-      text-size: 8;
+      text-size: 10;
     }
     [zoom = 21] {
       text-dy: 16;
@@ -86,10 +86,6 @@
        text-allow-overlap: true;
        text-dy: 26;
        text-size: 14;
-    }
-    [zoom = 20] {
-       text-dy: 27;
-       text-size: 9;
     }
     [zoom = 21] {
        text-dy: 32;
