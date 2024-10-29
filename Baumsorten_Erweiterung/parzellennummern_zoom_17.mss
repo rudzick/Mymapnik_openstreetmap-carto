@@ -20,19 +20,19 @@
     }
     [zoom >= 18] {
       text-halo-radius: @standard-halo-radius * 1.25;
-      text-size: 12;
+      text-size: 9;
       text-wrap-width: 40; // 2.0 em
       text-line-spacing: -1.65; // -0.15 em
       text-margin: 3.3; // 0.3 em
     }
     [zoom >= 19] {
-        text-size: 14;
+        text-size: 10;
         text-wrap-width: 40; // 1.8 em
         text-line-spacing: -1.8; // -0.25 em
         text-margin: 3.6; // 0.3 em
     }
     [zoom >= 20] {
-        text-size: 18;
+        text-size: 12;
         text-wrap-width: 40; // 1.5 em
         text-line-spacing: -2.1; // -0.25 em
         text-margin: 4.0; // 0.3 em
