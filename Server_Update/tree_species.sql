@@ -39,6 +39,7 @@ INSERT INTO tree_species VALUES
 ('ginkgo biloba', 'de_DE', 'Ginkgo'),
 ('platanus x hispanica', 'de_DE', 'Ahornblättrige Platane'),
 ('picea abies', 'de_DE', 'Gemeine Fichte'),
+('picea pungens', 'de_DE', 'Stechfichte'),
 ('quercus robur', 'de_DE', 'Stieleiche'),
 ('magnolia kobus', 'de_DE', 'Kobushi-Magnolie'),
 ('chamaecyparis obtusa', 'de_DE', 'Hinoki-Scheinzypresse'),
