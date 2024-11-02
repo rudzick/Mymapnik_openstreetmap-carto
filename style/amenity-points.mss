@@ -2182,7 +2182,6 @@
   [feature = 'landuse_meadow'],
   [feature = 'natural_grassland'],
   [feature = 'landuse_grass'],
-  [feature = 'landuse_allotments'],
   [feature = 'landuse_farmyard'],
   [feature = 'landuse_farmland'],
   [feature = 'landuse_greenhouse_horticulture'],
@@ -2272,9 +2271,6 @@
       [feature = 'landuse_grass'] {
         text-fill: darken(@grass, 50%);
       }
-      [feature = 'landuse_allotments'] {
-        text-fill: darken(@allotments, 50%);
-      }
       [feature = 'landuse_farmyard'] {
         text-fill: darken(@farmyard, 50%);
       }
@@ -2352,6 +2348,34 @@
       [feature = 'leisure_ice_rink'],
       [feature = 'leisure_pitch'] {
         text-fill: darken(@pitch, 40%);
+      }
+    }
+  }
+
+  [feature = 'landuse_allotments'] {
+    [zoom >= 10][zoom < 20][way_pixels > 2000] {
+      text-name: "[name]";
+      text-size: @landcover-font-size;
+      text-wrap-width: @landcover-wrap-width-size;
+      text-line-spacing: @landcover-line-spacing-size;
+      text-face-name: @landcover-face-name;
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: @standard-halo-fill;
+      text-fill: darken(@allotments, 50%);
+      text-allow-overlap: true;
+      [zoom >= 18] {
+        text-opacity: 0.7;
+	text-halo-opacity: 0.5;
+      }
+      [way_pixels > 12000] {
+        text-size: @landcover-font-size-big;
+        text-wrap-width: @landcover-wrap-width-size-big;
+        text-line-spacing: @landcover-line-spacing-size-big;
+      }
+      [way_pixels > 48000] {
+        text-size: @landcover-font-size-bigger;
+        text-wrap-width: @landcover-wrap-width-size-bigger;
+        text-line-spacing: @landcover-line-spacing-size-bigger;
       }
     }
   }
