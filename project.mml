@@ -2521,6 +2521,7 @@ Layer:
       table: *amenity_low_priority_sql
     properties:
       minzoom: 17
+  # Ab hier wieder Layer fuer Baumsortenerweiterung und anderes...
   - id: strauch
     geometry: polygon
     <<: *extents
