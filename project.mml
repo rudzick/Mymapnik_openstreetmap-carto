@@ -1255,7 +1255,7 @@ Layer:
     properties:
        minzoom: 18     
 # extra labels for plot numbers in allotment gardens
-  - id: parzellennummern_zoom_17
+  - id: parzellennummern_zoom_18
     geometry: polygon
     <<: *extents
     Datasource:
@@ -1276,7 +1276,7 @@ Layer:
                 AND way && !bbox!
               ) AS way                                                                              
     properties:
-       minzoom: 17
+       minzoom: 18
        maxzoom: 19
   - id: parzellennummern
     geometry: polygon

@@ -3,7 +3,7 @@
 /* @parzellen-color: #555; */
 @parzellen-color: #0E390E;
 @allotments: #c9e1bf;   // Lch(87,20,135)
-#parzellennummern_zoom_17 {
+#parzellennummern_zoom_18 {
   [zoom >= 16] {
     text-name: "[reftail]";
     text-placement: interior;
