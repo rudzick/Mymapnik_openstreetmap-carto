@@ -17,6 +17,7 @@ INSERT INTO tree_species VALUES
 ('prunus persica', 'de_DE', 'Pfirsich'),
 ('Prunus persica var. nucipersica', 'de_DE', 'Nektarine'),
 ('prunus cerasus', 'de_DE', 'Sauerkirsche'),
+('prunus cerasifera', 'de_DE', 'Kirschpflaume'),
 ('cydonia oblonga', 'de_DE', 'Quitte'),
 ('mespilus germanica', 'de_DE', 'Mispel'),
 ('juglans regia', 'de_DE', 'Walnuss'),
