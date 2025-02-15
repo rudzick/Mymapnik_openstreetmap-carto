@@ -2644,7 +2644,7 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, tags->emergency AS emergency,
+            way, tags->'emergency' AS emergency,
              CASE
               WHEN tags->'fire_hydrant:type' = 'underground' THEN 'Unterflurhydrant '
               WHEN tags->'fire_hydrant:type' = 'pillar' THEN 'Überflurhydrant ' 
@@ -2664,7 +2664,7 @@ Layer:
              ELSE tags->'fire_hydrant:diameter'
             END AS nenndurchmesser
           FROM planet_osm_point                                                                     
-          WHERE tags->emergency = 'fire_hydrant'
+          WHERE tags->'emergency' = 'fire_hydrant'
           AND way && !bbox!
         ) AS hydranten                                                                          
     properties:
@@ -2677,15 +2677,15 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way, "man_made", tags->emergency,
+            way, "man_made", tags->'emergency',
               tags->'pump:style' AS pumpenstil,
-              tags->pump AS pumpe,      
+              tags->'pump' AS pumpe,      
               CASE
                 WHEN ref <> 'none' THEN ref
               END AS nummer
           FROM planet_osm_point                                                                     
           WHERE "man_made" = 'water_well'
-          AND tags->emergency = 'drinking_water'
+          AND tags->'emergency' = 'drinking_water'
           AND way && !bbox!
         ) AS strassenbrunnen                                                                          
     properties:
@@ -2700,7 +2700,7 @@ Layer:
         (SELECT
             way, "man_made",
               tags->'monitoring:weather' AS wetterstation,
-              tags->operator AS betreiber,      
+              tags->'operator' AS betreiber,      
               "name" AS stationsname,      
               CASE
                 WHEN "ref" <> 'none' THEN "ref"
@@ -2739,7 +2739,7 @@ Layer:
         (SELECT
             way, "man_made",
               "historic" AS historic,
-              tags->operator AS operator,
+              tags->'operator' AS operator,
               tags->'flag:type' AS flagtype,
               tags->'country' AS country,
               "name" AS flagname,	      
