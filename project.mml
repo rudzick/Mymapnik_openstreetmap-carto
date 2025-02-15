@@ -1370,11 +1370,11 @@ Layer:
             way,
              CASE
               WHEN NOT COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar','0') = '0' THEN CONCAT('''',COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar'),'''') 
-              ELSE COALESCE(tags->'taxon:cultivar:de',tags->'taxon:de',tags->'taxon:cultivar',tags->taxon)
+              ELSE COALESCE(tags->'taxon:cultivar:de',tags->'taxon:de',tags->'taxon:cultivar',tags->'taxon')
              END AS obstbaumsorte,
              COALESCE(tags->'taxon:cultivar:de',tags->'taxon:cultivar','0') AS cultivar,
              CASE
-                WHEN (tags->'taxon:cultivar:de' <> 'none' OR  tags->'taxon:de' <> 'none' OR tags->'taxon:cultivar' <> 'none' OR tags->taxon <> 'none') AND ("name" <> 'none' OR tags->'name:de' <> 'none') THEN CONCAT(E'\u000a', E'\u201e', COALESCE(tags->'name:de',"name"),E'\u201c')
+                WHEN (tags->'taxon:cultivar:de' <> 'none' OR  tags->'taxon:de' <> 'none' OR tags->'taxon:cultivar' <> 'none' OR tags->'taxon' <> 'none') AND ("name" <> 'none' OR tags->'name:de' <> 'none') THEN CONCAT(E'\u000a', E'\u201e', COALESCE(tags->'name:de',"name"),E'\u201c')
                 WHEN "name" <> 'none' OR tags->'name:de' <> 'none' THEN CONCAT(E'\u201e', COALESCE(tags->'name:de',"name"),E'\u201c')
              END AS baumname	  
             FROM planet_osm_point                                                                   
