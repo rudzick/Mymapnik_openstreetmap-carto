@@ -1106,7 +1106,7 @@ Layer:
     properties:
       minzoom: 18
       maxzoom: 19
-- id: golf-line
+  - id: golf-line
     geometry: linestring
     <<: *extents
     Datasource:
