@@ -1105,7 +1105,6 @@ Layer:
         AS entrances
     properties:
       minzoom: 18
-      maxzoom: 19
   - id: golf-line
     geometry: linestring
     <<: *extents
