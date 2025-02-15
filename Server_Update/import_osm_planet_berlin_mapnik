@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
-planetfilea=dach-latest.osm.pbf
+planetfilea=germany/berlin-latest.osm.pbf
+#planetfilea=dach-latest.osm.pbf
 #planetfilea=germany-latest.osm.pbf
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
@@ -9,7 +10,8 @@ then
     rm $planetfilea
 fi
 # Aufbau der lokalen Postgis-Datenbank mit osm2psql
-/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --create -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes -s -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua -d gis $planetfilea
+#/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --create -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes -s -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua -d gis $planetfilea
+/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --flat-nodes /home/postgres/download/flat.nodes --slim -C 5000 --style $styledir/openstreetmap-carto-flex.lua -d gis $planetfilea
 # Initialisierung des inkrementellen Datenbankupdates
 /usr/bin/osm2pgsql-replication init -d gis --server 'https://planet.openstreetmap.org/replication/minute'
 # Aufbau der Lookup-Table für deutsche Baumarten

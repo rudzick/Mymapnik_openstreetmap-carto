@@ -64,6 +64,8 @@ local table_columns = {
         'tourism',
         'water',
         'waterway',
+-- additional columns for entrance (for allotment parcels)
+   	'entrance'
         { column = 'tags', type = 'hstore' },
     },
     line = {
@@ -88,6 +90,8 @@ local table_columns = {
         'horse',
         'junction',
         'landuse',
+-- extra column for allotments
+   	'allotments',
         { column = 'layer', type = 'int4' },
         'leisure',
         'lock',
