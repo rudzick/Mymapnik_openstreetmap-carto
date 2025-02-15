@@ -1276,12 +1276,12 @@ Layer:
        (SELECT
             way
             FROM planet_osm_polygon                                                                 
-             WHERE allotments = 'plot'
+             WHERE tags->'allotments' = 'plot'
                AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way
              FROM planet_osm_line                                                                   
-              WHERE allotments = 'plot'
+              WHERE tags->'allotments' = 'plot'
                 AND way && !bbox!
               ) AS way                                                                              
     properties:
@@ -1298,13 +1298,13 @@ Layer:
             COALESCE(NULLIF(SPLIT_PART(ref, '/', 2),''), ref) AS reftail
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
-               AND allotments = 'plot'
+               AND tags->'allotments' = 'plot'
                AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, COALESCE(NULLIF(SPLIT_PART(ref, '/', 2),''), ref) AS reftail
              FROM planet_osm_line                                                                   
               WHERE ref IS NOT NULL                                                                 
-                AND allotments = 'plot'
+                AND tags->'allotments' = 'plot'
                 AND way && !bbox!
               ) AS way                                                                              
     properties:
@@ -1321,13 +1321,13 @@ Layer:
             ref
             FROM planet_osm_polygon                                                                 
              WHERE ref IS NOT NULL                                                                  
-               AND allotments = 'plot'
+               AND tags->'allotments' = 'plot'
                AND way && !bbox!
             UNION                                                                                   
             SELECT ST_MakePolygon(ST_AddPoint(way, ST_StartPoint(way))) AS way, ref
              FROM planet_osm_line                                                                   
               WHERE ref IS NOT NULL                                                                 
-                AND allotments = 'plot'
+                AND tags->'allotments' = 'plot'
                 AND way && !bbox!
               ) AS way                                                                              
     properties:
