@@ -70,7 +70,7 @@ CREATE OR REPLACE VIEW parzellengrenzen_view AS
  SELECT way, lower(regexp_replace(ref, '[^[:alnum:]]', '', 'g')) AS ref,
              tags->'barrier' AS barrier
             FROM planet_osm_polygon        
-            WHERE "allotments" = 'plot';
+            WHERE tags->'allotments' = 'plot';
 	    
 GRANT select ON parzellengrenzen_view TO public;
 
