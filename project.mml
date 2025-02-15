@@ -1413,7 +1413,7 @@ Layer:
       table: |-
        (SELECT
             way,
-            COALESCE(tags->'taxon:de',tags->'taxon:cultivar:de',tags->'taxon:cultivar',tags->taxon,'0') AS obstbaumsorte,
+            COALESCE(tags->'taxon:de',tags->'taxon:cultivar:de',tags->'taxon:cultivar',tags->'taxon','0') AS obstbaumsorte,
             CASE
                WHEN tags->sex <> 'none' THEN CONCAT( REPLACE(REPLACE(tags->sex,'female','weibl.'),'male','männl.'),E'\u000a')
             END AS geschlecht,
