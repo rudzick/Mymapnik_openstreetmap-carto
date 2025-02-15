@@ -1415,7 +1415,7 @@ Layer:
             way,
             COALESCE(tags->'taxon:de',tags->'taxon:cultivar:de',tags->'taxon:cultivar',tags->'taxon','0') AS obstbaumsorte,
             CASE
-               WHEN tags->sex <> 'none' THEN CONCAT( REPLACE(REPLACE(tags->sex,'female','weibl.'),'male','männl.'),E'\u000a')
+               WHEN tags->'sex' <> 'none' THEN CONCAT( REPLACE(REPLACE(tags->'sex','female','weibl.'),'male','männl.'),E'\u000a')
             END AS geschlecht,
             -- REPLACE(tags->'description',' ',E'\u00a0') AS wuchs,
             -- REPLACE(COALESCE(tags->'description',tags->'description:de',tags->'tree:cut:de',tags->'tree:cut'),' ',E'\u00a0') AS wuchs,
@@ -2577,7 +2577,7 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            COALESCE(tags->'species:de',tags->species,tags->'genus:de',tags->genus) AS strauchsorte
+            COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus') AS strauchsorte
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
              AND way && !bbox!
@@ -2594,7 +2594,7 @@ Layer:
       table: |-
        (SELECT
             way,                                                                                    
-            REPLACE(COALESCE(tags->'species:de',tags->species,tags->'genus:de',tags->genus),' ',E'\u00a0') AS strauchsorte
+            REPLACE(COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus'),' ',E'\u00a0') AS strauchsorte
             FROM planet_osm_point
              WHERE "natural" = 'shrub'
              AND way && !bbox!
@@ -2611,7 +2611,7 @@ Layer:
        (SELECT
             way,                                                                                    
             REPLACE(COALESCE(tags->'description',''),' ',E'\u00a0') AS beschreibung,
-            REPLACE(REPLACE(tags->sex,'female','weibl.'),'male','männl.') AS geschlecht,
+            REPLACE(REPLACE(tags->'sex','female','weibl.'),'male','männl.') AS geschlecht,
             REPLACE(REPLACE(REPLACE(tags->'start_date','before','vor'),'after','nach'),' ',E'\u00a0') AS strauchalter
             FROM planet_osm_point                                                                   
              WHERE "natural" = 'shrub'
