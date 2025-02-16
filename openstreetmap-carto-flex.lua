@@ -158,12 +158,12 @@ tables.trees = osm2pgsql.define_node_table('trees', {
     { column = 'geom', type = 'point', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
 
-tables.trees = osm2pgsql.define_node_table('shrubs', {
+tables.shrubs = osm2pgsql.define_node_table('shrubs', {
     { column = 'tags', type = 'jsonb' },
     { column = 'geom', type = 'point', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
 
-tables.trees = osm2pgsql.define_way_table('hedges', {
+tables.hedges = osm2pgsql.define_way_table('hedges', {
     { column = 'tags', type = 'jsonb' },
     { column = 'geom', type = 'linestring', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
