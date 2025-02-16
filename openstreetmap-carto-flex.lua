@@ -661,7 +661,7 @@ local function process_node(object)
         -- be NULL. Id and geometry columns will be filled automatically.
         tables.trees:insert({
             tags = object.tags,
-            geom = object:as_point()
+            geom = object:as_point():transform(3857)
         })
 	end	
 
@@ -671,7 +671,7 @@ local function process_node(object)
         -- be NULL. Id and geometry columns will be filled automatically.
         tables.shrubs:insert({
             tags = object.tags,
-            geom = object:as_point()
+            geom = object:as_point():transform(3857)
         })
 	end
 
@@ -693,7 +693,7 @@ local function process_way(object)
         -- be NULL. Id and geometry columns will be filled automatically.
         tables.hedges:insert({
             tags = object.tags,
-            geom = object:as_linestring()
+            geom = object:as_linestring():transform(3857)
         })
 	end	
 
