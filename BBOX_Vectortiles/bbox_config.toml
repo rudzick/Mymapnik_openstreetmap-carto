@@ -34,7 +34,8 @@ name = "tree"
 geometry_type = "POINT"
 buffer_size = 0
 [[tileset.postgis.layer.query]]
-sql = """SELECT * FROM baeume_view"""
+#sql = """SELECT * FROM baeume_view"""
+sql = """SELECT * FROM trees"""
 
 [[tileset.postgis.layer]]
 name = "shrub"

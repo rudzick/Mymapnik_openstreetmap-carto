@@ -87,3 +87,6 @@ CREATE OR REPLACE VIEW gebaeude_hh_view AS
             AND hh.way && ST_MakeBox2D(ST_Point(783050.3303630851, 6567689.7848800225),  ST_Point(784933.3440776498, 6569351.304078727)) ;
 	    
 GRANT select ON gebaeude_hh_view TO public;
+GRANT select ON trees TO public;
+GRANT select ON shrubs TO public;
+GRANT select ON hedges TO public;
