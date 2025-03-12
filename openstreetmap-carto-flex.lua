@@ -168,6 +168,11 @@ tables.hedges = osm2pgsql.define_way_table('hedges', {
     { column = 'geom', type = 'linestring', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
 
+tables.allotment_plots = osm2pgsql.define_area_table('plots', {
+    { column = 'tags', type = 'jsonb' },
+    { column = 'geom', type = 'polygon', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
+})
+
 -- end extra tables for BBOX server ---------------------------------
 
 -- Contain a hash with all text columns for the point table and all other
@@ -694,6 +699,16 @@ local function process_way(object)
         tables.hedges:insert({
             tags = object.tags,
             geom = object:as_linestring():transform(3857)
+        })
+	end	
+
+   if object.tags.allotments == 'plot' then
+        -- Add a row to the SQL table. The keys in the parameter table
+        -- correspond to the table columns, if one is missing the column will
+        -- be NULL. Id and geometry columns will be filled automatically.
+        tables.allotment_plots:insert({
+            tags = object.tags,
+            geom = object:as_polygon():transform(3857)
         })
 	end	
 
