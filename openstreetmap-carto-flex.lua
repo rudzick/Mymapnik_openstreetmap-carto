@@ -308,6 +308,7 @@ local ignore_keys = {
     'statscan:rbuid',
     -- RUIAN (CZ)
     'ref:ruian:addr',
+    'ref:ruian:building',
     'ref:ruian',
     'building:ruian:type',
     -- DIBAVOD (CZ)
@@ -352,9 +353,14 @@ local ignore_keys = {
 
     -- misc
     'import',
-    'import_uuid',
-    'OBJTYPE',
     'SK53_bulk:load',
+    'addr:TW:dataset',
+    'at_bev:addr_date',
+    'mml:class',
+    'nysgissam:nysaddresspointid',
+    'ref:RS:kucni_broj',
+    'ref:bygningsnr',
+    'ref:minvskaddress',
 }
 
 -- Tags with the following key prefixes will be ignored.
@@ -370,11 +376,6 @@ local ignore_key_prefixes = {
     'canvec:',
     -- Geobase (CA)
     'geobase:',
-    -- kms (DK)
-    'kms:',
-    -- ngbe (ES)
-    -- See also note:es and source:file above
-    'ngbe:',
     -- Friuli Venezia Giulia (IT)
     'it:fvg:',
     -- KSJ2 (JA)
@@ -385,8 +386,6 @@ local ignore_key_prefixes = {
     -- LINZ (NZ)
     'LINZ2OSM:',
     'LINZ:',
-    -- WroclawGIS (PL)
-    'WroclawGIS:',
     -- Naptan (UK)
     'naptan:',
     -- TIGER (US)
@@ -398,6 +397,10 @@ local ignore_key_prefixes = {
     'nhd:',
     -- mvdgis (Montevideo, UY)
     'mvdgis:',
+    -- Land Information New Zealand
+    'ref:linz:',
+    -- Los Angeles County
+    'lacounty:',
 }
 
 -- Big table for z_order and roads status for certain tags.
@@ -425,7 +428,7 @@ local roads_info = {
         secondary_link  = { z = 210, roads = true },
         tertiary_link   = { z = 200, roads = false },
         busway          = { z = 190, roads = false },
-        bus_guideway	= { z = 180, roads = false },       
+        bus_guideway    = { z = 180, roads = false },
         service         = { z = 150, roads = false },
         track           = { z = 110, roads = false },
         path            = { z = 100, roads = false },
