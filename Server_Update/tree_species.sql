@@ -25,6 +25,7 @@ INSERT INTO tree_species VALUES
 ('mespilus germanica', 'de_DE', 'Mispel'),
 ('mespilus germanica', 'de_DE', 'Mispel'),
 ('asimina triloba', 'de_DE', 'Papau'),
+('juglans regia', 'de_DE', 'Walnuss'),
 ('ficus carica', 'de_DE', 'Feige'),
 ('diospyros kaki', 'de_DE', 'Kakibaum'),
 ('prunus dulcis', 'de_DE', 'Mandelbaum'),
