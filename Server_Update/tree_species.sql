@@ -23,7 +23,6 @@ INSERT INTO tree_species VALUES
 ('cornus mas', 'de_DE', 'Kornelkirsche'),
 ('cydonia oblonga', 'de_DE', 'Quitte'),
 ('mespilus germanica', 'de_DE', 'Mispel'),
-('mespilus germanica', 'de_DE', 'Mispel'),
 ('asimina triloba', 'de_DE', 'Papau'),
 ('juglans regia', 'de_DE', 'Walnuss'),
 ('ficus carica', 'de_DE', 'Feige'),
