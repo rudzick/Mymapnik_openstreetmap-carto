@@ -1,6 +1,275 @@
 cleanups:
-  allcaches:
-    caches: [osm_cache_hq, gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
+  stadtparkseed_hq:
+    caches: [osm_cache_hq]
+    coverages: [stadtparkbbox]
     grids: [webmercator_hq]
     levels:
-      from: 14
+      from: 17
+      to: 21
+
+  johannisberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages: [johannisberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 17
+       to: 22
+
+  block_i-iv_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [block_I_bbox,block_II_bbox,block_III_bbox,block_IV_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 22
+      to: 23
+
+  spielplaetze_neukoelln_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [spielplatz_thomasstrasse, spielplatz_karl_marx_platz, spielplatz_buschkrugallee]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  botanischer_garten_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [botanischer_garten_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  berlin_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [berlin_kl_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 19
+
+# brandenburg_berlin_seed_hq:
+#  caches: [osm_cache_hq]
+#   coverages: [brandenburg_berlin_bbox]
+#   grids: [webmercator_hq]
+#   levels:
+#    from: 12
+#    to: 13
+
+  lengsdorf_seed_hq:
+    caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
+    coverages: [lengsdorf_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 19
+
+  schiffgesweg_provinzalstr_ippendorf_seed_hq:
+    caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
+    coverages: [schiffgesweg_bbox,streuobst_provinzialstr_bbox,streuobst_ippendorf_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  steisslingen_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [steisslingen_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  steisslingen_seed_hq_gr:
+    caches: [osm_cache_hq]
+    coverages: [steisslingen_bbox_gr]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 19
+
+  linuxhotel_essen_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [linuxhotel_essen]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 22
+
+  kga_heinersdorf_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [kga_heinersdorf]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  gaslicht_dd_nacht_seed_hq:
+    caches: [gaslaternen_dd_nacht_cache_hq]
+    coverages: [berlin_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 6
+      to: 18
+
+  gaslicht_berlin_seed_hq:
+    caches: [gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq, osm_cache_hq]
+    coverages: [gaslicherhaltungsgebiete_Berlin,gasleuchten_juergen_schramm_str_gatow_bbox]
+    grids: [webmercator_hq]
+    levels:
+      from: 6
+      to: 22
+
+  allcaches_seed_hq:
+    caches: [gaslaternen_dd_cache_hq, gaslaternen_dd_nacht_cache_hq]
+    coverages: [d_a_ch]
+    grids: [webmercator_hq]
+    levels:
+      from: 6
+      to: 11
+
+  steini_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [steini]
+    grids: [webmercator_hq]
+    levels:
+      from: 20
+      to: 22
+
+  frohnau_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [frohnau_zentrum]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 20
+
+  babelsberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages: [babelsberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 17
+       to: 19
+
+  kga_babelsberg_seed_hq:
+     caches: [osm_cache_hq]
+     coverages: [kga_babelsberg]
+     grids: [webmercator_hq]
+     levels:
+       from: 20
+       to: 22
+
+  hh_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [hh]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 20
+
+  gfs_seed_hq:
+    caches: [osm_cache_hq]
+    coverages: [gfs]
+    grids: [webmercator_hq]
+    levels:
+      from: 17
+      to: 22
+      
+coverages:
+  stadtparkbbox:
+    bbox: [1484073.0, 6887255.0, 1484828.0, 6888599.0]
+    srs: 'EPSG:3857'
+  block_I_bbox:
+    bbox: [1484344.0, 6887845.0, 1484484.0, 6888033.0]
+    srs: 'EPSG:3857'
+  block_II_bbox:
+    bbox: [1484468.0, 6887682.0, 1484676.0, 6888093.0]
+    srs: 'EPSG:3857'
+  block_III_bbox:
+    bbox: [1484573.0, 6888100.0, 1484676.0, 6888344.0]
+    srs: 'EPSG:3857'
+  block_IV_bbox:
+    bbox: [1484228.0, 6888089.0, 1484371.0, 6888209.0]
+    srs: 'EPSG:3857'
+  botanischer_garten_bbox:
+    bbox: [1480470.0, 6881871.0, 1481774.0, 6883472.0]
+    srs: 'EPSG:3857'
+  berlin_bbox:
+    bbox: [1446340.0, 6854467.0, 1549459.0, 6928035.0]
+    srs: 'EPSG:3857'
+  berlin_kl_bbox:
+    bbox: [1469423.0, 6877550.0, 1512235.0, 6906174.0]
+    srs: 'EPSG:3857'
+  brandenburg_berlin_bbox:
+    bbox: [1382898.0, 6807841.0, 1570097.0, 7011657.0]
+    srs: 'EPSG:3857'
+  lengsdorf_bbox:
+    bbox: [786537.0, 6567481.0, 787961.0, 6570688.0]
+    srs: 'EPSG:3857'
+  schiffgesweg_bbox:
+    bbox: [787275.0, 6568373.0, 787431.0, 6569600.0]
+    srs: 'EPSG:3857'
+  streuobst_provinzialstr_bbox:
+    bbox: [787124.0, 6568629.0, 787250.0, 6568812.0]
+    srs: 'EPSG:3857'
+  streuobst_ippendorf_bbox:
+    bbox: [787697.0, 6567934.0, 787835.0, 6568170.0]
+    srs: 'EPSG:3857'
+  steisslingen_bbox:
+    bbox: [994131.0, 6072740.0, 994678.0, 6073537.0]
+    srs: 'EPSG:3857'
+  steisslingen_bbox_gr:
+    bbox: [992166.9591, 6072439.3885, 995310.4319, 6074866.2642]
+    srs: 'EPSG:3857'
+  gaslicherhaltungsgebiete_Berlin:
+    datasource: 'Erhaltungsbereiche_Gasbeleuchtung_Berlin.geojson'
+    srs: 'EPSG:4326'
+  gasleuchten_juergen_schramm_str_gatow_bbox:
+    bbox: [1466560.0, 6889191.0, 1467227.0, 6890052.0]
+    srs: 'EPSG:3857'
+  kga_heinersdorf:
+    bbox: [1494703.0, 6902273.0, 1495648.0, 6903375.0]
+    srs: 'EPSG:3857'
+  d_a_ch:
+    bbox: [621386.0, 5753255.0, 1926347.0, 7353126.0]
+    srs: 'EPSG:3857'
+#  schmutzige_tiles:
+#    expire_tiles: '/home/renderaccount/mymapproxy/cache_data/dirty_tiles'
+#  steini:
+#    bbox: [1485860.0, 6893920.0, 1486607.0, 6894609.0]
+#    srs: 'EPSG:3857'
+  steini:
+    datasource: 'steini.geojson'
+    srs: 'EPSG:4326'
+  spielplatz_thomasstrasse:
+    bbox: [13.4377, 52.4735, 13.439, 52.4742]
+    srs: 'EPSG:4326'
+  spielplatz_karl_marx_platz:
+    bbox: [13.4415, 52.474, 13.4442, 52.4754]
+    srs: 'EPSG:4326'
+  spielplatz_buschkrugallee:
+    bbox: [13.4527, 52.4482, 13.4536, 52.4497]
+    srs: 'EPSG:4326'
+  linuxhotel_essen:
+    bbox: [7.1104, 51.4299, 7.113, 51.4314]
+    srs: 'EPSG:4326'
+  frohnau_zentrum:
+    bbox: [13.285, 52.6305, 13.299, 52.6384]
+    srs: 'EPSG:4326'
+  johannisberg:
+    datasource: 'johannisberg.geojson'
+    srs: 'EPSG:4326'
+  babelsberg:
+    datasource: 'babelsberg.geojson'
+    srs: 'EPSG:4326'
+  kga_babelsberg:
+    datasource: 'kga_babelsberg.geojson'
+    srs: 'EPSG:4326'
+  hh:
+    bbox: [7.0337, 50.6952, 7.052, 50.7057]
+    srs: 'EPSG:4326'
+  gfs:
+    bbox: [7.1303, 50.7413, 7.1384, 50.7457]
+    srs: 'EPSG:4326'
+
+ 

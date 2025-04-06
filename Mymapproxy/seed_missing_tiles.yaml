@@ -174,15 +174,6 @@ seeds:
     levels:
       from: 17
       to: 22
-
-cleanups:
-   johannisberg_cleanup_hq:
-     caches: [osm_cache_hq]
-     coverages: [johannisberg]
-     grids: [webmercator_hq]
-     levels:
-       from: 17
-       to: 22
       
 coverages:
   stadtparkbbox:
