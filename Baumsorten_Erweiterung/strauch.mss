@@ -41,7 +41,8 @@
 #strauchsorte_zoom_21 {
     text-name: "[strauchsorte]";
     text-size: @standard-font-size;
-    text-wrap-width: @standard-wrap-width;
+ //   text-wrap-width: @standard-wrap-width; // 30
+    text-wrap-width: 50;
     text-line-spacing: @standard-line-spacing-size;
     text-fill: green;
     text-dy: 7;
@@ -54,7 +55,8 @@
     text-name: "[strauchsorte]";
     text-dy: 8;
     text-size: 12;
-    text-wrap-width: @standard-wrap-width;
+//    text-wrap-width: @standard-wrap-width; // 30
+    text-wrap-width: 50;
     text-wrap-character: '_';
     text-fill: green;
     [zoom >= 23] {
