@@ -2575,12 +2575,20 @@ Layer:
       <<: *osm2pgsql
       table: |-
        (SELECT
-            way,                                                                                    
-            COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus') AS strauchsorte
-            FROM planet_osm_point                                                                   
-             WHERE "natural" = 'shrub'
-             AND way && !bbox!
-              ) AS feature                                                                          
+            p.way,                                                                                    
+            COALESCE(tags->'species:de'
+	             ,s.treename
+	             ,p.tags->'species'
+		     ,p.tags->'genus:de'
+		     ,p.tags->'genus'
+		     ) AS strauchsorte
+           FROM planet_osm_point p
+           LEFT JOIN tree_species s
+             ON LOWER(p.tags->'species') = s.treespecies
+             AND s.lang='de_DE'
+           WHERE "natural" = 'shrub'
+           AND way && !bbox!
+         ) AS feature                                                                          
     properties:
        minzoom: 21
        maxzoom: 21
@@ -2592,12 +2600,20 @@ Layer:
       <<: *osm2pgsql
       table: |-
        (SELECT
-            way,                                                                                    
-            REPLACE(COALESCE(tags->'species:de',tags->'species',tags->'genus:de',tags->'genus'),' ',E'\u00a0') AS strauchsorte
-            FROM planet_osm_point
-             WHERE "natural" = 'shrub'
-             AND way && !bbox!
-              ) AS feature                                                                          
+            p.way,                                                                                    
+            REPLACE(COALESCE(tags->'species:de'
+	          ,s.treename
+	          ,p.tags->'species'
+		  ,p.tags->'genus:de'
+		  ,p.tags->'genus'
+		  ),' ',E'\u00a0') AS strauchsorte
+            FROM planet_osm_point p
+	    LEFT JOIN tree_species s
+              ON LOWER(p.tags->'species') = s.treespecies
+              AND s.lang='de_DE'
+            WHERE "natural" = 'shrub'
+            AND way && !bbox!
+          ) AS feature                                                                          
     properties:
        minzoom: 22
   - id: strauchalter
