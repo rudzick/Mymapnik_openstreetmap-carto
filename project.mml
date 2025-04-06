@@ -2577,11 +2577,11 @@ Layer:
        (SELECT
             p.way,                                                                                    
             COALESCE(tags->'species:de'
-	             ,s.treename
-	             ,p.tags->'species'
-		     ,p.tags->'genus:de'
-		     ,p.tags->'genus'
-		     ) AS strauchsorte
+                     ,s.treename
+                     ,p.tags->'species'
+                     ,p.tags->'genus:de'
+                     ,p.tags->'genus'
+                     ) AS strauchsorte
            FROM planet_osm_point p
            LEFT JOIN tree_species s
              ON LOWER(p.tags->'species') = s.treespecies
@@ -2602,13 +2602,13 @@ Layer:
        (SELECT
             p.way,                                                                                    
             REPLACE(COALESCE(tags->'species:de'
-	          ,s.treename
-	          ,p.tags->'species'
-		  ,p.tags->'genus:de'
-		  ,p.tags->'genus'
-		  ),' ',E'\u00a0') AS strauchsorte
+                  ,s.treename
+                  ,p.tags->'species'
+                  ,p.tags->'genus:de'
+                  ,p.tags->'genus'
+                  ),' ',E'\u00a0') AS strauchsorte
             FROM planet_osm_point p
-	    LEFT JOIN tree_species s
+            LEFT JOIN tree_species s
               ON LOWER(p.tags->'species') = s.treespecies
               AND s.lang='de_DE'
             WHERE "natural" = 'shrub'
