@@ -1248,6 +1248,25 @@ Layer:
       cache-features: true
       minzoom: 8
 # extra labels for plot numbers in allotment gardens (zoom 18-19, higher priorty than trees)
+  - id: trees
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way, "natural"
+          FROM planet_osm_point
+          WHERE "natural" = 'tree'
+        UNION ALL
+        SELECT
+            way, "natural"
+          FROM planet_osm_line
+          WHERE "natural" = 'tree_row'
+        ) AS trees
+    properties:
+      cache-features: true
+      minzoom: 16
   - id: parzellennummern_zoom_18
     geometry: polygon
     <<: *extents
@@ -1271,25 +1290,6 @@ Layer:
     properties:
        minzoom: 18
        maxzoom: 19
-  - id: trees
-    geometry: polygon
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way, "natural"
-          FROM planet_osm_point
-          WHERE "natural" = 'tree'
-        UNION ALL
-        SELECT
-            way, "natural"
-          FROM planet_osm_line
-          WHERE "natural" = 'tree_row'
-        ) AS trees
-    properties:
-      cache-features: true
-      minzoom: 16
 # plot boundaries in allotment gardens
   - id: parzellengrenzen
     geometry: polygon

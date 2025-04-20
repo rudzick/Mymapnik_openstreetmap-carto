@@ -9,7 +9,7 @@
       text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
       text-placement: interior;
-      text-allow-overlap: true;
+      text-allow-overlap: false;
     }
     [zoom > 19] {
       text-name: [obstbaumart];

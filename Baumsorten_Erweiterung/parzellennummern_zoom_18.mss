@@ -26,6 +26,7 @@
       text-margin: 3.3; // 0.3 em
     }
     [zoom >= 19] {
+        text-halo-radius: @standard-halo-radius * 1.25;
         text-size: 13;
         text-wrap-width: 40; // 1.8 em
         text-line-spacing: -2.1; // -0.25 em
