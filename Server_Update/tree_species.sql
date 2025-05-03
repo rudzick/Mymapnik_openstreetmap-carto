@@ -50,6 +50,8 @@ INSERT INTO tree_species VALUES
 ('chamaecyparis obtusa', 'de_DE', 'Hinoki-Scheinzypresse'),
 ('thuja occidentalis', 'de_DE', 'Abendländischer Lebensbaum'),
 ('catalpa bignonioides', 'de_DE', 'Gewöhnlicher Trompetenbaum'),
+('populus nigra', 'de_DE', 'Schwarz-Pappel'),
+('betula pendula', 'de_DE', 'Sand-Birke'),
 ('sambucus nigra', 'de_DE', 'Schwarzer Holunder'),
 ('ribes rubrum', 'de_DE', 'Rote Johannisbeere'),
 ('ribes nigra', 'de_DE', 'Schwarze Johannisbeere')
