@@ -1343,8 +1343,8 @@ Layer:
            (SELECT p.way,
                           COALESCE( p.tags->'species:de'
                                              , s.treename
-                                             , p.tags->'species'
                                              , p.tags->'genus:de'
+                                             , p.tags->'species'
                                              , p.tags->'genus'
                                              ) AS obstbaumart,
                          CASE
@@ -2579,8 +2579,8 @@ Layer:
             p.way,                                                                                    
             COALESCE(p.tags->'species:de'
                      ,s.treename
-                     ,p.tags->'species'
                      ,p.tags->'genus:de'
+                     ,p.tags->'species'
                      ,p.tags->'genus'
                      ) AS strauchsorte
            FROM planet_osm_point p
@@ -2604,8 +2604,8 @@ Layer:
             p.way,                                                                                    
             REPLACE(COALESCE(p.tags->'species:de'
                   ,s.treename
-                  ,p.tags->'species'
                   ,p.tags->'genus:de'
+                  ,p.tags->'species'
                   ,p.tags->'genus'
                   ),' ',E'\u00a0') AS strauchsorte
             FROM planet_osm_point p
