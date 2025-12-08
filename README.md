@@ -88,7 +88,6 @@ maps using Mapnik, many based on this project. Some alternatives are:
 
 # Maintainers
 
-* Andy Allan [@gravitystorm](https://github.com/gravitystorm)
 * Daniel Koć [@kocio-pl](https://github.com/kocio-pl)
 * Christoph Hormann [@imagico](https://github.com/imagico)
 * Lukas Sommer [@sommerluk](https://github.com/sommerluk)
@@ -96,6 +95,7 @@ maps using Mapnik, many based on this project. Some alternatives are:
 
 ## Previous maintainers
 
+* Andy Allan [@gravitystorm](https://github.com/gravitystorm)
 * Paul Norman [@pnorman](https://github.com/pnorman)
 * Michael Glanznig [@nebulon42](https://github.com/nebulon42)
 * Matthijs Melissen [@matthijsmelissen](https://github.com/matthijsmelissen)
