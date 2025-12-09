@@ -3,7 +3,7 @@ set -euo pipefail
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
 # inkrementelles Datenbankupdate mit osm2psql-replication
-/usr/bin/osm2pgsql-replication update -d gis --diff-file /home/postgres/download/changes.osc.gz --post-processing $styledir/Server_Update/run-expiry.sh -- --output flex --slim -C 5000 --style $styledir/openstreetmap-carto-flex.lua
+/usr/bin/osm2pgsql-replication update -d gis --diff-file /home/postgres/download/changes.osc.gz --post-processing $styledir/Server_Update/run-expiry.sh -- --output flex --slim -C 5000 --flat-nodes /home/postgres/download/flat.nodes --style $styledir/openstreetmap-carto-flex.lua
 # Wechsel ins mapproxy-Verzeichnis
 cd $styledir/Mymapproxy
 # Nachrendern der gelöschten Tiles in den seeding-Bereichen
