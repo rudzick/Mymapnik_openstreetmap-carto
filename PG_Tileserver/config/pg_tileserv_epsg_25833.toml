@@ -3,7 +3,7 @@
 
 # Database connection
 # postgresql://username:password@host/dbname
-DbConnection = "postgresql://_renderd:mymapnik@localhost/gis"
+DbConnection = "postgresql://pgtileserv:mymapnik@localhost/gis"
 
 # Close pooled connections after this interval
 # 1d, 1h, 1m, 1s, see https://golang.org/pkg/time/#ParseDuration

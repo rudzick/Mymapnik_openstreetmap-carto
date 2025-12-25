@@ -20,7 +20,7 @@ User=pgtileserv
 Group=pgtileserv
 WorkingDirectory=/home/renderaccount/Mymapnik_openstreetmap-carto/PG_Tileserver/
 
-ExecStart=/home/renderaccount/Mymapnik_openstreetmap-carto/PG_Tileserver/pg_tileserv --config /home/renderaccount/Mymapnik_openstreetmap-carto/PG_Tileserver/config/pg_tileserv.toml
+ExecStart=/usr/local/bin/pg_tileserv --config /home/renderaccount/Mymapnik_openstreetmap-carto/PG_Tileserver/config/pg_tileserv.toml
 Restart=always
 
 [Install]

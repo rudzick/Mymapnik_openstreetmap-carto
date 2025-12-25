@@ -173,12 +173,12 @@ tables.allotment_plots = osm2pgsql.define_area_table('plots', {
     { column = 'geom', type = 'polygon', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
 
-tables.allotment_plot_numbers = osm2pgsql.define_node_table('allotment_plot_numbers', {
+tables.allotment_plot_numbers = osm2pgsql.define_area_table('allotment_plot_numbers', {
     { column = 'tags', type = 'jsonb' },
     { column = 'geom', type = 'point', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
 
-tables.allotment_garden_names = osm2pgsql.define_node_table('allotment_garden_names', {
+tables.allotment_garden_names = osm2pgsql.define_area_table('allotment_garden_names', {
     { column = 'tags', type = 'jsonb' },
     { column = 'geom', type = 'point', not_null = true }, -- will be something like `GEOMETRY(Point, 4326)` in SQL
 })
