@@ -90,3 +90,26 @@ GRANT select ON gebaeude_hh_view TO public;
 GRANT select ON trees TO public;
 GRANT select ON shrubs TO public;
 GRANT select ON hedges TO public;
+
+-- Function for allotment plot boundaries in ESPG 25833
+CREATE OR REPLACE
+    FUNCTION allotment_plots_25833_zxy(z integer, x integer, y integer)
+    RETURNS bytea AS $$
+DECLARE
+  mvt bytea;
+BEGIN
+  SELECT INTO mvt ST_AsMVT(tile, '*', 4096, 'way') FROM (
+    SELECT
+      ST_AsMVTGeom(
+          ST_Transform(ST_CurveToLine(way),25833),
+          ST_TileEnvelope(z, x, y, 'SRID=25833;LINESTRING(366919.0471291578 5793125.017742313, 416682.64044311404 5842888.611056269)'),
+          4096, 64, true) AS way,
+	  lower(regexp_replace(ref, '[^[:alnum:]]', '', 'g')) AS ref,
+	  tags->'barrier' AS barrier
+    FROM planet_osm_polygon
+   WHERE tags->'allotments' = 'plot' AND way && ST_Transform(ST_TileEnvelope(z, x, y,'SRID=25833;LINESTRING(366919.0471291578 5793125.017742313, 416682.64044311404 5842888.611056269)', 0.5),3857)
+  ) as tile WHERE way IS NOT NULL;
+  RETURN mvt;
+END
+$$ LANGUAGE plpgsql IMMUTABLE STRICT PARALLEL SAFE;
+
