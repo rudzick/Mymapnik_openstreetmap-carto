@@ -1,4 +1,27 @@
-## [Unreleased](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.9.0...master)
+## [Unreleased](https://github.com/gravitystorm/openstreetmap-carto/compare/v6.0.0...master)
+
+## [v6.0.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.9.0...v6.0.0) - 2026-03-11
+### Changes
+- Move to flex backend in osm2pgsql (#4978, #5077, #5079)
+- Replace current font download with Python script (#5052)
+- Add natural=peninsula labels (#4778)
+- access=destination markings on additional road types (#5049)
+- Change drawing order for leisure=track and attraction=water_slide (#5046)
+- Make slipway rendering consistent in different layers (#5035)
+- Improve install instructions: package name, commands, links & formatting (#5040)
+- Remove operator label on ATM (#5055)
+- Move bus guideways to road layers (#5057)
+- Add symbol for shop=motorcycle_repair (#5066)
+- Improvements of landuse outlines (#5086)
+- Remove natural earth boundaries for z1-3 (#5123)
+- Show hole ref for golf holes (#5133)
+- Unpaved rendering for turning circles / mini-roundabouts (#5069)
+- Remove low zoom landuse fading (#5148)
+- Render entrance=shop (#5108)
+- Add avalanche_protector to tunnel types (#5166)
+- Stop shop/office catch-all (#5169)
+- Simplify shop/office rendering logic, remove support for values that have gone out of use (#5186)
+- Tidy up leisure polygon labelling (#5179)
 
 ## [v5.9.0](https://github.com/gravitystorm/openstreetmap-carto/compare/v5.8.0...v5.9.0) - 2024-10-17
 ### Changes
