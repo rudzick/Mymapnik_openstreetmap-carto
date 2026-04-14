@@ -1,6 +1,6 @@
 # Installation
 
-This document describes how to manually configure your system for running OpenStreetMap Carto. If you prefer quick, platform independent setup for a development environment, without the need to install and configure tools by hand, follow a Docker installation guide in [DOCKER.md](DOCKER.md).
+This document describes how to manually configure your system for running OpenStreetMap Carto. If you prefer a quick, platform independent setup for a development environment, without the need to install and configure tools by hand, follow the Docker installation guide in [DOCKER.md](DOCKER.md).
 
 ## OpenStreetMap data
 You need OpenStreetMap data loaded into a PostGIS database (see below for [dependencies](#dependencies)). These stylesheets expect a database generated with osm2pgsql using the flex backend.
@@ -48,11 +48,19 @@ scripts/indexes.py -0 | xargs -0 -P0 -I{} psql -d gis -c "{}"
 ```
 
 ### Database functions
-Some functions need to be loaded into the database for current versions. These can be added / re-loaded at any point using:
+Some functions need to be loaded into the database for current versions (5.9.0 onwards). These can be added / re-loaded at any point using:
 
 ```sh
 psql -d gis -f functions.sql
 ```
+
+### Additional database tables
+Current versions (6.0.0 onwards) involve a database table of white-listed key/tag values which are updated with each release. This list be added / updated at any point using:
+
+```sh
+psql -d gis -f common-values.sql
+```
+Failure to create this table will result in errors such as `relation "carto_pois" does not exist"`.
 
 ## Scripted download
 Some features are rendered using preprocessed shapefiles.
@@ -121,7 +129,14 @@ Some colours, SVGs and other files are generated with helper scripts. Not all us
 
 CartoCSS and Mapnik are required for deployment.
 
-* [CartoCSS](https://github.com/mapbox/carto) >= `1.2.0` *(we're using YAML)*
+* [CartoCSS](https://github.com/cartocss/carto) >= `1.2.0` *(we're using YAML)*
 * [Mapnik](https://github.com/mapnik/mapnik/wiki/Mapnik-Installation) >= `3.0.22`
 
 With CartoCSS, these sources are compiled into a Mapnik compatible XML file. When running CartoCSS, specify the Mapnik API version you are using (at least 3.0.22: `carto -a "3.0.22"`).
+
+### Maintenance
+
+The compiled sylesheet (`project.xml`) associated with each release is fixed. The white-list of allowed shop / office values, however, can be updated between releases using current usage data from `taginfo` by:
+1. Regenerating `common-values.sql` using `scripts/get-common-values.py > common-values.sql` 
+2. Re-uploading the `carto_pois` database table using `psql -d gis -f common-values.sql`
+3. Flushing any tiles cached for zoom levels 17+.

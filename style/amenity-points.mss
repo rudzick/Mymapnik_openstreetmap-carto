@@ -997,11 +997,8 @@
       marker-file: url('symbols/shop/fabric.svg');
     }
 
-    [shop = 'fishmonger'],
-    [shop = 'seafood'] {
-      [zoom >= 18] {
-        marker-file: url('symbols/shop/seafood.svg');
-      }
+    [shop = 'seafood'][zoom >= 18] {
+      marker-file: url('symbols/shop/seafood.svg');
     }
 
     [shop = 'florist'][zoom >= 18] {
@@ -1060,8 +1057,7 @@
     }
 
     [shop = 'photo'],
-    [shop = 'photo_studio'],
-    [shop = 'photography'] {
+    [shop = 'photo_studio'] {
       [zoom >= 18] {
         marker-file: url('symbols/shop/photo.svg');
       }
@@ -1231,7 +1227,7 @@
     marker-clip: false;
   }
 
-  [feature = 'leisure_water_park'][zoom >= 17],
+  [feature = 'leisure_water_park'][zoom >= 16],
   [feature = 'leisure_sports_centre'][sport = 'swimming'][zoom >= 17],
   [feature = 'leisure_swimming_area'][zoom >= 17] {
     marker-file: url('symbols/leisure/water_park.svg');
@@ -1253,6 +1249,9 @@
     marker-file: url('symbols/shop/pet.svg');
     marker-fill: @leisure-green;
     marker-clip: false;
+    [int_access = 'restricted'] {
+      marker-opacity: @private-opacity;
+    }
   }
 
   [feature = 'leisure_playground'][zoom >= 17] {
@@ -2017,21 +2016,18 @@
     text-dy: 13;
   }
 
-  [feature = 'leisure_water_park'],
-  [feature = 'leisure_sports_centre'][sport = 'swimming'],
-  [feature = 'leisure_swimming_area'] {
-    [zoom >= 14][way_pixels > 3000],
-    [zoom >= 17] {
-      text-name: "[name]";
-      text-size: @standard-font-size;
-      text-wrap-width: @standard-wrap-width;
-      text-line-spacing: @standard-line-spacing-size;
-      text-fill: @leisure-green;
-      text-dy: 11;
-      text-face-name: @standard-font;
-      text-halo-radius: @standard-halo-radius;
-      text-halo-fill: @standard-halo-fill;
-    }
+  [feature = 'leisure_water_park'][zoom >= 16],
+  [feature = 'leisure_sports_centre'][sport = 'swimming'][zoom >= 17],
+  [feature = 'leisure_swimming_area'][zoom >= 17] {
+    text-name: "[name]";
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: @leisure-green;
+    text-dy: 11;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
   }
 
   [feature = 'leisure_swimming_pool'][is_building = 'no'] {
@@ -2062,7 +2058,6 @@
   [feature = 'leisure_dog_park'],
   [feature = 'leisure_fitness_centre'],
   [feature = 'leisure_fitness_station'] {
-    [zoom >= 14][way_pixels > 3000],
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @standard-font-size;
@@ -2071,10 +2066,13 @@
       text-dy: 13;
       text-fill: @leisure-green;
       text-face-name: @standard-font;
-      text-halo-radius: @standard-halo-radius;
       text-halo-fill: @standard-halo-fill;
+      [feature = 'leisure_dog_park'] { 
+        text-halo-radius: @standard-halo-radius * 1.5; /* Extra halo needed to stand out from paw pattern. */
+      }
       [int_access = 'restricted'] {
         text-fill: darken(@park, 50%);
+        text-halo-radius: 0;
       }
     }
   }
@@ -2214,12 +2212,9 @@
   [feature = 'natural_beach'],
   [feature = 'natural_shoal'],
   [feature = 'natural_reef'],
-  [feature = 'leisure_fitness_centre'],
-  [feature = 'leisure_fitness_station'],
-  [feature = 'leisure_sports_centre'],
+  [feature = 'leisure_sports_centre'][sport != 'swimming'],
   [feature = 'leisure_stadium'],
   [feature = 'leisure_track'],
-  [feature = 'leisure_dog_park'],
   [feature = 'leisure_ice_rink'],
   [feature = 'leisure_pitch'] {
     [zoom >= 10][way_pixels > 3000][is_building = 'no'],
@@ -2333,19 +2328,6 @@
       [feature = 'leisure_sports_centre'],
       [feature = 'leisure_stadium'] {
         text-fill: darken(@stadium, 70%);
-      }
-      [feature = 'leisure_fitness_centre'],
-      [feature = 'leisure_fitness_station'] {
-        text-fill: @leisure-green;
-        [int_access = 'restricted'] {
-          text-opacity: @private-opacity;
-          text-halo-radius: 0;
-        }
-      }
-      [feature = 'leisure_dog_park'] {
-        text-fill: @leisure-green;
-        text-halo-radius: @standard-halo-radius * 1.5; /* Extra halo needed to stand out from paw pattern. */
-        text-halo-fill: @standard-halo-fill;
       }
       [feature = 'leisure_track'] {
         text-fill: darken(@track, 40%);
@@ -2634,6 +2616,7 @@
       text-wrap-width: @standard-wrap-width;
       text-line-spacing: @standard-line-spacing-size;
       text-dy: 12;
+      [shop = 'other'] { text-dy: 8; }
       text-fill: @shop-text;
       text-face-name: @standard-font;
       text-halo-radius: @standard-halo-radius;
@@ -2646,57 +2629,6 @@
 
   [feature = 'office'] {
     [zoom >= 18] {
-      [office = 'accountant'],
-      [office = 'adoption_agency'],
-      [office = 'advertising_agency'],
-      [office = 'architect'],
-      [office = 'association'],
-      [office = 'charity'],
-      [office = 'company'],
-      [office = 'educational_institution'],
-      [office = 'diplomatic'],
-      [office = 'employment_agency'],
-      [office = 'energy_supplier'],
-      [office = 'estate_agent'],
-      [office = 'financial'],
-      [office = 'forestry'],
-      [office = 'foundation'],
-      [office = 'government'],
-      [office = 'guide'],
-      [office = 'insurance'],
-      [office = 'it'],
-      [office = 'lawyer'],
-      [office = 'logistics'],
-      [office = 'moving_company'],
-      [office = 'newspaper'],
-      [office = 'ngo'],
-      [office = 'notary'],
-      [office = 'political_party'],
-      [office = 'private_investigator'],
-      [office = 'property_management'],
-      [office = 'quango'],
-      [office = 'religion'],
-      [office = 'research'],
-      [office = 'surveyor'],
-      [office = 'tax'],
-      [office = 'tax_advisor'],
-      [office = 'telecommunication'],
-      [office = 'travel_agent'],
-      [office = 'water_utility'] {
-        text-name: "[name]";
-        text-size: @standard-font-size;
-        text-wrap-width: @standard-wrap-width;
-        text-line-spacing: @standard-line-spacing-size;
-        text-dy: 8;
-        text-fill: @office;
-        text-face-name: @standard-font;
-        text-halo-radius: @standard-halo-radius;
-        text-halo-fill: rgba(255, 255, 255, 0.6);
-      }
-    }
-
-    // all other offices
-    [zoom >= 19] {
       text-name: "[name]";
       text-size: @standard-font-size;
       text-wrap-width: @standard-wrap-width;
