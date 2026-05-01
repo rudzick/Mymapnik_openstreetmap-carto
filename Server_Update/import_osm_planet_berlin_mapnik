@@ -13,7 +13,9 @@ fi
 #/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --create -G --hstore-all --flat-nodes /home/postgres/download/flat.nodes -s -C 5000 --style $styledir/Server_Update/openstreetmap-carto_with_allotments.style --tag-transform-script $styledir/openstreetmap-carto.lua -d gis $planetfilea
 /usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --slim -C 6000 --style $styledir/openstreetmap-carto-flex.lua -d gis $planetfilea
 # Initialisierung des inkrementellen Datenbankupdates
-/usr/bin/osm2pgsql-replication init -d gis --server 'https://planet.openstreetmap.org/replication/minute'
+/usr/bin/osm2pgsql-replication init -d gis --server 'https://planet.openstreetmap.org/replication/minute'ate
+# Optimiere Datenbank
+$styledir/Server_Update/get-comon-values.sh
 # Aufbau der Lookup-Table für deutsche Baumarten
 $styledir/Server_Update/create_lookup_table_for_tree_species.sh
 # views fuer BBOX-Server
