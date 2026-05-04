@@ -14,6 +14,8 @@ INSERT INTO tree_species VALUES
 ('sorbus torminalis', 'de_DE', 'Elsbeere'),
 ('sorbus aria', 'de_DE', 'Mehlbeere'),
 ('prunus domestica', 'de_DE', 'Pflaume'),
+('prunus domestica subsp. pomariorum', 'de_DE', 'Spilling'),
+('prunus domestica subsp. syriaca', 'de_DE', 'Mirabelle'),
 ('prunus avium', 'de_DE', 'Süßkirsche'),
 ('prunus armeniaca', 'de_DE', 'Aprikose'),
 ('prunus persica', 'de_DE', 'Pfirsich'),
