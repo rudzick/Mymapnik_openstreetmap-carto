@@ -18,5 +18,7 @@ else
 	echo "Wiederholungen mapproxy-seed: $zaehl"
 	sleep 1
     done
-fi    
+fi
+# update themepark database
+#/home/renderaccount/Myosm2pgsql-themepark/Server_Update/update_osm_planet_dach_mapnik
 
