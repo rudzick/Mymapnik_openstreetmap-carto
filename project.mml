@@ -194,10 +194,9 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            *,
-            'no' AS bridge
+            *
           FROM
-          (SELECT -- This subselect allows sorting on the int_tunnel column
+          (SELECT -- This subselect allows sorting / filtering on the int_bridge_tunnel column
               way,
               waterway,
               CASE WHEN tags->'intermittent' IN ('yes')
@@ -205,15 +204,16 @@ Layer:
                 THEN 'yes' ELSE 'no' END AS int_intermittent,
               CASE WHEN tunnel IN ('yes', 'culvert') 
                 OR waterway = 'canal' AND tunnel = 'flooded'
-                THEN 'yes' ELSE 'no' END AS int_tunnel,
+                THEN 'tunnel' ELSE 'no' END AS int_bridge_tunnel,
               COALESCE(layer,0) AS layernotnull
             FROM planet_osm_line
-            WHERE waterway IN ('river', 'canal', 'stream', 'drain', 'ditch')
+            WHERE waterway IN ('river', 'canal', 'stream', 'drain', 'ditch', 'fish_pass')
               AND (bridge IS NULL OR bridge NOT IN ('yes', 'aqueduct'))
           ) _
+          WHERE (waterway != 'fish_pass') OR (int_bridge_tunnel = 'tunnel') -- only render fish_pass in tunnels with this select
           ORDER BY
             layernotnull,
-            CASE WHEN int_tunnel = 'yes' THEN 1 ELSE 0 END  -- render tunnels after normal waterways (bridges are in later layer)
+            CASE WHEN int_bridge_tunnel = 'tunnel' THEN 1 ELSE 0 END  -- render tunnels after normal waterways (bridges are in later layer)
         ) AS water_lines
     properties:
       minzoom: 12
@@ -593,7 +593,7 @@ Layer:
               WHERE barrier IN ('chain', 'city_wall', 'ditch', 'fence', 'guard_rail',
                   'handrail', 'hedge', 'retaining_wall', 'wall', 'jersey_barrier')
               OR historic = 'citywalls'
-              AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'stream', 'drain', 'ditch'))
+              AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'stream', 'drain', 'ditch', 'fish_pass'))
           ) AS features
         ) AS line_barriers
     properties:
@@ -995,17 +995,20 @@ Layer:
             CASE WHEN tags->'intermittent' IN ('yes')
               OR tags->'seasonal' IN ('yes', 'spring', 'summer', 'autumn', 'winter', 'wet_season', 'dry_season')
               THEN 'yes' ELSE 'no' END AS int_intermittent,
-            CASE WHEN tunnel IN ('yes', 'culvert') 
-              OR waterway = 'canal' AND tunnel = 'flooded'
-              THEN 'yes' ELSE 'no' END AS int_tunnel,
-            'yes' AS bridge
+            'bridge' AS int_bridge_tunnel,
+            COALESCE(layer,0) AS layernotnull
           FROM planet_osm_line
-          WHERE waterway IN ('river', 'canal', 'stream', 'drain', 'ditch')
-            AND bridge IN ('yes', 'aqueduct')
-          ORDER BY COALESCE(layer,0)
+          WHERE waterway IN ('river', 'canal', 'stream', 'drain', 'ditch', 'fish_pass')
+            AND (bridge IN ('yes', 'aqueduct') OR (waterway = 'fish_pass'))
+            AND (tunnel IS NULL OR tunnel NOT IN ('yes', 'culvert', 'flooded'))
+          ORDER BY
+            layernotnull,
+            osm_id
         ) AS waterway_bridges
     properties:
       minzoom: 12
+      cache-features: true
+      group-by: layernotnull
   - id: waterslide
     geometry: linestring
     <<: *extents
@@ -2286,7 +2289,7 @@ Layer:
               OR waterway = 'canal' AND tunnel = 'flooded'
               THEN 'yes' ELSE 'no' END AS int_tunnel
           FROM planet_osm_line
-          WHERE (waterway IN ('river', 'canal', 'stream', 'drain', 'ditch')
+          WHERE (waterway IN ('river', 'canal', 'stream', 'drain', 'ditch', 'fish_pass') -- no render for fish_pass but using waterway index for efficiency
                  OR "natural" IN ('bay', 'strait'))
             AND (tunnel IS NULL OR tunnel != 'culvert')
             AND name IS NOT NULL
