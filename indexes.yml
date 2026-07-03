@@ -8,13 +8,13 @@ point:
     where: place IS NOT NULL AND name IS NOT NULL
 line:
   label:
-    where: name IS NOT NULL OR ref IS NOT NULL
+    where: name IS NOT NULL OR (tags @> 'golf=>hole'::hstore AND ref IS NOT NULL)
   ferry:
     where: route = 'ferry' AND osm_id > 0
   river:
     where: waterway = 'river'
   waterway:
-    where: waterway IN ('river', 'canal', 'stream', 'drain', 'ditch')
+    where: waterway IN ('river', 'canal', 'stream', 'drain', 'ditch', 'fish_pass')
 polygon:
   # The polygon table is by far the largest, and generally the slowest
   name:
@@ -31,7 +31,7 @@ polygon:
   military:
     where: (landuse = 'military' OR military = 'danger_area') AND building IS NULL
   water:
-    where: waterway IN ('dock', 'riverbank', 'canal') OR landuse IN ('reservoir', 'basin') OR "natural" IN ('water', 'glacier')
+    where: waterway IN ('dock', 'riverbank') OR landuse IN ('reservoir', 'basin') OR "natural" IN ('water', 'glacier')
   way_area_z6:
     where: way_area > 5980000
   way_area_z10:
@@ -40,8 +40,8 @@ roads:
   # The roads table only has a subset of data, so it's just got some low-zoom
   # indexes and some fairly selective ones for high zoom
   admin_low:
-    where: boundary = 'administrative' AND admin_level IN ('0', '1', '2', '3', '4')
+    where: boundary = 'administrative' AND admin_level IN ('0', '1', '2', '3', '4') AND osm_id < 0
   admin:
-    where: boundary = 'administrative'
+    where: boundary = 'administrative' AND osm_id < 0
   roads_ref:
     where: highway IS NOT NULL AND ref IS NOT NULL
