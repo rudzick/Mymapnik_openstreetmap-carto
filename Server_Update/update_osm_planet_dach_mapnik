@@ -20,5 +20,5 @@ else
     done
 fi
 # update themepark database
-#/home/renderaccount/Myosm2pgsql-themepark/Server_Update/update_osm_planet_dach_mapnik
+/home/renderaccount/Myosm2pgsql-themepark/Server_Update/update_osm_planet_dach_mapnik
 
