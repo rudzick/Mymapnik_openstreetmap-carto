@@ -26,7 +26,16 @@ local SCHEMA = 'public'
 local themepark = ...
 
 -- ---------------------------------------------------------------------------
+-- LOCATOR FOR D-A-CH
+-- This file shows how to use a locator with a bounding box to import only
+-- the data for a region. In this case only highways in Iceland are imported
+-- even if you run this on the full planet file.
 
+local dach = osm2pgsql.define_locator({ name = 'dach' })
+
+dach:add_bbox('DACH', 5.756804, 45.736894, 17.314118, 55.153864)
+
+-- ---------------------------------------------------------------------------
 -- A list of columns per table in the order they will appear in the database
 -- tables. Columns can either be
 -- * a string ('highway') in which case they will be added as 'text' column or
@@ -667,7 +676,8 @@ local function process_node(object)
     end
 
     attrs.way = object:as_point()
-    insert_row('point', attrs)
+    if(dach:first_intersecting(attr.way))
+       insert_row('point', attrs)
     
 -- fill extra columns (nodes) defined for BBOX server above ---------------------
 
@@ -700,6 +710,12 @@ local function process_way(object)
     if attrs == nil then
         return
     end
+
+    local geom = object:as_linestring()
+    local region = dach:first_intersecting(geom)
+    
+    if not region then
+       return
 
 -- fill extra columns (ways) defined for BBOX server above ---------------------
 
@@ -764,6 +780,11 @@ local function process_relation(object)
     if attrs == nil then
         return
     end
+    
+    local dachgeom = object:as_multilinestring()
+    local region = dach:first_intersecting(dachgeom)
+    if not region then
+       return
 
     local in_roads
     attrs.z_order, in_roads = calculate_z_order(object.tags)
@@ -792,3 +813,4 @@ else
     osm2pgsql.process_way = process_way
     osm2pgsql.process_relation = process_relation
 end
+
