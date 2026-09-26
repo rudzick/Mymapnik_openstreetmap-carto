@@ -676,8 +676,9 @@ local function process_node(object)
     end
 
     attrs.way = object:as_point()
-    if(dach:first_intersecting(attr.way))
+    if dach:first_intersecting(attrs.way) then
        insert_row('point', attrs)
+    end
     
 -- fill extra columns (nodes) defined for BBOX server above ---------------------
 
@@ -716,6 +717,7 @@ local function process_way(object)
     
     if not region then
        return
+    end
 
 -- fill extra columns (ways) defined for BBOX server above ---------------------
 
@@ -785,7 +787,8 @@ local function process_relation(object)
     local region = dach:first_intersecting(dachgeom)
     if not region then
        return
-
+    end
+       
     local in_roads
     attrs.z_order, in_roads = calculate_z_order(object.tags)
 
