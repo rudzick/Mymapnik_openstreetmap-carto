@@ -56,7 +56,7 @@ cleanups:
 #    to: 13
 
   lengsdorf_seed_hq:
-    caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
+    caches: [osm_cache_hq]
     coverages: [lengsdorf_bbox]
     grids: [webmercator_hq]
     levels:
@@ -64,7 +64,7 @@ cleanups:
       to: 19
 
   schiffgesweg_provinzalstr_ippendorf_seed_hq:
-    caches: [osm_cache_hq,lbf_baumnummern_cache_hq]
+    caches: [osm_cache_hq]
     coverages: [schiffgesweg_bbox,streuobst_provinzialstr_bbox,streuobst_ippendorf_bbox]
     grids: [webmercator_hq]
     levels:
