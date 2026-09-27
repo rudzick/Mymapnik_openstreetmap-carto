@@ -62,24 +62,6 @@ layers:
   - name: gaslaternen_dd_nacht_hq
     title: Gaslaternen Düsseldorf HQ Nacht
     sources: [gaslaternen_dd_nacht_cache_hq]
-  - name: geldautomaten_cashgroup_hq
-    title: Geldautomaten Cashgroup HQ
-    sources: [geldautomaten_cashgroup_cache_hq]
-  - name: geldautomaten_genossenschaftsbanken_hq
-    title: Geldautomaten Genossenschaftsbanken HQ
-    sources: [geldautomaten_genossenschaftsbanken_cache_hq]
-  - name: geldautomaten_cashpool_hq
-    title: Geldautomaten CashPool HQ
-    sources: [geldautomaten_cashpool_cache_hq]
-  - name: geldautomaten_sparkassen_hq
-    title: Geldautomaten Sparkassen HQ
-    sources: [geldautomaten_sparkassen_cache_hq]
-  - name: geldautomaten_weiterebanken_hq
-    title: Geldautomaten weitere Banken HQ
-    sources: [geldautomaten_weiterebanken_cache_hq]
-  - name: lbf_baumnummern_hq
-    title: Baumnummern Lengsdorfer Bachfreunde HQ
-    sources: [lbf_baumnummern_cache_hq]
   - name: osm_25833_hq
     title: OSM in EPSG 25833
     sources: [osm_25833_cache_hq]
@@ -104,24 +86,6 @@ caches:
     grids: [webmercator_hq]
     sources: [gaslaternen_dd_nacht_hq]
 #    disable_storage: true
-  geldautomaten_cashgroup_cache_hq:
-    grids: [webmercator_hq]
-    sources: [geldautomaten_cashgroup_hq]
-  geldautomaten_genossenschaftsbanken_cache_hq:
-    grids: [webmercator_hq]
-    sources: [geldautomaten_genossenschaftsbanken_hq]
-  geldautomaten_cashpool_cache_hq:
-    grids: [webmercator_hq]
-    sources: [geldautomaten_cashpool_hq]
-  geldautomaten_sparkassen_cache_hq:
-    grids: [webmercator_hq]
-    sources: [geldautomaten_sparkassen_hq]
-  geldautomaten_weiterebanken_cache_hq:
-    grids: [webmercator_hq]
-    sources: [geldautomaten_weiterebanken_hq]
-  lbf_baumnummern_cache_hq:
-    grids: [webmercator_hq]
-    sources: [lbf_baumnummern_hq]
   osm_25833_cache_hq:
     grids: [epsg_25833_hq]
     sources: [osm_cache_hq]
@@ -144,41 +108,6 @@ sources:
     type: mapnik
     mapfile: /home/renderaccount/Mymapnik_openstreetmap-carto/gaslicht_karte/style_gaslaternen_nacht.xml
 #    mapfile: /home/renderaccount/src/openstreetmap-carto/gaslicht_karte/style_gaslaternen_nacht.xml
-    scale_factor: 2
-    transparent: true
-  geldautomaten_cashgroup_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_cashgroup.xml
-    scale_factor: 2
-    transparent: true
-  geldautomaten_genossenschaftsbanken_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_genossenschaftsbanken.xml
-    scale_factor: 2
-    transparent: true
-  geldautomaten_cashpool_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_cashpool.xml
-    scale_factor: 2
-    transparent: true
-  geldautomaten_sparkassen_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_sparkassen.xml
-    scale_factor: 2
-    transparent: true
-  geldautomaten_weiterebanken_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_geldautomaten_weiterebanken.xml
-    scale_factor: 2
-    transparent: true
-  lbf_baumnummern_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_Baumnummern_Z17_Z18_Z19_Z20.xml
-    scale_factor: 2
-    transparent: true
-  impfzentren_hq:
-    type: mapnik
-    mapfile: /home/renderaccount/src/openstreetmap-carto/style_covid19.xml
     scale_factor: 2
     transparent: true
 

@@ -33,7 +33,7 @@ def main():
 
 def expire_tile(tile_zxy):
 
-    cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/", "geldautomaten_cashgroup_cache_hq_EPSG3857", "geldautomaten_cashpool_cache_hq_EPSG3857", "geldautomaten_genossenschaftsbanken_cache_hq_EPSG3857", "geldautomaten_sparkassen_cache_hq_EPSG3857", "geldautomaten_weiterebanken_cache_hq_EPSG3857", "lbf_baumnummern_cache_hq_EPSG3857"]
+    cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/"]
 
     for cache_verzeichnis in cache_verzeichnisse:            
         dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + tile_zxy + '.png'
