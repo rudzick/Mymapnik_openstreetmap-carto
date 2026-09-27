@@ -18,6 +18,8 @@
 @man-made-icon: #666666;
 @advertising-grey: @man-made-icon;
 @barrier-icon: #3f3f3f;
+@street-lamp-light: #ffffaa;
+@street-lamp-pole: @man-made-icon;
 @landform-color: #d08f55;
 @leisure-green: darken(@park, 60%);
 @protected-area: #008000;
@@ -148,9 +150,10 @@
 
   [feature = 'highway_bus_stop'] {
     [zoom >= 16][zoom < 17] {
-      marker-file: url('symbols/square.svg');
+      // 4px square centered in a 6px transparent frame: the collision
+      // footprint stays that of the previous 6px square
+      marker-file: url('symbols/square4_in6.svg');
       marker-fill: @transportation-icon;
-      marker-width: 6;
       marker-clip: false;
     }
     [zoom >= 17] {
@@ -1498,6 +1501,23 @@
   }
 }
 
+#railway-crossings {
+  [railway = 'level_crossing'][int_isminor = 'no'],
+  [railway = 'level_crossing'][zoom >= 16],
+  [railway = 'crossing'][int_isminor = 'no'][zoom >= 15],
+  [railway = 'crossing'][zoom >= 16] {
+    marker-file: url('symbols/barrier/level_crossing.svg');
+    marker-fill: #4d4d4d;
+    marker-clip: false;
+    [int_isminor = 'no'][zoom >= 16],
+    [railway = 'level_crossing'][zoom >= 17],
+    [zoom >= 18] {
+      marker-file: url('symbols/barrier/level_crossing2.svg');
+      [int_isminor = 'incomplete'] { marker-file: url('symbols/barrier/level_crossing_incomplete.svg'); }
+    }
+  }
+}
+
 #amenity-low-priority {
   [feature = 'man_made_cross'][zoom >= 16],
   [feature = 'historic_wayside_cross'][zoom >= 16] {
@@ -1510,16 +1530,6 @@
     marker-file: url('symbols/historic/shrine.svg');
     marker-fill: @man-made-icon;
     marker-clip: false;
-  }
-
-  [feature = 'railway_level_crossing'][zoom >= 14]::railway,
-  [feature = 'railway_crossing'][zoom >= 15]::railway{
-    marker-file: url('symbols/barrier/level_crossing.svg');
-    marker-fill: #4d4d4d;
-    marker-clip: false;
-    [zoom >= 16] {
-      marker-file: url('symbols/barrier/level_crossing2.svg');
-    }
   }
 
   [feature = 'barrier_gate']::barrier {
@@ -2411,8 +2421,8 @@
   [feature = 'tourism_hotel'][zoom >= 17],
   [feature = 'tourism_motel'][zoom >= 17],
   [feature = 'tourism_hostel'][zoom >= 17],
-  [feature = 'tourism_chalet'][zoom >= 17],
-  [feature = 'tourism_guest_house'][zoom >= 17],
+  [feature = 'tourism_chalet'][zoom >= 18],
+  [feature = 'tourism_guest_house'][zoom >= 18],
   [feature = 'tourism_apartment'][zoom >= 18],
   [feature = 'tourism_wilderness_hut'][zoom >= 14],
   [feature = 'tourism_camp_site'][zoom >= 17],
@@ -2482,8 +2492,8 @@
     }
   }
 
-  [feature = 'leisure_marina'][zoom >= 15] {
-    [zoom >= 10][way_pixels > 3000],
+  [feature = 'leisure_marina'] {
+    [zoom >= 15][way_pixels > 3000],
     [zoom >= 17] {
       text-name: "[name]";
       text-size: @landcover-font-size;
@@ -3057,6 +3067,27 @@
     text-face-name: @standard-font;
     text-halo-radius: @standard-halo-radius;
     text-halo-fill: @standard-halo-fill;
+  }
+}
+
+/* Street lamps: the light itself as a small pale yellow disc with the pole as a
+   dark dot in the middle. Non-blocking (allow-overlap + ignore-placement) and
+   drawn below all POI symbols and labels, see #3277. */
+#street-lamps [zoom >= 19] {
+  ::light {
+    opacity: 0.85;
+    marker-fill: @street-lamp-light;
+    marker-width: 6;
+    marker-line-width: 0;
+    marker-allow-overlap: true;
+    marker-ignore-placement: true;
+  }
+  ::pole {
+    marker-fill: @street-lamp-pole;
+    marker-width: 2;
+    marker-line-width: 0;
+    marker-allow-overlap: true;
+    marker-ignore-placement: true;
   }
 }
 

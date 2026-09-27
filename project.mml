@@ -179,7 +179,6 @@ Layer:
       table: |-
         (SELECT
             way,
-            waterway,
             CASE WHEN tags->'intermittent' IN ('yes')
               OR tags->'seasonal' IN ('yes', 'spring', 'summer', 'autumn', 'winter', 'wet_season', 'dry_season')
               THEN 'yes' ELSE 'no' END AS int_intermittent
@@ -218,6 +217,7 @@ Layer:
             CASE WHEN int_bridge_tunnel = 'tunnel' THEN 1 ELSE 0 END  -- render tunnels after normal waterways (bridges are in later layer)
         ) AS water_lines
     properties:
+      cache-features: true
       minzoom: 12
   - id: water-areas
     geometry: polygon
@@ -327,6 +327,20 @@ Layer:
         ) AS marinas_area
     properties:
       minzoom: 14
+  - id: water-barriers-poly
+    geometry: polygon
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way,
+            waterway
+          FROM planet_osm_polygon
+          WHERE waterway IN ('dam')
+        ) AS water_barriers_poly
+    properties:
+      minzoom: 13
   - id: water-barriers-line
     geometry: linestring
     <<: *extents
@@ -341,20 +355,19 @@ Layer:
         ) AS water_barriers_line
     properties:
       minzoom: 13
-  - id: water-barriers-poly
-    geometry: polygon
+  - id: water-barriers-point
+    geometry: point
     <<: *extents
     Datasource:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way,
-            waterway
-          FROM planet_osm_polygon
+            way, waterway
+          FROM planet_osm_point
           WHERE waterway IN ('dam', 'weir', 'lock_gate')
-        ) AS water_barriers_poly
+        ) AS water_barriers_points
     properties:
-      minzoom: 13
+      minzoom: 17
   - id: piers-poly
     geometry: polygon
     <<: *extents
@@ -393,19 +406,6 @@ Layer:
         ) AS piers_line
     properties:
       minzoom: 12
-  - id: water-barriers-point
-    geometry: point
-    <<: *extents
-    Datasource:
-      <<: *osm2pgsql
-      table: |-
-        (SELECT
-            way, waterway
-          FROM planet_osm_point
-          WHERE waterway IN ('dam', 'weir', 'lock_gate')
-        ) AS water_barriers_points
-    properties:
-      minzoom: 17
   - id: bridge
     geometry: polygon
     <<: *extents
@@ -493,8 +493,9 @@ Layer:
             SELECT
                 way,
                 'railway_' || (CASE
-                                 WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
-                                 WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
+                                 -- spur/siding/yard tracks get a feature per railway class, e.g. INT-light_rail-service
+                                 WHEN (railway IN ('rail', 'tram', 'light_rail', 'subway', 'funicular', 'narrow_gauge', 'monorail')
+                                       AND service IN ('spur', 'siding', 'yard')) THEN 'INT-' || railway || '-service'
                                  ELSE railway END) AS feature,
                 NULL AS tracktype,
                 NULL AS int_surface,
@@ -517,7 +518,8 @@ Layer:
             layernotnull,
             z_order,
             CASE WHEN substring(feature for 8) = 'railway_' THEN 2 ELSE 1 END,
-            CASE WHEN feature IN ('railway_INT-spur-siding-yard', 'railway_tram-service') THEN 0 ELSE 1 END,
+            CASE WHEN feature IN ('railway_INT-rail-service', 'railway_INT-tram-service', 'railway_INT-light_rail-service', 'railway_INT-subway-service',
+                                  'railway_INT-funicular-service', 'railway_INT-narrow_gauge-service', 'railway_INT-monorail-service') THEN 0 ELSE 1 END,
             CASE int_access WHEN 'no' THEN 0 WHEN 'restricted' THEN 1 ELSE 2 END,
             CASE WHEN int_surface IN ('unpaved') THEN 0 ELSE 1 END,
             osm_id
@@ -737,8 +739,9 @@ Layer:
             SELECT
                 way,
                 'railway_' || (CASE
-                                 WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
-                                 WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
+                                 -- spur/siding/yard tracks get a feature per railway class, e.g. INT-light_rail-service
+                                 WHEN (railway IN ('rail', 'tram', 'light_rail', 'subway', 'funicular', 'narrow_gauge', 'monorail')
+                                       AND service IN ('spur', 'siding', 'yard')) THEN 'INT-' || railway || '-service'
                                  ELSE railway END) AS feature,
                 NULL AS tracktype,
                 NULL AS int_surface,
@@ -764,7 +767,8 @@ Layer:
             layernotnull,
             z_order,
             CASE WHEN substring(feature for 8) = 'railway_' THEN 2 ELSE 1 END,
-            CASE WHEN feature IN ('railway_INT-spur-siding-yard', 'railway_tram-service') THEN 0 ELSE 1 END,
+            CASE WHEN feature IN ('railway_INT-rail-service', 'railway_INT-tram-service', 'railway_INT-light_rail-service', 'railway_INT-subway-service',
+                                  'railway_INT-funicular-service', 'railway_INT-narrow_gauge-service', 'railway_INT-monorail-service') THEN 0 ELSE 1 END,
             CASE int_access WHEN 'no' THEN 0 WHEN 'restricted' THEN 1 ELSE 2 END,
             CASE WHEN int_surface IN ('unpaved') THEN 0 ELSE 1 END,
             osm_id
@@ -902,8 +906,9 @@ Layer:
             SELECT
                 way,
                 'railway_' || (CASE
-                                 WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
-                                 WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
+                                 -- spur/siding/yard tracks get a feature per railway class, e.g. INT-light_rail-service
+                                 WHEN (railway IN ('rail', 'tram', 'light_rail', 'subway', 'funicular', 'narrow_gauge', 'monorail')
+                                       AND service IN ('spur', 'siding', 'yard')) THEN 'INT-' || railway || '-service'
                                  ELSE railway END) AS feature,
                 NULL AS tracktype,
                 NULL AS int_surface,
@@ -949,7 +954,8 @@ Layer:
             layernotnull,
             z_order,
             CASE WHEN substring(feature for 8) = 'railway_' THEN 2 ELSE 1 END,
-            CASE WHEN feature IN ('railway_INT-spur-siding-yard', 'railway_tram-service') THEN 0 ELSE 1 END,
+            CASE WHEN feature IN ('railway_INT-rail-service', 'railway_INT-tram-service', 'railway_INT-light_rail-service', 'railway_INT-subway-service',
+                                  'railway_INT-funicular-service', 'railway_INT-narrow_gauge-service', 'railway_INT-monorail-service') THEN 0 ELSE 1 END,
             CASE int_access WHEN 'no' THEN 0 WHEN 'restricted' THEN 1 ELSE 2 END,
             CASE WHEN int_surface IN ('unpaved') THEN 0 ELSE 1 END,
             osm_id
@@ -1043,8 +1049,8 @@ Layer:
           FROM planet_osm_line
           WHERE aerialway IS NOT NULL
             OR (man_made = 'pipeline'
-                AND tags-> 'location' IN ('overground', 'overhead', 'surface', 'outdoor')
-                OR bridge IN ('yes', 'aqueduct', 'cantilever', 'covered', 'trestle', 'viaduct'))
+                AND (tags-> 'location' IN ('overground', 'overhead', 'surface', 'outdoor')
+                     OR bridge IN ('yes', 'aqueduct', 'cantilever', 'covered', 'trestle', 'viaduct')))
             OR (man_made = 'goods_conveyor'
                 AND (tags->'location' NOT IN ('underground') OR (tags->'location') IS NULL)
                 AND (tunnel NOT IN ('yes') OR tunnel IS NULL))
@@ -1058,6 +1064,20 @@ Layer:
         ) AS aerialways
     properties:
       minzoom: 12
+  - id: street-lamps
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+            way
+          FROM planet_osm_point
+          WHERE highway = 'street_lamp'
+        ) AS street_lamps
+    properties:
+      cache-features: true
+      minzoom: 19
   - id: entrances
     geometry: point
     <<: *extents
@@ -1069,10 +1089,12 @@ Layer:
             tags->'entrance' AS entrance,
             access
           FROM planet_osm_point
-          WHERE (tags->'entrance') IS NOT NULL AND
-            (tags->'indoor' = 'no'
-            OR (tags->'indoor') IS NULL))
-        AS entrances
+          WHERE tags ? 'entrance'
+            AND (
+              NOT tags ? 'indoor'
+              OR tags->'indoor' = 'no'
+            )
+        ) AS entrances
     properties:
       minzoom: 18
   - id: golf-line
@@ -1095,12 +1117,13 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way,
+            carto_filter_antimeridian(way) AS way,
             admin_level
           FROM planet_osm_roads
           WHERE boundary = 'administrative'
             AND admin_level IN ('0', '1', '2', '3', '4')
             AND osm_id < 0
+            AND way && !bbox!
           ORDER BY admin_level DESC
         ) AS admin_low_zoom
     properties:
@@ -1113,12 +1136,13 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way,
+            carto_filter_antimeridian(way) AS way,
             admin_level
           FROM planet_osm_roads
           WHERE boundary = 'administrative'
             AND admin_level IN ('0', '1', '2', '3', '4', '5', '6', '7', '8')
             AND osm_id < 0
+            AND way && !bbox!
           ORDER BY admin_level DESC
         ) AS admin_mid_zoom
     properties:
@@ -1131,12 +1155,13 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-            way,
+            carto_filter_antimeridian(way) AS way,
             admin_level
           FROM planet_osm_roads
           WHERE boundary = 'administrative'
             AND admin_level IN ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10')
             AND osm_id < 0
+            AND way && !bbox!
           ORDER BY admin_level::integer DESC -- With 10 as a valid value, we need to do a numeric ordering, not a text ordering
         ) AS admin_high_zoom
     properties:
@@ -1585,7 +1610,7 @@ Layer:
               railway,
               aerialway,
               tags->'station' AS station,
-              NULL::float as way_area,
+              NULL::real AS way_area,
               osm_id
             FROM planet_osm_point
             WHERE way && !bbox!
@@ -1756,7 +1781,7 @@ Layer:
             *
           FROM
           (SELECT -- This subselect allows filtering on the feature column
-              way,
+              CASE WHEN way_area IS NOT NULL THEN ST_PointOnSurface(way) ELSE way END AS way,
               CASE
                 WHEN amenity = 'parcel_locker'
                 THEN CONCAT_WS(E'\n', COALESCE(tags->'brand', tags->'operator', name), ref)
@@ -1833,7 +1858,8 @@ Layer:
                 'tourism_' || CASE WHEN tourism IN ('information') AND tags->'information' IN ('audioguide', 'board', 'guidepost', 'office', 'map', 'tactile_map', 'terminal') THEN tourism END,
                 'office' || CASE WHEN (tags->'office') IS NOT NULL AND EXISTS (SELECT 1 FROM carto_pois WHERE key = 'office' AND value = tags->'office') THEN '' END,
                 'barrier_' || CASE WHEN barrier IN ('toll_booth') AND way_area IS NULL THEN barrier END,
-                'waterway_' || CASE WHEN waterway IN ('dam', 'weir', 'dock') THEN waterway END,
+                'waterway_' || CASE WHEN waterway IN ('dam', 'dock') THEN waterway END,
+                'waterway_' || CASE WHEN waterway IN ('weir') AND way_area IS NULL THEN waterway END,
                 'amenity_' || CASE WHEN amenity IN ('bicycle_parking', 'motorcycle_parking') THEN amenity END,
                 'amenity_' || CASE WHEN amenity IN ('parking') AND (tags->'parking' NOT IN ('underground') OR (tags->'parking') IS NULL) THEN amenity END,
                 'amenity_' || CASE WHEN amenity IN ('parking_entrance')
@@ -1906,7 +1932,7 @@ Layer:
               osm_id
             FROM
               (SELECT
-                  ST_PointOnSurface(way) AS way,
+                  way,
                   name,
                   access,
                   aeroway,
@@ -1959,7 +1985,7 @@ Layer:
                   tourism,
                   waterway,
                   tags,
-                  NULL::float AS way_area,
+                  NULL::real AS way_area,
                   osm_id
                 FROM planet_osm_point
                 WHERE way && !bbox!
@@ -1991,10 +2017,44 @@ Layer:
           WHERE tags->'ford' IN ('yes', 'stepping_stones')
             OR leisure = 'slipway'
             OR man_made = 'ceremonial_gate'
-          ORDER BY COALESCE(layer,0)
         ) AS amenity_line
     properties:
       minzoom: 16
+  - id: railway-crossings
+    geometry: point
+    <<: *extents
+    Datasource:
+      <<: *osm2pgsql
+      table: |-
+        (SELECT
+          *
+          FROM
+            (SELECT
+              crossing.way AS way,
+              crossing.railway AS railway,
+              CASE
+                WHEN track.railway IS NULL THEN 'incomplete'
+                WHEN track.railway IN ('disused', 'tram', 'miniature') OR track.service IN ('spur', 'siding', 'yard') THEN 'yes'
+                ELSE 'no'
+              END AS int_isminor,
+              crossing.osm_id
+            FROM planet_osm_point crossing
+            LEFT JOIN planet_osm_line track
+              ON track.railway IS NOT NULL
+              AND ST_DWithin(crossing.way, track.way, 0.1)
+            WHERE crossing.railway IN ('crossing', 'level_crossing')
+              AND crossing.way && !bbox!
+            ) _
+          ORDER BY
+            CASE int_isminor 
+              WHEN 'no' THEN 1
+              WHEN 'incomplete' THEN 2
+              ELSE 3 END,
+            CASE WHEN railway = 'crossing' THEN 1 ELSE 2 END,
+            osm_id
+        ) AS railway_crossings
+    properties:
+      minzoom: 14
   - id: power-towers
     geometry: point
     <<: *extents
@@ -2201,8 +2261,8 @@ Layer:
         (SELECT
             way,
             CASE
-              WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-spur-siding-yard'
-              WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'tram-service'
+              WHEN (railway = 'rail' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-rail-service'
+              WHEN (railway = 'tram' AND service IN ('spur', 'siding', 'yard')) THEN 'INT-tram-service'
               ELSE railway
             END AS railway,
             tags->'highspeed' as highspeed,
@@ -2317,20 +2377,15 @@ Layer:
       <<: *osm2pgsql
       table: |-
         (SELECT
-          way,
-            NULL::float as way_pixels,
+            way,
             COALESCE('aerialway_' || aerialway, 'attraction_' || CASE WHEN tags @> 'attraction=>water_slide' THEN 'water_slide' END, 'leisure_' || leisure, 'man_made_' || man_made, 'waterway_' || waterway, 'natural_' || "natural", 'golf_' || (tags->'golf')) AS feature,
-            access,
             name,
-            tags->'operator' as operator,
-            ref,
-            NULL::float AS way_area,
-            CASE WHEN building = 'no' OR building IS NULL THEN 'no' ELSE 'yes' END AS is_building
+            ref
           FROM planet_osm_line
           WHERE ((man_made IN ('pier', 'breakwater', 'groyne', 'embankment')
               OR (man_made = 'pipeline'
-                 AND tags-> 'location' IN ('overground', 'overhead', 'surface', 'outdoor')
-                 OR bridge IN ('yes', 'aqueduct', 'cantilever', 'covered', 'trestle', 'viaduct'))
+                 AND (tags-> 'location' IN ('overground', 'overhead', 'surface', 'outdoor')
+                      OR bridge IN ('yes', 'aqueduct', 'cantilever', 'covered', 'trestle', 'viaduct')))
               OR tags @> 'attraction=>water_slide'
               OR aerialway IN ('cable_car', 'gondola', 'mixed_lift', 'goods', 'chair_lift', 'drag_lift', 't-bar', 'j-bar', 'platter', 'rope_tow', 'zip_line')
               OR leisure IN ('slipway', 'track')
@@ -2341,14 +2396,14 @@ Layer:
             OR (tags @> 'golf=>hole' AND ref IS NOT NULL)
         ) AS text_line
     properties:
-      minzoom: 10
+      minzoom: 15
   - id: text-point
     geometry: point
     <<: *extents
     Datasource:
       <<: *osm2pgsql
       # Include values that are rendered as icon without label to prevent mismatch between icons and labels,
-      # see https://github.com/gravitystorm/openstreetmap-carto/pull/1349#issuecomment-77805678
+      # see https://github.com/openstreetmap-carto/openstreetmap-carto/pull/1349#issuecomment-77805678
       table: *amenity_points_sql
     properties:
       minzoom: 10
@@ -2393,27 +2448,27 @@ Layer:
       table: |-
         (SELECT
             ST_PointOnSurface(way) AS way,
-            "addr:housenumber" AS addr_housenumber,
+            carto_shorten_list("addr:housenumber", ',;') AS addr_housenumber,
             "addr:housename" AS addr_housename,
             tags->'addr:unit' AS addr_unit,
-            tags->'addr:flats' AS addr_flats,
+            carto_shorten_list(tags->'addr:flats', ';') AS addr_flats, 
             way_area/NULLIF(POW(!scale_denominator!*0.001*0.28,2),0) AS way_pixels
           FROM planet_osm_polygon
           WHERE way && !bbox! -- Not ST_PointOnSurface(way) because name might be NULL
-            AND (("addr:housenumber" IS NOT NULL) OR ("addr:housename" IS NOT NULL) OR ((tags->'addr:unit') IS NOT NULL) OR ((tags->'addr:flats') IS NOT NULL))
+            AND (("addr:housenumber" IS NOT NULL) OR ("addr:housename" IS NOT NULL) OR tags ? 'addr:unit' OR tags ? 'addr:flats')
             AND building IS NOT NULL
             AND way_area < 4000000*POW(!scale_denominator!*0.001*0.28,2)
         UNION ALL
         SELECT
             way,
-            "addr:housenumber" AS addr_housenumber,
+            carto_shorten_list("addr:housenumber", ',;') AS addr_housenumber,
             "addr:housename" AS addr_housename,
             tags->'addr:unit' AS addr_unit,
-            tags->'addr:flats' AS addr_flats,
+            carto_shorten_list(tags->'addr:flats', ';') AS addr_flats,
             NULL::float AS way_pixels
           FROM planet_osm_point
           WHERE way && !bbox!
-            AND (("addr:housenumber" IS NOT NULL) OR ("addr:housename" IS NOT NULL) OR ((tags->'addr:unit') IS NOT NULL) OR ((tags->'addr:flats') IS NOT NULL))
+            AND (("addr:housenumber" IS NOT NULL) OR ("addr:housename" IS NOT NULL) OR tags ? 'addr:unit' OR tags ? 'addr:flats')
           ORDER BY way_pixels DESC NULLS LAST
         ) AS addresses
     properties:
@@ -2513,7 +2568,6 @@ Layer:
             way,
             name,
             COALESCE(
-              'railway_' || CASE WHEN railway IN ('level_crossing', 'crossing') AND way_area IS NULL THEN railway END,
               'amenity_' || CASE WHEN amenity IN ('bench', 'waste_basket', 'waste_disposal') AND way_area IS NULL THEN amenity END,
               'historic_' || CASE WHEN historic IN ('wayside_cross', 'wayside_shrine') AND way_area IS NULL THEN historic END,
               'man_made_' || CASE WHEN man_made IN ('cross') AND way_area IS NULL THEN man_made END,
@@ -2532,7 +2586,6 @@ Layer:
                   highway,
                   historic,
                   man_made,
-                  railway,
                   tags,
                   way_area
                 FROM planet_osm_polygon
@@ -2548,14 +2601,12 @@ Layer:
                   highway,
                   historic,
                   man_made,
-                  railway,
                   tags,
-                  NULL::float AS way_area
+                  NULL::real AS way_area
                 FROM planet_osm_point
                 WHERE way && !bbox!
               ) _
-            WHERE railway IN ('level_crossing', 'crossing')
-               OR amenity IN ('bench', 'waste_basket', 'waste_disposal')
+            WHERE amenity IN ('bench', 'waste_basket', 'waste_disposal')
                OR historic IN ('wayside_cross', 'wayside_shrine')
                OR man_made IN ('cross')
                OR barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block', 'log', 'cattle_grid', 'stile', 'motorcycle_barrier', 'cycle_barrier', 'full-height_turnstile', 'turnstile', 'kissing_gate')
@@ -2577,7 +2628,7 @@ Layer:
     Datasource:
       <<: *osm2pgsql
       # Include values that are rendered as icon without label to prevent mismatch between icons and labels,
-      # see https://github.com/gravitystorm/openstreetmap-carto/pull/1349#issuecomment-77805678
+      # see https://github.com/openstreetmap-carto/openstreetmap-carto/pull/1349#issuecomment-77805678
       table: *amenity_low_priority_sql
     properties:
       minzoom: 17
