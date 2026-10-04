@@ -42,7 +42,7 @@ local expire_outputs = {}
 expire_outputs.point = osm2pgsql.define_expire_output({
     -- The zoom level at which we calculate the tiles. This must always be set.
     minzoom = 16,
-    maxzoom = 23,
+    maxzoom = 20,
     -- The filename where tile list should be written to.
     filename = 'points.tiles'
 })
@@ -50,7 +50,7 @@ expire_outputs.point = osm2pgsql.define_expire_output({
 expire_outputs.line = osm2pgsql.define_expire_output({
     -- The zoom level at which we calculate the tiles. This must always be set.
     minzoom = 16,
-    maxzoom = 21,
+    maxzoom = 20,
     -- The filename where tile list should be written to.
     filename = 'lines.tiles'
 })
@@ -58,7 +58,7 @@ expire_outputs.line = osm2pgsql.define_expire_output({
 expire_outputs.polygon = osm2pgsql.define_expire_output({
     -- The zoom level at which we calculate the tiles. This must always be set.
     minzoom = 16,
-    maxzoom = 21,
+    maxzoom = 20,
     -- The filename where tile list should be written to.
     filename = 'polygons.tiles'
 })
@@ -235,12 +235,20 @@ for name, definition in pairs(table_definitions) do
     definition.schema = SCHEMA
     definition.ids.id_column = 'osm_id'
     definition.columns = {}
-    definition.geom = {
-        column = 'way',
-        type = definition.geometry_type,
-        not_null = true , expire = {
-	   { output = expire_outputs[name], mode = 'boundary-only' }}
-    }
+    if name ~= 'roads' then
+       definition.geom = {
+	  column = 'way',
+	  type = definition.geometry_type,
+	  not_null = true , expire = {
+	     { output = expire_outputs[name], mode = 'boundary-only' }}
+       }
+    else
+       definition.geom = {
+	  column = 'way',
+	  type = definition.geometry_type,
+	  not_null = true
+       }
+    end
 
     -- Add column definitions to table definitions
     for _, column in ipairs(table_columns[name]) do
