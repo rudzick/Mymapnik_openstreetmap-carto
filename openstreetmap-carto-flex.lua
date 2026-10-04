@@ -34,6 +34,34 @@ local themepark = ...
 local dach = osm2pgsql.define_locator({ name = 'dach' })
 
 dach:add_bbox('DACH', 5.756804, 45.736894, 17.314118, 55.153864)
+-- ---------------------------------------------------------------------------
+-- define expire outputs
+
+local expire_outputs = {}
+
+expire_outputs.point = osm2pgsql.define_expire_output({
+    -- The zoom level at which we calculate the tiles. This must always be set.
+    minzoom = 16,
+    maxzoom = 23,
+    -- The filename where tile list should be written to.
+    filename = 'points.tiles'
+})
+
+expire_outputs.line = osm2pgsql.define_expire_output({
+    -- The zoom level at which we calculate the tiles. This must always be set.
+    minzoom = 16,
+    maxzoom = 21,
+    -- The filename where tile list should be written to.
+    filename = 'lines.tiles'
+})
+
+expire_outputs.polygon = osm2pgsql.define_expire_output({
+    -- The zoom level at which we calculate the tiles. This must always be set.
+    minzoom = 16,
+    maxzoom = 21,
+    -- The filename where tile list should be written to.
+    filename = 'polygons.tiles'
+})
 
 -- ---------------------------------------------------------------------------
 -- A list of columns per table in the order they will appear in the database
@@ -210,7 +238,8 @@ for name, definition in pairs(table_definitions) do
     definition.geom = {
         column = 'way',
         type = definition.geometry_type,
-        not_null = true
+        not_null = true , expire = {
+	   { output = expire_outputs[name], mode = 'boundary-only' }}
     }
 
     -- Add column definitions to table definitions

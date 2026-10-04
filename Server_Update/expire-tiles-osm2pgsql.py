@@ -15,21 +15,22 @@ def main():
         print(f"Nutzung: python {sys.argv[0]} <dateipfad>")
         sys.exit(1)
 
-    # Das erste echte Argument abgreifen
-    dateipfad = sys.argv[1]
+    for i in range(1,len(sys.argv)):
+        # Das erste echte Argument abgreifen
+        dateipfad = sys.argv[i]
 
-    # Optional: Prüfen, ob die Datei überhaupt existiert
-    if os.path.exists(dateipfad):
-        print(f"Datei gefunden: {dateipfad}")
-        with open(dateipfad, "r", encoding="utf-8") as datei:
-            for zeile in datei:
-                expire_tile(zeile.strip())
-
-        os.remove(dateipfad)
-                
-    else:
-        print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
-        sys.exit(1)
+        # Optional: Prüfen, ob die Datei überhaupt existiert
+        if os.path.exists(dateipfad):
+            print(f"Datei gefunden: {dateipfad}")
+            with open(dateipfad, "r", encoding="utf-8") as datei:
+                for zeile in datei:
+                    expire_tile(zeile.strip())
+                    
+                    os.remove(dateipfad)
+                    
+                else:
+                    print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
+                    sys.exit(1)
 
 def expire_tile(tile_zxy):
 
