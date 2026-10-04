@@ -26,11 +26,11 @@ def main():
                 for zeile in datei:
                     expire_tile(zeile.strip())
                     
-                    os.remove(dateipfad)
+            os.remove(dateipfad)
                     
-                else:
-                    print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
-                    sys.exit(0)
+        else:
+            print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
+            sys.exit(0)
 
 def expire_tile(tile_zxy):
 
@@ -45,16 +45,17 @@ def expire_tile(tile_zxy):
             os.remove(dateiname)
 
         # if z=20 remove also tiles for z=21,22,23
+        parz = tile_zxy.split('/')
+        parz = [int(p) for p in parz]
+
         if parz[0] == 20 :
-            parz = tile_zxy.split('/')
-            parz = [int(p) for p in parz]
         
             for z in range(parz[0]+1,parz[0]+4):
                 zz = z-parz[0]
-                x = parz[1]*2**zz
-                y = parz[2]*2**zz
-                for ix in range(x,x+2**zz):
-                    for iy in range(y,y+2**zz):
+                x = parz[1]<<zz
+                y = parz[2]<<zz
+                for ix in range(x,x+1<<zz):
+                    for iy in range(y,y+1<<zz):
                         ztile_xyz = str(z) + '/' + str(ix) + '/' + str(iy)
                         dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + tile_zxy + '.png'
                         # print(dateiname)
