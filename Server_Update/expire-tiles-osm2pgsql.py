@@ -54,8 +54,9 @@ def expire_tile(tile_zxy):
                 zz = z-parz[0]
                 x = parz[1]<<zz
                 y = parz[2]<<zz
-                for ix in range(x,x+1<<zz):
-                    for iy in range(y,y+1<<zz):
+                # print('z=',z,'zz=',zz,'x=',x,'y=',y,'1<<zz=',1<<zz)
+                for ix in range(x,x+(1<<zz)):
+                    for iy in range(y,y+(1<<zz)):
                         ztile_xyz = str(z) + '/' + str(ix) + '/' + str(iy)
                         dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + tile_zxy + '.png'
                         # print(dateiname)
