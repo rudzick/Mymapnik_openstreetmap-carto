@@ -7,6 +7,7 @@ Expire tiles from a osm2pgsql expired tiles file.
 
 import sys
 import os
+from datetime import datetime
 
 def main():
 
@@ -21,14 +22,16 @@ def main():
 
         # Optional: Prüfen, ob die Datei überhaupt existiert
         if os.path.exists(dateipfad):
-            print(f"Datei gefunden: {dateipfad}")
+            jetzt = datetime.now()
+            print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),"  Datei gefunden: {dateipfad}")
             expired_tiles = 0
             with open(dateipfad, "r", encoding="utf-8") as datei:
                 for zeile in datei:
                     expire_tile(zeile.strip(),expired_tiles)
                     
             os.remove(dateipfad)
-            print(dateipfad,':',expired_tiles,'gelöscht')
+            jetzt = datetime.now()
+            print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  ', dateipfad,':',expired_tiles,'tiles gelöscht')
                     
         else:
             print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
