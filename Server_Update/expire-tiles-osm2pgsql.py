@@ -66,8 +66,9 @@ def expire_tile(tile_zxy):
                 zz = z-parz[0]
                 x = parz[1]<<zz
                 y = parz[2]<<zz
-                for ix in range(x,x+1<<zz):
-                    for iy in range(y,y+1<<zz):
+
+                for ix in range(x,x+(1<<zz)):
+                    for iy in range(y,y+(1<<zz)):
                         x1 = ix % 1000
                         x2 = ( ( ix - x1 ) // 1000 ) % 1000
                         x3 = ix // 1000000
