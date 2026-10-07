@@ -34,21 +34,33 @@ def main():
 
 def expire_tile(tile_zxy):
 
+    parz = tile_zxy.split('/')
+    parz = [int(p) for p in parz]
+
+    z = parz[0]
+    x = parz[1]
+    y = parz[3]
+
+    x1 = x % 1000
+    x2 = ( ( x - x1 ) // 1000 ) % 1000
+    x3 = x // 1000000
+    y1 = y % 1000
+    y2 = ( ( y - y1 ) // 1000 ) % 1000
+    y3 = y // 1000000 
+    
     cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/"]
 
     for cache_verzeichnis in cache_verzeichnisse:
 
+
         
-        dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + tile_zxy + '.png'
+        dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
         # print(dateiname)
         if os.path.exists(dateiname):
             os.remove(dateiname)
 
         # if z=20 remove also tiles for z=21,22,23
-        parz = tile_zxy.split('/')
-        parz = [int(p) for p in parz]
-
-        if parz[0] == 20 :
+        if z == 20 :
         
             for z in range(parz[0]+1,parz[0]+4):
                 zz = z-parz[0]
@@ -56,8 +68,13 @@ def expire_tile(tile_zxy):
                 y = parz[2]<<zz
                 for ix in range(x,x+1<<zz):
                     for iy in range(y,y+1<<zz):
-                        ztile_xyz = str(z) + '/' + str(ix) + '/' + str(iy)
-                        dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + tile_zxy + '.png'
+                        x1 = ix % 1000
+                        x2 = ( ( ix - x1 ) // 1000 ) % 1000
+                        x3 = ix // 1000000
+                        y1 = iy % 1000
+                        y2 = ( ( iy - y1 ) // 1000 ) % 1000
+                        y3 = iy // 1000000
+                        dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
                         # print(dateiname)
                         if os.path.exists(dateiname):
                             os.remove(dateiname)
