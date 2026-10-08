@@ -9,10 +9,12 @@ import sys
 import os
 from datetime import datetime
 
-def main():
+expired_tiels = 0
 
+def main():
+    global expired_tiles
+    
     if len(sys.argv) < 2:
-        print("Fehler: Bitte gib einen Dateipfad an.")
         print(f"Nutzung: python {sys.argv[0]} <dateipfad>")
         sys.exit(1)
 
@@ -27,9 +29,8 @@ def main():
             expired_tiles = 0
             with open(dateipfad, "r", encoding="utf-8") as datei:
                 for zeile in datei:
-                    expire_tile(zeile.strip(),expired_tiles)
+                    expire_tile(zeile.strip())
                     
-            os.remove(dateipfad)
             jetzt = datetime.now()
             print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  ', dateipfad,':',expired_tiles,'tiles gelöscht')
                     
@@ -37,8 +38,10 @@ def main():
             print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
             sys.exit(0)
 
-def expire_tile(tile_zxy, gel_kacheln):
+def expire_tile(tile_zxy):
 
+    global expired_tiles
+    
     parz = tile_zxy.split('/')
     parz = [int(p) for p in parz]
 
@@ -63,7 +66,7 @@ def expire_tile(tile_zxy, gel_kacheln):
         # print(dateiname)
         if os.path.exists(dateiname):
             os.remove(dateiname)
-            gel_kacheln += 1
+            expired_tiles += 1
 
             # if z=20 remove also tiles for z=21,22,23
             if z == 20 :
@@ -86,7 +89,7 @@ def expire_tile(tile_zxy, gel_kacheln):
                             # print(dateiname)
                             if os.path.exists(dateiname):
                                 os.remove(dateiname)
-                                gel_kacheln += 1
+                                expired_tiles += 1
         
 
 if __name__ == "__main__":
