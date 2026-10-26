@@ -5,13 +5,13 @@ planetfilea=dach-latest.osm.pbf
 #planetfilea=germany-latest.osm.pbf
 styledir=/home/renderaccount/Mymapnik_openstreetmap-carto
 cd /home/postgres/download
+# Aufbau der lokalen Postgis-Datenbank mit osm2psql
+#/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --slim -C 6000 --style $styledir/openstreetmap-carto-flex.lua -d gis --expire-tiles=16-23 $planetfilea 
+/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --slim -C 6000 --style $styledir/openstreetmap-carto-flex.lua -d gis $planetfilea 
 if [ -f $planetfilea ]
 then
     rm $planetfilea
 fi
-# Aufbau der lokalen Postgis-Datenbank mit osm2psql
-#/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --slim -C 6000 --style $styledir/openstreetmap-carto-flex.lua -d gis --expire-tiles=16-23 $planetfilea 
-/usr/bin/wget https://download.geofabrik.de/europe/$planetfilea && /usr/bin/osm2pgsql --output flex --create --slim -C 6000 --style $styledir/openstreetmap-carto-flex.lua -d gis $planetfilea 
 # Initialisierung des inkrementellen Datenbankupdates
 /usr/bin/osm2pgsql-replication init -d gis --server 'https://planet.openstreetmap.org/replication/minute'
 # Aufbau der Lookup-Table für deutsche Baumarten

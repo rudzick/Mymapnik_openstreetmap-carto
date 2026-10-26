@@ -31,6 +31,7 @@ def main():
                 for zeile in datei:
                     expire_tile(zeile.strip())
                     
+            os.remove(dateipfad)
             jetzt = datetime.now()
             print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  ', dateipfad,':',expired_tiles,'tiles gelöscht')
                     
