@@ -17,7 +17,7 @@ INSERT INTO tree_species VALUES
 ('prunus avium', 'de_DE', 'Süßkirsche'),
 ('prunus armeniaca', 'de_DE', 'Aprikose'),
 ('prunus persica', 'de_DE', 'Pfirsich'),
-('Prunus persica var. nucipersica', 'de_DE', 'Nektarine'),
+('prunus persica var. nucipersica', 'de_DE', 'Nektarine'),
 ('prunus cerasus', 'de_DE', 'Sauerkirsche'),
 ('prunus cerasifera', 'de_DE', 'Kirschpflaume'),
 ('cornus mas', 'de_DE', 'Kornelkirsche'),
