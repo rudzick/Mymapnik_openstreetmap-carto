@@ -36,6 +36,7 @@ INSERT INTO tree_species VALUES
 ('acer pseudoplatanus', 'de_DE', 'Bergahorn'),
 ('aesculus hippocastanum', 'de_DE', 'Weiße Rosskastanie'),
 ('aesculus × carnea', 'de_DE', 'Fleischrote Rosskastanie'),
+('aesculus x carnea', 'de_DE', 'Fleischrote Rosskastanie'),
 ('fagus sylvatica', 'de_DE', 'Rotbuche'),
 ('castanea sativa', 'de_DE', 'Esskastanie'),
 ('taxus baccata', 'de_DE', 'Eibe'),
@@ -43,6 +44,7 @@ INSERT INTO tree_species VALUES
 ('cryptomeria japonica', 'de_DE', 'Sicheltanne'),
 ('ginkgo biloba', 'de_DE', 'Ginkgo'),
 ('platanus x hispanica', 'de_DE', 'Ahornblättrige Platane'),
+('platanus × hispanica', 'de_DE', 'Ahornblättrige Platane'),
 ('picea abies', 'de_DE', 'Gemeine Fichte'),
 ('picea pungens', 'de_DE', 'Stechfichte'),
 ('quercus robur', 'de_DE', 'Stieleiche'),
@@ -54,5 +56,5 @@ INSERT INTO tree_species VALUES
 ('betula pendula', 'de_DE', 'Sand-Birke'),
 ('sambucus nigra', 'de_DE', 'Schwarzer Holunder'),
 ('ribes rubrum', 'de_DE', 'Rote Johannisbeere'),
-('ribes nigra', 'de_DE', 'Schwarze Johannisbeere')
+('ribes nigrum', 'de_DE', 'Schwarze Johannisbeere')
 ;
