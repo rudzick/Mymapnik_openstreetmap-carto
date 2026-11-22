@@ -9,90 +9,76 @@ import sys
 import os
 from datetime import datetime
 
-expired_tiels = 0
+CACHE_BASIS = '/var/cache/mapproxy/cache_data/'
+CACHE_VERZEICHNISSE = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/"]
+
+expired_tiles = 0
 
 def main():
     global expired_tiles
-    
+
     if len(sys.argv) < 2:
         print(f"Nutzung: python {sys.argv[0]} <dateipfad>")
         sys.exit(1)
 
-    for i in range(1,len(sys.argv)):
-        # Das erste echte Argument abgreifen
-        dateipfad = sys.argv[i]
+    for dateipfad in sys.argv[1:]:
 
-        # Optional: Prüfen, ob die Datei überhaupt existiert
-        if os.path.exists(dateipfad):
-            jetzt = datetime.now()
-            print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  Datei gefunden: ', dateipfad)
-            expired_tiles = 0
-            with open(dateipfad, "r", encoding="utf-8") as datei:
-                for zeile in datei:
-                    expire_tile(zeile.strip())
-                    
-            os.remove(dateipfad)
-            jetzt = datetime.now()
-            print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  ', dateipfad,':',expired_tiles,'tiles gelöscht')
-                    
-        else:
+        # Fehlende Dateien überspringen, die übrigen trotzdem abarbeiten
+        if not os.path.exists(dateipfad):
             print(f"Fehler: Die Datei '{dateipfad}' existiert nicht.")
-            sys.exit(0)
+            continue
+
+        jetzt = datetime.now()
+        print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  Datei gefunden: ', dateipfad)
+        expired_tiles = 0
+        with open(dateipfad, "r", encoding="utf-8") as datei:
+            for zeile in datei:
+                zeile = zeile.strip()
+                if zeile:
+                    expire_tile(zeile)
+
+        os.remove(dateipfad)
+        jetzt = datetime.now()
+        print(jetzt.strftime("%d.%m.%Y %H:%M:%S"),'  ', dateipfad,':',expired_tiles,'tiles gelöscht')
+
+def tile_dateiname(cache_verzeichnis, z, x, y):
+
+    x1 = x % 1000
+    x2 = ( x // 1000 ) % 1000
+    x3 = x // 1000000
+    y1 = y % 1000
+    y2 = ( y // 1000 ) % 1000
+    y3 = y // 1000000
+
+    return CACHE_BASIS + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
+
+def loesche_tile(dateiname):
+
+    global expired_tiles
+
+    if os.path.exists(dateiname):
+        os.remove(dateiname)
+        expired_tiles += 1
+        return True
+    return False
 
 def expire_tile(tile_zxy):
 
-    global expired_tiles
-    
-    parz = tile_zxy.split('/')
-    parz = [int(p) for p in parz]
+    z, x, y = [int(p) for p in tile_zxy.split('/')]
 
-    z = parz[0]
-    x = parz[1]
-    y = parz[2]
+    for cache_verzeichnis in CACHE_VERZEICHNISSE:
 
-    x1 = x % 1000
-    x2 = ( ( x - x1 ) // 1000 ) % 1000
-    x3 = x // 1000000
-    y1 = y % 1000
-    y2 = ( ( y - y1 ) // 1000 ) % 1000
-    y3 = y // 1000000 
-    
-    cache_verzeichnisse = ["osm_cache_hq_EPSG3857/", "gaslaternen_dd_cache_hq_EPSG3857/", "gaslaternen_dd_nacht_cache_hq_EPSG3857/"]
-
-    for cache_verzeichnis in cache_verzeichnisse:
-
-
-        
-        dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
-        # print(dateiname)
-        if os.path.exists(dateiname):
-            os.remove(dateiname)
-            expired_tiles += 1
+        if loesche_tile(tile_dateiname(cache_verzeichnis, z, x, y)):
 
             # if z=20 remove also tiles for z=21,22,23
-            if z == 20 :
-        
-                for z in range(parz[0]+1,parz[0]+4):
-                    zz = z-parz[0]
-                    x = parz[1]<<zz
-                    y = parz[2]<<zz
+            if z == 20:
+                for dz in range(1, 4):
+                    xs = x << dz
+                    ys = y << dz
+                    for ix in range(xs, xs + (1 << dz)):
+                        for iy in range(ys, ys + (1 << dz)):
+                            loesche_tile(tile_dateiname(cache_verzeichnis, z + dz, ix, iy))
 
-                    for ix in range(x,x+(1<<zz)):
-                        for iy in range(y,y+(1<<zz)):
-                            x1 = ix % 1000
-                            x2 = ( ( ix - x1 ) // 1000 ) % 1000
-                            x3 = ix // 1000000
-                            y1 = iy % 1000
-                            y2 = ( ( iy - y1 ) // 1000 ) % 1000
-                            y3 = iy // 1000000
-                    
-                            dateiname = '/var/cache/mapproxy/cache_data/' + cache_verzeichnis + '{:02d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}/{:03d}.png'.format(z, x3, x2, x1, y3, y2, y1)
-                            # print(dateiname)
-                            if os.path.exists(dateiname):
-                                os.remove(dateiname)
-                                expired_tiles += 1
-        
 
 if __name__ == "__main__":
     main()
-
