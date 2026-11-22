@@ -9,7 +9,8 @@
 - Shellskript zur Erzeugung von Lookup-Table für Baumarten<br/>
 [create_lookup_table_for_tree_species.sh](create_lookup_table_for_tree_species.sh)
    - SQL für Lookup-Table für Baumarten<br/>
-[tree_species.sql](tree_species.sql)
+[tree_species.sql](tree_species.sql)<br/>
+Die Tabelle ordnet botanischen Namen (Schlüssel `treespecies`, komplett klein geschrieben, weil mit dem klein geschriebenen OSM-Tag `species` verglichen wird) deutsche Namen zu. Hybride in beiden Schreibweisen eintragen, mit `×` und mit `x`, weil beide in OSM vorkommen. Die Datei wird auch im Repo [Themepark_Inkstitch](https://github.com/rudzick/Themepark_Inkstitch/blob/master/Server_Update/README.md) für die Datenbank `themeparktest` verwendet; dort hängt die View `tree_species_view` von der Tabelle ab. Weil die Datei mit `DROP TABLE IF EXISTS tree_species` beginnt, müssen abhängige Views vorher gelöscht werden.
 
 - Postprozessing-Skript, das veraltete Tiles aus dem Cache löscht<br/>
 [run-expiry.sh](run-expiry.sh)
