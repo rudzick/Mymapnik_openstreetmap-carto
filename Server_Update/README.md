@@ -14,7 +14,9 @@ Die Tabelle ordnet botanischen Namen (Schlüssel `treespecies`, komplett klein g
 
 - Postprozessing-Skript, das veraltete Tiles aus dem Cache löscht<br/>
 [run-expiry.sh](run-expiry.sh)
-  - Python-Skript, das vom Postprozessing-Skript aufgerufen wird und die veralteten Tiles ermittelt und löscht.<br/>
+  - Python-Skript, das vom Postprozessing-Skript aufgerufen wird. Es liest die von osm2pgsql (`--expire-tiles`) geschriebenen Listen veralteter Tiles (`points.tiles`, `lines.tiles`, `polygons.tiles`), löscht die betroffenen Tiles aus den MapProxy-Caches unter `/var/cache/mapproxy/cache_data/` (bei Zoomstufe 20 auch die darunterliegenden Tiles der Zoomstufen 21 bis 23) und anschließend die Listen.<br/>
+[expire-tiles-osm2pgsql.py](expire-tiles-osm2pgsql.py)
+  - Python-Skript, das veraltete Metatiles aus einer OSM-Change-Datei ermittelt und ihre Änderungszeit zurücksetzt; wird von `run-expiry.sh` nicht aufgerufen.<br/>
 [expire-tiles.py](expire-tiles.py)
 
 - Shellskript, das Tabelleneinträge in der Postgis-Datenbank löscht, die außerhalb der Bounding-Box für D-A-CH liegen.<br/>
